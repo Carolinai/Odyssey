@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - RSA 解密工具</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="topbar">
+    <span class="brand"><a href="/" style="color:#fff;text-decoration:none;margin-left:0">Odyssey</a></span>
+    <nav></nav>
+</header>
+
+<main class="container">
+    <h1>RSA 解密工具</h1>
+    <p style="color:#888;font-size:13px">
+        粘贴 SQL 查出的密文直接反解。密文与明文只在内存中处理，不落盘。
+    </p>
+
+    <div class="form-section">
+        <h2>输入</h2>
+        <div class="form-row">
+            <label>密文（Base64）</label>
+            <textarea id="cipher-input" placeholder="粘贴密文"></textarea>
+        </div>
+        <button id="decrypt-btn" class="btn btn-primary">解密</button>
+    </div>
+
+    <div class="form-section">
+        <h2>结果</h2>
+        <div class="form-row">
+            <label>明文密码</label>
+            <input id="plain-output" type="password" readonly>
+            <div class="field-actions">
+                <button id="reveal-btn" class="icon-btn" type="button">👁</button>
+                <button id="copy-btn" class="icon-btn" type="button">复制</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="/js/common.js"></script>
+<script src="/js/decrypt.js"></script>
+</body>
+</html>

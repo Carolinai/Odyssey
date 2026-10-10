@@ -1,0 +1,24 @@
+# 服务端口（避开常用 8080，减少冲突）
+server:
+  port: 8787
+
+spring:
+  application:
+    name: odyssey
+  servlet:
+    multipart:
+      # 附件上传上限：VPN 安装包等大文件
+      max-file-size: 200MB
+      max-request-size: 210MB
+
+# 数据目录：默认 ~/.odyssey，可用 --odyssey.data-dir=... 覆盖
+odyssey:
+  data-dir: ${user.home}/.odyssey
+
+# Jenkins 连接（主页「Jenkins 视图」区块用）
+# 真实值通过环境变量或启动参数传入，例如：
+#   --jenkins.base-url=... --jenkins.username=... --jenkins.password=...
+jenkins:
+  base-url: ${JENKINS_BASE_URL:}
+  username: ${JENKINS_USERNAME:}
+  password: ${JENKINS_PASSWORD:}

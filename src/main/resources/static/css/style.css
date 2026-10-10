@@ -1,0 +1,297 @@
+/* 全局样式（列表页、表单页、RSA 工具页共用） */
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: #f5f6f8;
+    color: #333;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 24px;
+    background: #2c3e50;
+    color: #fff;
+}
+
+.topbar .brand {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.topbar a { color: #aed6f1; margin-left: 16px; text-decoration: none; }
+.topbar a:hover { text-decoration: underline; }
+
+.container { max-width: 960px; margin: 24px auto; padding: 0 16px; }
+
+.search-row { display: flex; gap: 12px; margin-bottom: 20px; }
+
+#search {
+    flex: 1;
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+    white-space: nowrap;
+}
+.btn-primary { background: #2980b9; }
+.btn-danger { background: #c0392b; }
+.btn:hover { opacity: 0.9; }
+
+.env-list { list-style: none; margin: 0; padding: 0; }
+
+.env-list li {
+    background: #fff;
+    border: 1px solid #e3e6ea;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+}
+.env-list li:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+
+.env-list .env-name { font-size: 16px; font-weight: bold; margin-right: 10px; }
+.env-list .alias-tag {
+    display: inline-block;
+    font-size: 12px;
+    color: #666;
+    background: #eef1f4;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-right: 6px;
+}
+
+.badge {
+    float: right;
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    color: #fff;
+}
+.badge.saas { background: #27ae60; }
+.badge.on-premise { background: #2980b9; }
+.badge.test { background: #f39c12; }
+.badge.prod { background: #c0392b; }
+
+.empty-hint { color: #999; text-align: center; padding: 40px 0; }
+.hidden { display: none; }
+
+/* 主页关键卡片 */
+.env-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.env-head .badge-inline { float: none; }
+.btn-small { padding: 4px 12px; font-size: 13px; margin-left: auto; }
+.env-card {
+    cursor: pointer;
+    border-left: 4px solid #2980b9;
+    border-radius: 8px;
+    transition: box-shadow 0.15s, transform 0.15s;
+}
+.env-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(41, 128, 185, 0.18);
+}
+.env-card.compact { padding: 16px 20px; }
+.env-card .env-name { font-size: 17px; }
+.env-card h3.env-section-title {
+    margin: 10px 0 6px;
+    font-size: 13px;
+    color: #2c3e50;
+    border-left: 3px solid #2980b9;
+    padding-left: 8px;
+}
+.sub-title { font-weight: bold; font-size: 13px; margin-bottom: 8px; color: #555; }
+
+/* 卡片上的代码分支一览 */
+.card-branch-box {
+    margin-top: 10px;
+    border-top: 1px dashed #e3e6ea;
+    padding-top: 8px;
+}
+.branch-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    padding: 3px 0;
+}
+.branch-row .icon-btn { margin-left: auto; padding: 2px 8px; font-size: 12px; }
+.branch-env {
+    flex-shrink: 0;
+    font-size: 11px;
+    color: #fff;
+    border-radius: 4px;
+    padding: 1px 8px;
+}
+.branch-env-prod { background: #c0392b; }
+.branch-env-validation { background: #f39c12; }
+.branch-env-test { background: #27ae60; }
+.branch-text { color: #555; font-family: Consolas, monospace; }
+
+/* 环境块 tab 切换 */
+.tabs { display: flex; gap: 4px; border-bottom: 2px solid #2980b9; margin-bottom: 14px; }
+.tab-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+    border: 1px solid #d5dbe1;
+    border-bottom: none;
+    background: #eef1f4;
+    color: #555;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+}
+.tab-btn.active { background: #2980b9; color: #fff; border-color: #2980b9; }
+
+/* 标签 */
+.tag-chip {
+    display: inline-block;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 10px;
+    padding: 2px 10px;
+    margin-right: 6px;
+}
+.card-tag-row { margin: -4px 0 8px; }
+.tag-editor-row input[type="color"] { height: 32px; }
+
+/* 主页 Jenkins 视图区块 */
+.page-tabs { margin-bottom: 18px; }
+.jenkins-head {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.jenkins-head input[type="search"] {
+    flex: 1;
+    padding: 7px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.jk-only-desc { font-size: 14px; color: #555; white-space: nowrap; cursor: pointer; }
+.jk-count { font-size: 12px; color: #999; margin-bottom: 8px; }
+.jenkins-row {
+    display: flex;
+    gap: 14px;
+    padding: 6px 4px;
+    border-bottom: 1px dashed #e3e6ea;
+    font-size: 14px;
+}
+.jenkins-row:last-child { border-bottom: none; }
+.jenkins-view-name {
+    font-weight: bold;
+    flex: 0 0 300px;
+    color: #2980b9;
+    text-decoration: none;
+}
+.jenkins-view-name:hover { text-decoration: underline; }
+.jenkins-view-desc { color: #666; flex: 1; }
+.jenkins-view-desc.no-desc { color: #ccc; }
+.jenkins-empty { color: #999; font-size: 14px; }
+
+/* 表单页 */
+.form-section {
+    background: #fff;
+    border: 1px solid #e3e6ea;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    padding: 16px 20px;
+}
+.form-section h2 {
+    font-size: 15px;
+    margin: -16px -20px 14px;
+    padding: 10px 20px;
+    background: #f0f3f6;
+    border-bottom: 1px solid #e3e6ea;
+    border-radius: 6px 6px 0 0;
+}
+
+.form-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.form-row label { width: 90px; flex-shrink: 0; font-size: 14px; color: #555; }
+.form-row input, .form-row textarea, .form-row select {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.form-row textarea { min-height: 60px; }
+
+.sub-card {
+    border: 1px dashed #ccd3da;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #fafbfc;
+}
+
+.field-actions { display: flex; gap: 6px; margin-left: 8px; flex-shrink: 0; }
+
+.icon-btn {
+    border: none;
+    background: #eef1f4;
+    border-radius: 4px;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.icon-btn:hover { background: #dde3e9; }
+
+.section-actions { margin-top: 10px; }
+
+.action-bar { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+.pwd-masked { letter-spacing: 2px; }
+
+/* 复制配置工具条 */
+.copy-toolbar {
+    background: #f0f7fc;
+    border: 1px dashed #aed6f1;
+    border-radius: 6px;
+    padding: 8px 12px;
+}
+.copy-toolbar select { flex: 0 0 180px; }
+
+/* 附件列表 */
+.file-name {
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+    flex: 0 0 auto;
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.file-name:hover { text-decoration: underline; }
+.file-meta { font-size: 12px; color: #999; flex-shrink: 0; white-space: nowrap; }
+.file-row input:not([type="file"]) { flex: 1; }
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(44, 62, 80, 0.92);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    z-index: 999;
+}

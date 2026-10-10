@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 环境信息</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="topbar">
+    <span class="brand">Odyssey</span>
+    <nav>
+        <a href="/decrypt.html">RSA 工具</a>
+    </nav>
+</header>
+
+<main class="container">
+    <div class="search-row">
+        <input id="search" type="search" placeholder="输入客户名或别名过滤，如：某某银行 / XX行" autofocus>
+        <a class="btn btn-primary" href="/env.html">+ 新建客户</a>
+    </div>
+
+    <!-- 主页页签：客户 / Jenkins 视图 -->
+    <div class="tabs page-tabs">
+        <button class="tab-btn active" data-page="customers" type="button">客户</button>
+        <button class="tab-btn" data-page="jenkins" type="button">Jenkins 视图</button>
+    </div>
+
+    <div id="tab-customers">
+        <div id="env-list"></div>
+        <p id="empty-hint" class="empty-hint hidden">没有匹配的环境</p>
+    </div>
+
+    <div id="tab-jenkins" class="hidden">
+        <div class="form-section jenkins-section">
+            <div class="jenkins-head">
+                <input id="jk-filter" type="search" placeholder="过滤视图名或备注">
+                <label class="jk-only-desc"><input type="checkbox" id="jk-desc-only"> 只看有备注</label>
+                <button id="jenkins-refresh" class="icon-btn" type="button">刷新</button>
+            </div>
+            <div id="jk-count" class="jk-count"></div>
+            <div id="jenkins-list" class="jenkins-list">尚未加载</div>
+        </div>
+    </div>
+</main>
+
+<script src="/js/common.js"></script>
+<script src="/js/index.js"></script>
+</body>
+</html>
