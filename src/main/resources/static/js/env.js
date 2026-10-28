@@ -99,7 +99,7 @@ function fieldRow(label, path, opts) {
         copyBtn.addEventListener('click', () => copyText(input.value));
         actions.appendChild(copyBtn);
     }
-    if (actions.childNodes.length > 0) row.appendChild(actions);
+    if (actions.childNodes.length > 0 || opts.actions) row.appendChild(actions);
     return row;
 }
 
@@ -649,12 +649,47 @@ function openLightbox(src) {
     box.style.display = 'flex';
 }
 
+// 远程方式的「唤起」按钮：填入的类型与全局配置的唤起链接匹配时显示，
+// 点击后浏览器通过自定义协议（如 sunlogin://）唤起访问者本机对应应用
+function addLaunchButton(typeRow) {
+    const actions = typeRow.querySelector('.field-actions');
+    const input = typeRow.querySelector('input');
+    if (!actions || !input) return;
+    loadGlobalConfig().then(config => {
+        const launchers = (config && config.launchers) || {};
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'icon-btn launch-btn'; // 醒目配色，区别于普通操作按钮
+        btn.textContent = '唤起';
+        btn.title = '唤起本机对应应用（映射在「全局配置」中维护）';
+        btn.style.display = 'none';
+        btn.addEventListener('click', () => {
+            const url = launchers[input.value.trim()];
+            if (url) location.href = url;
+        });
+        const sync = () => {
+            const matched = launchers[input.value.trim()];
+            btn.style.display = matched ? '' : 'none';
+            // 按钮文案带上远程方式名，如「唤起向日葵」
+            if (matched) btn.textContent = '唤起' + input.value.trim();
+        };
+        input.addEventListener('input', sync);
+        sync();
+        actions.appendChild(btn);
+    });
+}
+
 function renderSunloginInto(box, p) {
     const sl = cardContainer();
     sharedDatalist('remote-type-options', ['向日葵', 'Todesk']);
+    const typeRow = fieldRow('远程方式', p + '.sunlogin.type', {
+        list: 'remote-type-options',
+        actions: true // 预留操作区，供「唤起」按钮按类型显隐
+    });
+    addLaunchButton(typeRow);
     sl.appendChild(subSection('远程方式', [
         // 输入框 + 候选下拉：常见方式可直接选，也允许自行填写
-        fieldRow('远程方式', p + '.sunlogin.type', { list: 'remote-type-options' }),
+        typeRow,
         fieldRow('连接码', p + '.sunlogin.id', { copy: true }),
         fieldRow('密码', p + '.sunlogin.password', { type: 'password', copy: true, reveal: true }),
         fieldRow('备注', p + '.sunlogin.notes', { type: 'textarea' }),

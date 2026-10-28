@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - Jenkins 视图</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="jenkins">
+<div class="layout">
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="container">
+    <h1>Jenkins 视图</h1>
+
+    <div class="form-section jenkins-section">
+        <div class="jenkins-head">
+            <input id="jk-filter" type="search" placeholder="过滤视图名或备注">
+            <label class="jk-only-desc"><input type="checkbox" id="jk-desc-only"> 只看有备注</label>
+            <button id="jenkins-refresh" class="icon-btn" type="button">刷新</button>
+        </div>
+        <div id="jk-count" class="jk-count"></div>
+        <div id="jenkins-list" class="jenkins-list">尚未加载</div>
+    </div>
+</main>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/jenkins.js"></script>
+</body>
+</html>

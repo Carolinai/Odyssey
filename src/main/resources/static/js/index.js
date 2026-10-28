@@ -1,40 +1,4 @@
-// 主页：页签结构——客户页签（关键卡片列表）+ Jenkins 视图页签（过滤展示）
-// Jenkins 视图在首次切到该页签时才加载
-
-// ---------- 页签切换 ----------
-
-const tabButtons = document.querySelectorAll('.page-tabs .tab-btn');
-const tabCustomers = document.getElementById('tab-customers');
-const tabJenkins = document.getElementById('tab-jenkins');
-
-let jenkinsLoaded = false;
-
-function switchPage(page) {
-    tabButtons.forEach(b => b.classList.toggle('active', b.dataset.page === page));
-    const isCustomers = page === 'customers';
-    tabCustomers.classList.toggle('hidden', !isCustomers);
-    tabJenkins.classList.toggle('hidden', isCustomers);
-    try {
-        localStorage.setItem('odyssey.home.tab', page);
-    } catch (e) { /* 忽略存储失败 */ }
-    // Jenkins 页签懒加载：首次切过去才拉数据
-    if (!isCustomers && !jenkinsLoaded) {
-        jenkinsLoaded = true;
-        loadJenkinsViews();
-    }
-}
-
-tabButtons.forEach(btn => {
-    btn.addEventListener('click', () => switchPage(btn.dataset.page));
-});
-
-// 恢复上次停留的页签
-try {
-    const last = localStorage.getItem('odyssey.home.tab');
-    if (last === 'jenkins') switchPage('jenkins');
-} catch (e) { /* 忽略 */ }
-
-// ---------- 客户页签：关键卡片列表 ----------
+// 客户列表页：搜索过滤 + 客户关键卡片（点击进详情）
 
 const searchInput = document.getElementById('search');
 const envList = document.getElementById('env-list');
@@ -55,9 +19,6 @@ async function loadList() {
     emptyHint.classList.toggle('hidden', items.length > 0);
     items.forEach(renderEnvCard);
 }
-
-// 一条速览信息：label + 只读值（保留备用）
-
 
 // 卡片分支展示用的环境块顺序与中文标签
 const ENV_KEYS_ORDER = [
@@ -149,79 +110,5 @@ function renderEnvCard(env) {
     });
     envList.appendChild(card);
 }
-
-// ---------- Jenkins 视图页签 ----------
-
-const jenkinsList = document.getElementById('jenkins-list');
-const jkCount = document.getElementById('jk-count');
-const jkFilter = document.getElementById('jk-filter');
-const jkDescOnly = document.getElementById('jk-desc-only');
-
-let jkViews = []; // 缓存已加载的视图数据，过滤时不再请求
-let jkBaseUrl = ''; // Jenkins 基础地址（后端下发），拼视图详情链接用
-
-async function loadJenkinsViews() {
-    jenkinsList.textContent = '加载中…';
-    try {
-        const result = await api('/api/jenkins/views');
-        jkViews = result.views || [];
-        jkBaseUrl = (result.base_url || '').replace(/\/+$/, '');
-        renderJenkinsViews();
-    } catch (e) {
-        jkViews = [];
-        jkBaseUrl = '';
-        jenkinsList.textContent = '加载失败：' + e.message;
-    }
-}
-
-function renderJenkinsViews() {
-    const kw = jkFilter.value.trim().toLowerCase();
-    const descOnly = jkDescOnly.checked;
-
-    const shown = jkViews.filter(v => {
-        if (descOnly && !v.desc) return false;
-        if (!kw) return true;
-        return (v.name || '').toLowerCase().includes(kw)
-            || (v.desc || '').toLowerCase().includes(kw);
-    });
-
-    jkCount.textContent = '共 ' + shown.length + ' / ' + jkViews.length + ' 个视图';
-    jenkinsList.innerHTML = '';
-
-    if (shown.length === 0) {
-        const empty = document.createElement('span');
-        empty.className = 'jenkins-empty';
-        empty.textContent = '（无匹配视图）';
-        jenkinsList.appendChild(empty);
-        return;
-    }
-
-    shown.forEach(view => {
-        const row = document.createElement('div');
-        row.className = 'jenkins-row';
-
-        const name = document.createElement('a');
-        name.className = 'jenkins-view-name';
-        if (jkBaseUrl) {
-            // 新开页跳转 Jenkins 视图详情
-            name.href = jkBaseUrl + '/view/' + encodeURIComponent(view.name) + '/';
-            name.target = '_blank';
-            name.rel = 'noopener';
-        }
-        name.textContent = view.name;
-
-        const desc = document.createElement('span');
-        desc.className = 'jenkins-view-desc' + (view.desc ? '' : ' no-desc');
-        desc.textContent = view.desc ? '→ ' + view.desc : '';
-
-        row.appendChild(name);
-        row.appendChild(desc);
-        jenkinsList.appendChild(row);
-    });
-}
-
-jkFilter.addEventListener('input', renderJenkinsViews);
-jkDescOnly.addEventListener('change', renderJenkinsViews);
-document.getElementById('jenkins-refresh').addEventListener('click', loadJenkinsViews);
 
 loadList();

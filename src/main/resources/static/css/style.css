@@ -1,6 +1,126 @@
 /* 全局样式（列表页、表单页、RSA 工具页共用） */
 * { box-sizing: border-box; }
 
+/* 全站左侧菜单布局：sidebar 固定在左侧，内容区在右。
+   侧栏宽度用变量维护，底部悬浮操作栏的 left 同步引用，收起时不覆盖菜单区 */
+body { --sidebar-w: 168px; }
+body.sidebar-collapsed { --sidebar-w: 50px; }
+.layout { display: flex; min-height: 100vh; }
+.sidebar {
+    flex: 0 0 var(--sidebar-w);
+    background: #2c3e50;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    transition: flex-basis 0.15s ease;
+    overflow: hidden;
+}
+.side-brand { padding: 4px 10px 14px; }
+body.sidebar-collapsed .side-brand { padding: 4px 0 14px; }
+.side-brand a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+body.sidebar-collapsed .side-brand a { justify-content: center; }
+.brand-logo { width: 22px; height: 22px; flex-shrink: 0; }
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #d5dbe1;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 9px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.menu-link:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.menu-link.active { background: #2980b9; color: #fff; }
+/* 收起态：菜单只显示图标，品牌只显示 logo */
+.menu-svg { width: 16px; height: 16px; flex-shrink: 0; }
+body.sidebar-collapsed .menu-text { display: none; }
+body.sidebar-collapsed .menu-link { justify-content: center; padding: 9px 4px; }
+/* 底部收起/展开切换按钮 */
+.side-toggle {
+    margin-top: auto;
+    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    color: #d5dbe1;
+    border-radius: 6px;
+    padding: 6px 0;
+    cursor: pointer;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.side-toggle:hover { background: rgba(255, 255, 255, 0.18); color: #fff; }
+.layout > .container {
+    flex: 1;
+    min-width: 0;
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 24px;
+}
+
+/* 说明性小字（全局配置、菜单管理页顶部的引导文案） */
+.page-hint { color: #888; font-size: 13px; line-height: 1.7; }
+/* 全局配置页：唤起协议分节说明（向日葵 / Todesk），默认折叠、点开展开 */
+.protocol-guide {
+    border: 1px dashed #d5dbe1;
+    border-radius: 6px;
+    padding: 0 12px;
+    margin: 8px 0;
+    background: #fafbfc;
+}
+.protocol-guide summary {
+    cursor: pointer;
+    font-size: 13px;
+    color: #2c3e50;
+    padding: 8px 0;
+    user-select: none;
+    font-weight: bold;
+}
+.protocol-guide summary:hover { color: #2980b9; }
+.protocol-guide[open] { padding-bottom: 6px; background: #fff; }
+.protocol-guide h3 {
+    font-size: 14px;
+    color: #2c3e50;
+    margin: 14px 0 6px;
+    padding-left: 8px;
+    border-left: 3px solid #2980b9;
+}
+.protocol-guide p { margin: 6px 0; }
+.protocol-guide code {
+    background: #eef1f4;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 12px;
+}
+.reg-sample {
+    background: #f0f3f6;
+    border: 1px solid #e3e6ea;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #555;
+    overflow-x: auto;
+}
+
+/* 菜单管理编辑行：显示开关 + 名称 + 链接 + 操作按钮 */
+.menu-editor-row .menu-name { flex: 0 0 160px; }
+.menu-editor-row input[type="checkbox"] { flex: 0 0 auto; }
+
 body {
     margin: 0;
     font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
@@ -30,6 +150,19 @@ body {
 
 /* 详情页标题下方的更新时间小字 */
 .page-subtitle { color: #999; font-size: 13px; margin: -12px 0 16px; }
+
+/* 详情页左上角返回按钮（主题蓝实底，醒目） */
+.back-link {
+    display: inline-block;
+    background: #2980b9;
+    color: #fff;
+    font-size: 13px;
+    text-decoration: none;
+    padding: 6px 16px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+.back-link:hover { background: #21688c; color: #fff; }
 
 .search-row { display: flex; gap: 12px; margin-bottom: 20px; }
 
@@ -302,15 +435,26 @@ body {
 }
 .icon-btn:hover { background: #dde3e9; }
 
+/* 详情页「唤起」按钮：绿色实底突出显示 */
+.icon-btn.launch-btn {
+    background: #27ae60;
+    color: #fff;
+    font-weight: bold;
+}
+.icon-btn.launch-btn:hover { background: #219a52; }
+.icon-btn.launch-btn:disabled { background: #95d5b2; cursor: default; }
+
 .section-actions { margin-top: 10px; }
 
-/* 固定悬浮在页面底部的操作栏，带毛玻璃（虚化）横条背景 */
+/* 固定悬浮在页面底部的操作栏，带毛玻璃（虚化）横条背景；
+   left 跟随侧栏宽度（CSS 变量），收起菜单时不会覆盖到菜单区 */
 .action-bar {
     position: fixed;
-    left: 0;
+    left: var(--sidebar-w);
     right: 0;
     bottom: 0;
     z-index: 100;
+    transition: left 0.15s ease;
     display: flex;
     gap: 10px;
     justify-content: flex-end;

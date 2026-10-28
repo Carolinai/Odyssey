@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 全局配置</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="config">
+<div class="layout">
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="container">
+    <h1>全局配置</h1>
+    <p class="page-hint">
+        全局配置保存在服务器上，对所有使用者生效。
+    </p>
+
+    <div class="form-section">
+        <h2>远程方式唤起链接</h2>
+        <p class="page-hint">
+            详情页「远程方式」填入下方名称（如：向日葵）时会出现「唤起」按钮，点击后通过自定义协议唤起<strong>访问者本机</strong>的应用。
+            本页配置存于服务器、配一次所有人共用；若点击唤起时提示「没有注册协议」，在对应电脑上点开下方的注册说明操作一次即可。
+        </p>
+
+        <details class="protocol-guide">
+            <summary>向日葵（sunlogin://）注册说明</summary>
+            <div class="protocol-body">
+                <p>
+                    向日葵国内版安装后通常已自动注册，无需操作。AweSun 等版本若无自动注册：
+                    在本机开始菜单打开 <strong>PowerShell</strong>（普通权限即可），整段粘贴执行
+                    （脚本中的安装路径请按实际位置修改；写入的是当前用户注册表，不影响其他用户）：
+                </p>
+<pre class="reg-sample">$r=[Microsoft.Win32.Registry]::CurrentUser
+$k=$r.CreateSubKey('Software\Classes\sunlogin')
+$k.SetValue($null,'URL:Sunlogin Protocol')
+$k.SetValue('URL Protocol','')
+$k.Close()
+$c=$r.CreateSubKey('Software\Classes\sunlogin\shell\open\command')
+$c.SetValue($null,'"C:\Windows\explorer.exe" "D:\xiangrikui\AweSun\AweSun.exe"')
+$c.Close()
+Write-Output '注册完成'</pre>
+                <p>
+                    完成后用 <code>Win + R</code> 输入 <code>sunlogin://</code> 验证，向日葵能弹出即成功。
+                </p>
+                <p>
+                    <strong>为什么用 explorer 包装：</strong>部分远程软件（如 ToDesk、AweSun）启动时依赖工作目录，
+                    协议直接启动 exe 会出现「进程已启动但不弹窗」的情况；用 explorer 启动与双击图标等效
+                    （工作目录自动为 exe 所在目录），可避免此问题。若之前注册过直接启动的写法且不弹窗，
+                    把 command 值改为上面的 explorer 包装写法即可。
+                </p>
+            </div>
+        </details>
+
+        <details class="protocol-guide">
+            <summary>Todesk（todesk://）注册说明</summary>
+            <div class="protocol-body">
+                <p>
+                    Todesk 无官方 URL 协议，且直接启动时依赖工作目录，需要用 <code>explorer.exe</code> 包装
+                    （等同双击效果）。在本机开始菜单打开 <strong>PowerShell</strong>（普通权限即可），整段粘贴执行
+                    （脚本中的安装路径请按实际位置修改；写入的是当前用户注册表，不影响其他用户）：
+                </p>
+<pre class="reg-sample">$r=[Microsoft.Win32.Registry]::CurrentUser
+$k=$r.CreateSubKey('Software\Classes\todesk')
+$k.SetValue($null,'URL:Todesk Protocol')
+$k.SetValue('URL Protocol','')
+$k.Close()
+$c=$r.CreateSubKey('Software\Classes\todesk\shell\open\command')
+$c.SetValue($null,'"C:\Windows\explorer.exe" "D:\ToDesk\ToDesk.exe"')
+$c.Close()
+Write-Output '注册完成'</pre>
+                <p>
+                    完成后用 <code>Win + R</code> 输入 <code>todesk://</code> 验证，Todesk 能弹出窗口即成功
+                    （若只出现进程没有窗口，说明 command 里用了直接启动，请改用上面的 explorer 包装写法）。
+                </p>
+            </div>
+        </details>
+
+        <div id="launcher-list"></div>
+        <div class="section-actions">
+            <button id="add-launcher" class="icon-btn" type="button">+ 添加映射</button>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="save-config" class="btn btn-primary">保存</button>
+    </div>
+</main>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/config.js"></script>
+</body>
+</html>

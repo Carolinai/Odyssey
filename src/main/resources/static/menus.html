@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 菜单管理</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="menus">
+<div class="layout">
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="container">
+    <h1>菜单管理</h1>
+    <p class="page-hint">
+        内置菜单可改名、改地址、排序、显示/隐藏，也可以添加指向任意页面的自定义菜单。
+        修改保存在<strong>本浏览器</strong>中，只对当前使用者生效；未自定义时使用全局默认菜单。
+    </p>
+
+    <div class="form-section">
+        <h2>菜单项</h2>
+        <div id="menu-list"></div>
+        <div class="section-actions">
+            <button id="add-menu" class="icon-btn" type="button">+ 添加自定义菜单</button>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="reset-menus" class="btn" type="button">恢复默认</button>
+        <button id="save-menus" class="btn btn-primary">保存</button>
+    </div>
+</main>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/menus.js"></script>
+</body>
+</html>
