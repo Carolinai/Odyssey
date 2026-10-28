@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import java.util.List;
+
 /**
  * 服务器（环境内的服务/机器清单项）：如 app、db、文档服务，含 IP 与账号。
  */
@@ -17,6 +19,9 @@ public class ClientInfo {
     private String ip;
 
     private Account account;
+
+    /** 相关截图（如登录后页面、部署信息截图），存图片文件名，文件位于数据目录 images/ 下 */
+    private List<String> images;
 
     public String getName() {
         return name;
@@ -40,5 +45,13 @@ public class ClientInfo {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }

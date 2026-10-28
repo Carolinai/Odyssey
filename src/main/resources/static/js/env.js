@@ -72,6 +72,7 @@ function fieldRow(label, path, opts) {
         input.type = opts.type === 'password' ? 'password' : 'text';
     }
     input.dataset.path = path;
+    if (opts.list) input.setAttribute('list', opts.list); // datalist：下拉候选 + 可自行输入
     const val = getPath(state, path);
     input.value = val == null ? (opts.type === 'color' ? '#2980b9' : '') : val;
     row.appendChild(input);
@@ -130,6 +131,23 @@ function addSectionButton(box, text, onClick) {
     btn.addEventListener('click', onClick);
     wrap.appendChild(btn);
     box.appendChild(wrap);
+}
+
+// 取一个全局共享的 datalist（input 的 list 属性指向其 id），首次调用时创建。
+// input 既能从候选下拉选择，也能自行输入候选之外的值
+function sharedDatalist(id, options) {
+    let datalist = document.getElementById(id);
+    if (!datalist) {
+        datalist = document.createElement('datalist');
+        datalist.id = id;
+        options.forEach(v => {
+            const o = document.createElement('option');
+            o.value = v;
+            datalist.appendChild(o);
+        });
+        document.body.appendChild(datalist);
+    }
+    return datalist;
 }
 
 // 把当前 DOM 上已填的值先收集回 state（切 tab/增删行重渲染前调用，防丢输入）
@@ -517,13 +535,130 @@ function renderModuleSide() {
     });
 }
 
+// ---------- 模块图片：远程方式/VPN/堡垒机/服务器信息的截图上传与展示 ----------
+// 文件经 /api/images 上传落盘（UUID 文件名，≤10MB，jpg/png/webp/gif），
+// 环境数据里只保存文件名列表；从其他环境复制配置时引用随数据深拷贝，多环境共享同一图片文件
+
+// 一行图片区：缩略图（点击放大、可移除）+ 上传按钮；path 指向 images 文件名数组
+function imagesRow(path) {
+    const row = document.createElement('div');
+    row.className = 'form-row image-row';
+
+    const label = document.createElement('label');
+    label.textContent = '图片';
+    row.appendChild(label);
+
+    const thumbs = document.createElement('div');
+    thumbs.className = 'image-thumbs';
+    row.appendChild(thumbs);
+
+    // 刷新缩略图区（上传/移除后只重画这里，不影响同卡片其他输入框）
+    const refresh = () => {
+        thumbs.innerHTML = '';
+        (getPath(state, path) || []).forEach((name, i) => {
+            thumbs.appendChild(imageThumb(name, path, i, refresh));
+        });
+    };
+    refresh();
+
+    // 隐藏的文件选择框，支持一次选多张；选中即上传，文件名追加进 state，随「保存客户」一起提交
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/jpeg,image/png,image/webp,image/gif';
+    fileInput.multiple = true;
+    fileInput.classList.add('hidden');
+    fileInput.addEventListener('change', async () => {
+        const files = Array.from(fileInput.files || []);
+        fileInput.value = ''; // 先复位，允许下次重复选择同一文件
+        if (files.length === 0) return;
+        addBtn.disabled = true;
+        try {
+            const list = getPath(state, path) || [];
+            for (const f of files) {
+                if (f.size > 10 * 1024 * 1024) {
+                    alert('「' + f.name + '」超过 10MB，已跳过');
+                    continue;
+                }
+                const fd = new FormData();
+                fd.append('file', f);
+                const resp = await api('/api/images', { method: 'POST', body: fd });
+                list.push(resp.name);
+            }
+            if (list.length) setPath(state, path, list);
+            refresh();
+            toast('图片已上传，保存客户后生效');
+        } catch (e) {
+            alert('上传失败：' + e.message);
+        } finally {
+            addBtn.disabled = false;
+        }
+    });
+    row.appendChild(fileInput);
+
+    const addBtn = document.createElement('button');
+    addBtn.type = 'button';
+    addBtn.className = 'icon-btn';
+    addBtn.textContent = '+ 上传图片';
+    addBtn.addEventListener('click', () => fileInput.click());
+    row.appendChild(addBtn);
+    return row;
+}
+
+// 单张缩略图：点击放大查看，右上角 × 移除引用（保存后孤儿清理才真正删文件）
+function imageThumb(name, path, index, refresh) {
+    const wrap = document.createElement('div');
+    wrap.className = 'image-thumb';
+
+    const img = document.createElement('img');
+    img.src = '/api/images/' + encodeURIComponent(name);
+    img.alt = '模块截图';
+    img.title = '点击放大';
+    img.addEventListener('click', () => openLightbox(img.src));
+    wrap.appendChild(img);
+
+    const delBtn = document.createElement('button');
+    delBtn.type = 'button';
+    delBtn.className = 'image-del';
+    delBtn.textContent = '×';
+    delBtn.title = '移除这张图片';
+    delBtn.addEventListener('click', () => {
+        if (!confirm('确认移除这张图片？（保存客户后生效）')) return;
+        const list = (getPath(state, path) || []).slice();
+        list.splice(index, 1);
+        setPath(state, path, list.length ? list : null);
+        refresh();
+    });
+    wrap.appendChild(delBtn);
+    return wrap;
+}
+
+// 点击缩略图放大：全屏半透明遮罩 + 居中大图，点击任意处关闭
+function openLightbox(src) {
+    let box = document.getElementById('image-lightbox');
+    if (!box) {
+        box = document.createElement('div');
+        box.id = 'image-lightbox';
+        box.className = 'image-lightbox';
+        box.addEventListener('click', () => { box.style.display = 'none'; });
+        document.body.appendChild(box);
+    }
+    box.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = src;
+    box.appendChild(img);
+    box.style.display = 'flex';
+}
+
 function renderSunloginInto(box, p) {
     const sl = cardContainer();
+    sharedDatalist('remote-type-options', ['向日葵', 'Todesk']);
     sl.appendChild(subSection('远程方式', [
-        fieldRow('远程方式', p + '.sunlogin.type', { type: 'select', options: ['向日葵', 'Todesk'] }),
+        // 输入框 + 候选下拉：常见方式可直接选，也允许自行填写
+        fieldRow('远程方式', p + '.sunlogin.type', { list: 'remote-type-options' }),
         fieldRow('连接码', p + '.sunlogin.id', { copy: true }),
         fieldRow('密码', p + '.sunlogin.password', { type: 'password', copy: true, reveal: true }),
-        fieldRow('备注', p + '.sunlogin.notes', { type: 'textarea' })
+        fieldRow('备注', p + '.sunlogin.notes', { type: 'textarea' }),
+        imagesRow(p + '.sunlogin.images')
     ]));
     box.appendChild(sl);
 }
@@ -536,7 +671,8 @@ function renderVpnInto(box, p) {
         fieldRow('用户名', p + '.vpn.account.user'),
         fieldRow('密码', p + '.vpn.account.password', { type: 'password', copy: true, reveal: true }),
         fieldRow('动态码说明', p + '.vpn.account.otp'),
-        fieldRow('备注', p + '.vpn.notes', { type: 'textarea' })
+        fieldRow('备注', p + '.vpn.notes', { type: 'textarea' }),
+        imagesRow(p + '.vpn.images')
     ]));
     box.appendChild(vpn);
 }
@@ -548,7 +684,8 @@ function renderBastionInto(box, p) {
         fieldRow('入口地址', p + '.bastion.entry', { copy: true }),
         fieldRow('用户名', p + '.bastion.account.user'),
         fieldRow('密码', p + '.bastion.account.password', { type: 'password', copy: true, reveal: true }),
-        fieldRow('备注', p + '.bastion.notes', { type: 'textarea' })
+        fieldRow('备注', p + '.bastion.notes', { type: 'textarea' }),
+        imagesRow(p + '.bastion.images')
     ]));
     box.appendChild(bastion);
 }
@@ -566,17 +703,7 @@ function renderClientsInto(box, p) {
     const basePath = p + '.clients';
 
     // 名称候选：常见服务器角色，也允许自定义输入
-    let datalist = document.getElementById('client-name-options');
-    if (!datalist) {
-        datalist = document.createElement('datalist');
-        datalist.id = 'client-name-options';
-        ['app', 'db', '文档服务'].forEach(v => {
-            const o = document.createElement('option');
-            o.value = v;
-            datalist.appendChild(o);
-        });
-        document.body.appendChild(datalist);
-    }
+    sharedDatalist('client-name-options', ['app', 'db', '文档服务']);
 
     (getPath(state, basePath) || []).forEach((entry, i) => {
         const card = cardContainer();
@@ -608,6 +735,7 @@ function renderClientsInto(box, p) {
         card.appendChild(fieldRow('IP', basePath + '.' + i + '.ip', { copy: true }));
         card.appendChild(fieldRow('用户名', basePath + '.' + i + '.account.user', { copy: true }));
         card.appendChild(fieldRow('密码', basePath + '.' + i + '.account.password', { type: 'password', copy: true, reveal: true }));
+        card.appendChild(imagesRow(basePath + '.' + i + '.images'));
         box.appendChild(card);
     });
     addSectionButton(box, '+ 添加服务器', () => {

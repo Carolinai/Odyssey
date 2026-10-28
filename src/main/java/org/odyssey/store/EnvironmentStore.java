@@ -3,6 +3,7 @@ package org.odyssey.store;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import org.odyssey.model.ClientInfo;
 import org.odyssey.model.EnvBlock;
 import org.odyssey.model.Environment;
 import org.odyssey.model.Sunlogin;
@@ -21,7 +22,9 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -36,6 +39,10 @@ public class EnvironmentStore {
     private static final Pattern INVALID_NAME = Pattern.compile("[\\\\/:*?\"<>|\\s]");
 
     private static final String EXTENSION = ".yaml";
+
+    /** 孤儿图片豁免期：前端是「选中即上传、随保存提交引用」，上传与保存之间存在时间差，
+     *  期间文件暂时无引用属正常状态；仅清理超过该时长仍无引用的文件，避免误删刚上传的图 */
+    private static final long IMAGE_GRACE_MILLIS = 24 * 60 * 60 * 1000L;
 
     private final Path dataDir;
     private final ObjectMapper mapper;
@@ -96,6 +103,7 @@ public class EnvironmentStore {
         }
         env.setUpdatedAt(now());
         write(env);
+        cleanOrphanImages();
     }
 
     /** 更新环境；不存在时抛 EnvironmentNotFoundException（name 不可改，改 name 需删除重建）。
@@ -115,6 +123,7 @@ public class EnvironmentStore {
         }
         env.setUpdatedAt(now());
         write(env);
+        cleanOrphanImages();
     }
 
     /** 启动回填：给缺 created_at / updated_at 的旧 YAML 补时间。
@@ -202,6 +211,74 @@ public class EnvironmentStore {
             Files.delete(file);
         } catch (IOException e) {
             throw new UncheckedIOException("删除环境文件失败：" + file, e);
+        }
+        cleanOrphanImages();
+    }
+
+    /**
+     * 清理孤儿图片：模块截图按 UUID 平铺在 <dataDir>/images/ 下，不绑定环境，
+     * 可能被多个环境共享引用（「从其他环境复制配置」会把引用一起深拷贝过去）。
+     * 每次保存/删除环境后，把不再被任何环境 YAML 引用的图片文件删除。
+     */
+    public void cleanOrphanImages() {
+        Path dir = dataDir.resolve("images");
+        if (!Files.exists(dir)) {
+            return;
+        }
+        Set<String> referenced = new HashSet<>();
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dataDir, "*" + EXTENSION)) {
+            for (Path file : stream) {
+                collectImageRefs(mapper.readValue(file.toFile(), Environment.class), referenced);
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException("收集图片引用失败：" + dataDir, e);
+        }
+        int removed = 0;
+        long graceDeadline = System.currentTimeMillis() - IMAGE_GRACE_MILLIS;
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
+            for (Path file : stream) {
+                if (referenced.contains(file.getFileName().toString())) {
+                    continue;
+                }
+                // 豁免期内的新文件可能是刚上传、还没随环境保存的，不能判定为孤儿
+                if (file.toFile().lastModified() > graceDeadline) {
+                    continue;
+                }
+                try {
+                    Files.deleteIfExists(file);
+                    removed++;
+                } catch (IOException e) {
+                    throw new UncheckedIOException("删除孤儿图片失败：" + file, e);
+                }
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException("扫描图片目录失败：" + dir, e);
+        }
+        if (removed > 0) {
+            log.info("已清理 {} 个未被引用的图片文件", removed);
+        }
+    }
+
+    /** 收集一个环境引用的全部图片文件名（四个支持图片的模块：远程方式/VPN/堡垒机/服务器清单） */
+    private static void collectImageRefs(Environment env, Set<String> refs) {
+        if (env.getEnvironments() == null) {
+            return;
+        }
+        for (EnvBlock block : env.getEnvironments().values()) {
+            addImageRefs(block.getSunlogin() == null ? null : block.getSunlogin().getImages(), refs);
+            addImageRefs(block.getVpn() == null ? null : block.getVpn().getImages(), refs);
+            addImageRefs(block.getBastion() == null ? null : block.getBastion().getImages(), refs);
+            if (block.getClients() != null) {
+                for (ClientInfo client : block.getClients()) {
+                    addImageRefs(client == null ? null : client.getImages(), refs);
+                }
+            }
+        }
+    }
+
+    private static void addImageRefs(List<String> images, Set<String> refs) {
+        if (images != null) {
+            refs.addAll(images);
         }
     }
 

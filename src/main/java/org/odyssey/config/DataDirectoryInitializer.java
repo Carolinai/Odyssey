@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * 启动时确保数据目录结构存在：{data-dir}/data/ 与 {data-dir}/keys/，
+ * 启动时确保数据目录结构存在：{data-dir}/data/、{data-dir}/keys/ 与 {data-dir}/data/images/，
  * 并给缺时间戳的旧环境文件回填 created_at / updated_at、清洗仅有远程方式的 sunlogin 脏数据。
  */
 @Component
@@ -34,6 +34,7 @@ public class DataDirectoryInitializer implements ApplicationRunner {
         Path root = Paths.get(properties.getDataDir()).toAbsolutePath().normalize();
         createIfMissing(root.resolve("data"));
         createIfMissing(root.resolve("keys"));
+        createIfMissing(root.resolve("data").resolve("images")); // 模块截图存储目录
         store.backfillMissingTimestamps();
         store.cleanupRemoteTypeOnlySunlogin();
         log.info("数据目录就绪：{}", root);

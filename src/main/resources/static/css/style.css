@@ -364,3 +364,63 @@ body {
     font-size: 14px;
     z-index: 999;
 }
+
+/* 模块图片区：缩略图横排，label 与表单行对齐 */
+.image-row { align-items: flex-start; }
+.image-thumbs {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 32px; /* 无图时不塌陷，保持与上传按钮对齐 */
+}
+.image-thumb {
+    position: relative;
+    width: 88px;
+    height: 66px;
+    border: 1px solid #dde3e9;
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+}
+.image-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: zoom-in;
+    display: block;
+}
+.image-del {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 18px;
+    height: 18px;
+    border: none;
+    border-radius: 0 0 0 4px;
+    background: rgba(44, 62, 80, 0.72);
+    color: #fff;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 0;
+    cursor: pointer;
+}
+.image-del:hover { background: #c0392b; }
+
+/* 点击缩略图后的全屏放大查看层 */
+.image-lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.72);
+    cursor: zoom-out;
+}
+.image-lightbox img {
+    max-width: 92vw;
+    max-height: 92vh;
+    border-radius: 4px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}

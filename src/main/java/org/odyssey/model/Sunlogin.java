@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import java.util.List;
+
 /**
  * 远程方式连接信息：方式（向日葵 / Todesk）+ 连接码 + 验证密码。
  */
@@ -22,6 +24,9 @@ public class Sunlogin {
 
     /** 备注（如：该机器由谁值守、连接时段等） */
     private String notes;
+
+    /** 相关截图（服务器信息/页面截图等），存图片文件名，文件位于数据目录 images/ 下 */
+    private List<String> images;
 
     public String getType() {
         return type;
@@ -53,5 +58,13 @@ public class Sunlogin {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }

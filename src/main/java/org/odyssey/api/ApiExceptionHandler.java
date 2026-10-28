@@ -31,6 +31,11 @@ public class ApiExceptionHandler {
         return body(HttpStatus.CONFLICT, e.getMessage());
     }
 
+    @ExceptionHandler(ImageController.ImageNotFoundException.class)
+    public ResponseEntity<Map<String, String>> imageNotFound(ImageController.ImageNotFoundException e) {
+        return body(HttpStatus.NOT_FOUND, e.getMessage());
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> badRequest(IllegalArgumentException e) {
         return body(HttpStatus.BAD_REQUEST, e.getMessage());

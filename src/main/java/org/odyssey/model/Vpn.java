@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+import java.util.List;
+
 /**
  * VPN 接入信息。
  */
@@ -20,6 +22,9 @@ public class Vpn {
     private Account account;
 
     private String notes;
+
+    /** 相关截图，存图片文件名，文件位于数据目录 images/ 下 */
+    private List<String> images;
 
     public String getHow() {
         return how;
@@ -51,5 +56,13 @@ public class Vpn {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
     }
 }

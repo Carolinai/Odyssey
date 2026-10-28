@@ -131,9 +131,11 @@ class EnvironmentStoreTest {
         Environment loaded = store.get("某某银行");
 
         // 通过 YAML 树对比，避免为 POJO 实现 equals；
-        // created_at/updated_at 由存储层在 create 时生成，对比前剔除
+        // created_at/updated_at 由存储层在 create 时生成并回填到 env（同一引用），对比前两侧都剔除
         JsonNode before = yamlMapper.readTree(yamlMapper.writeValueAsString(env));
         JsonNode after = yamlMapper.readTree(yamlMapper.writeValueAsString(loaded));
+        ((ObjectNode) before).remove("created_at");
+        ((ObjectNode) before).remove("updated_at");
         ((ObjectNode) after).remove("created_at");
         ((ObjectNode) after).remove("updated_at");
         assertEquals(before, after);
@@ -257,9 +259,10 @@ class EnvironmentStoreTest {
 
     @Test
     void 回填_给缺时间戳的旧文件补创建与更新时间() throws Exception {
-        // 手工放一个不带时间戳的旧格式文件（模拟历史数据）
+        // 手工放一个不带时间戳的旧格式文件（模拟历史数据）；data 目录可能尚未创建，先建好
         Environment old = new Environment();
         old.setName("老客户");
+        Files.createDirectories(tempDir.resolve("data"));
         yamlMapper.writeValue(tempDir.resolve("data").resolve("老客户.yaml").toFile(), old);
 
         store.backfillMissingTimestamps();
