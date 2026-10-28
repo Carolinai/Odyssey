@@ -2,6 +2,7 @@ package org.odyssey.store;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -129,9 +130,12 @@ class EnvironmentStoreTest {
 
         Environment loaded = store.get("某某银行");
 
-        // 通过 YAML 树对比，避免为 POJO 实现 equals
+        // 通过 YAML 树对比，避免为 POJO 实现 equals；
+        // created_at/updated_at 由存储层在 create 时生成，对比前剔除
         JsonNode before = yamlMapper.readTree(yamlMapper.writeValueAsString(env));
         JsonNode after = yamlMapper.readTree(yamlMapper.writeValueAsString(loaded));
+        ((ObjectNode) after).remove("created_at");
+        ((ObjectNode) after).remove("updated_at");
         assertEquals(before, after);
     }
 
@@ -206,16 +210,63 @@ class EnvironmentStoreTest {
     }
 
     @Test
-    void 列表_返回全部客户且按名称排序() {
+    void 列表_返回全部客户且按更新时间倒序() throws Exception {
         Environment a = new Environment();
         a.setName("B银行");
         Environment b = sampleCustomer(); // 某某银行
         store.create(a);
         store.create(b);
 
+        // 直接改写 B银行 的 YAML，把更新时间调晚，列表应排最前
+        Path file = tempDir.resolve("data").resolve("B银行.yaml");
+        Environment saved = yamlMapper.readValue(file.toFile(), Environment.class);
+        saved.setUpdatedAt("2099-01-01 00:00");
+        yamlMapper.writeValue(file.toFile(), saved);
+
         assertEquals(2, store.list().size());
         assertEquals("B银行", store.list().get(0).getName());
         assertEquals("某某银行", store.list().get(1).getName());
+    }
+
+    @Test
+    void 新建客户_自动写入创建与更新时间() {
+        Environment env = new Environment();
+        env.setName("某新客户");
+        store.create(env);
+
+        Environment saved = store.get("某新客户");
+        assertNotNull(saved.getCreatedAt());
+        assertNotNull(saved.getUpdatedAt());
+    }
+
+    @Test
+    void 更新客户_更新时间被刷新且创建时间保留() {
+        Environment env = new Environment();
+        env.setName("某新客户");
+        store.create(env);
+        String createdAt = store.get("某新客户").getCreatedAt();
+
+        Environment changed = new Environment();
+        changed.setName("某新客户");
+        store.update(changed);
+
+        Environment saved = store.get("某新客户");
+        assertEquals(createdAt, saved.getCreatedAt()); // 创建时间不变
+        assertNotNull(saved.getUpdatedAt());
+    }
+
+    @Test
+    void 回填_给缺时间戳的旧文件补创建与更新时间() throws Exception {
+        // 手工放一个不带时间戳的旧格式文件（模拟历史数据）
+        Environment old = new Environment();
+        old.setName("老客户");
+        yamlMapper.writeValue(tempDir.resolve("data").resolve("老客户.yaml").toFile(), old);
+
+        store.backfillMissingTimestamps();
+
+        Environment saved = store.get("老客户");
+        assertNotNull(saved.getCreatedAt());
+        assertNotNull(saved.getUpdatedAt());
     }
 
     @Test

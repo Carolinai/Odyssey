@@ -15,6 +15,7 @@ const ENV_KEYS = [
 
 let state = {};          // 当前客户数据
 let activeTab = 'test';  // 当前选中的环境 tab
+let activeModule = 'all'; // 环境块内当前选中的模块（'all' = 全部）
 
 // ---------- 嵌套对象读写 ----------
 
@@ -184,11 +185,14 @@ function renderTags() {
     (state.tags || []).forEach((tag, i) => {
         const row = document.createElement('div');
         row.className = 'form-row tag-editor-row';
-        // 缩进占位
-        const placeholder = document.createElement('label');
-        row.appendChild(placeholder);
 
-        row.appendChild(fieldRow('颜色', 'tags.' + i + '.color', { type: 'color' }));
+        // 颜色选择块（collectAll 按 data-path 通用收集，无需包一层 fieldRow）
+        const colorInput = document.createElement('input');
+        colorInput.type = 'color';
+        colorInput.dataset.path = 'tags.' + i + '.color';
+        colorInput.value = tag.color || '#2980b9';
+        row.appendChild(colorInput);
+
         const nameInput = document.createElement('input');
         nameInput.dataset.path = 'tags.' + i + '.name';
         nameInput.placeholder = '标签名';
@@ -352,14 +356,18 @@ function renderTabs() {
             if (key === activeTab) return;
             collectAll();          // 切 tab 前先收集当前输入
             activeTab = key;
-            renderTabs();
-            renderEnvContent();
+            rerenderWithStableScroll(() => {
+                renderTabs();
+                renderModuleSide(); // 模块导航的“有数据”标识需随环境切换刷新
+                renderEnvContent();
+            });
         });
         box.appendChild(btn);
     });
 }
 
-// 复制配置工具条：把另一个环境块已填好的配置整体复制到当前环境（坑除外）
+// 复制配置工具条：按左侧选中的模块，把另一个环境块的配置复制到当前环境；
+// 选「全部」时整体复制（其他信息或备注除外），选单模块时只覆盖该模块
 function renderCopyToolbar(box) {
     const row = document.createElement('div');
     row.className = 'form-row copy-toolbar';
@@ -387,17 +395,34 @@ function renderCopyToolbar(box) {
         const srcKey = select.value;
         const srcLabel = ENV_KEYS.find(k => k.key === srcKey).label;
         const src = getPath(state, 'environments.' + srcKey);
-        const filled = src && Object.keys(src).some(k => k !== 'quirks');
+        const isAll = activeModule === 'all';
+        const moduleLabel = isAll ? '' : MODULES.find(m => m.key === activeModule).label;
+        // 按左侧选中的模块做针对性检查：全部 = 除备注外任一模块有内容即可；单模块 = 该模块有内容
+        const filled = isAll
+            ? src && Object.keys(src).some(k => k !== 'quirks')
+            : src && pruneEmpty(src[activeModule]) !== undefined;
         if (!filled) {
-            alert('「' + srcLabel + '」还没有可复制的内容');
+            alert(isAll
+                ? '「' + srcLabel + '」还没有可复制的内容'
+                : '「' + srcLabel + '」还没有可复制的「' + moduleLabel + '」内容');
             return;
         }
-        if (!confirm('将用「' + srcLabel + '」的全部配置覆盖当前「' + currentLabel + '」的内容（“坑”除外），确认？')) return;
-        // 深拷贝整个环境块；“坑”是该环境特有的，不跟着复制
-        const copy = JSON.parse(JSON.stringify(src));
-        delete copy.quirks;
+        if (!confirm('将用「' + srcLabel + '」'
+                + (isAll ? '的全部配置' : '的「' + moduleLabel + '」配置')
+                + '覆盖当前「' + currentLabel + '」的内容'
+                + (isAll ? '（“其他信息或备注”除外）' : '')
+                + '，确认？')) return;
         if (!state.environments) state.environments = {};
-        state.environments[activeTab] = copy;
+        if (!state.environments[activeTab]) state.environments[activeTab] = {};
+        if (isAll) {
+            // 深拷贝整个环境块；“其他信息或备注”是该环境特有的，不跟着复制
+            const copy = JSON.parse(JSON.stringify(src));
+            delete copy.quirks;
+            state.environments[activeTab] = copy;
+        } else {
+            // 只覆盖左侧当前选中模块的数据，其他模块保持不变
+            state.environments[activeTab][activeModule] = JSON.parse(JSON.stringify(src[activeModule]));
+        }
         // 关键：先清空旧输入框。renderEnvContent 开头的 collectAll 会把 DOM 里的旧值写回 state，
         // 若不清空，刚复制进来的 VPN/向日葵等字段会被旧值覆盖
         document.getElementById('env-content').innerHTML = '';
@@ -417,16 +442,93 @@ function renderEnvContent() {
     // 复制配置工具条
     renderCopyToolbar(box);
 
-    // 向日葵
+    // 按左侧选中的模块渲染（全部 = 依序渲染所有模块）
+    MODULES.filter(m => activeModule === 'all' || m.key === activeModule).forEach(m => {
+        const wrap = document.createElement('div');
+        m.render(wrap, p);
+        box.appendChild(wrap);
+    });
+}
+
+// 重渲染环境内容时保持页面滚动位置不变
+function rerenderWithStableScroll(render) {
+    const content = document.getElementById('env-content');
+    // 记住当前内容高度：切到内容更少的模块时用它撑住页面，
+    // 否则文档骤然变短，浏览器会把超出部分的滚动条强制上收（表现为跳顶）
+    const reserve = content.offsetHeight;
+    // 焦点元素马上会被 innerHTML 重建移除，先移走焦点避免浏览器异常滚动
+    if (document.activeElement && document.activeElement.blur) {
+        document.activeElement.blur();
+    }
+    const anchor = document.getElementById('env-tabs');
+    const topBefore = anchor.getBoundingClientRect().top;
+    render();
+    // 用上一次的内容高度撑住文档，滚动条位置就不会被浏览器改变
+    content.style.minHeight = reserve + 'px';
+    // 新内容本身更高时去掉预留，让页面正常伸缩
+    if (content.offsetHeight > reserve) content.style.minHeight = '';
+    // 微调：保证环境区块标题在视口中的位置稳定
+    window.scrollBy(0, anchor.getBoundingClientRect().top - topBefore);
+}
+
+// 环境块内的模块清单：key 同时是数据字段名，render 负责把该模块渲染进容器
+const MODULES = [
+    { key: 'sunlogin', label: '远程方式', render: renderSunloginInto },
+    { key: 'vpn', label: 'VPN', render: renderVpnInto },
+    { key: 'bastion', label: '堡垒机', render: renderBastionInto },
+    { key: 'clients', label: '服务器信息', render: renderClientsInto },
+    { key: 'access', label: '到达路径', render: renderAccessInto },
+    { key: 'admin', label: '管理员账号', render: renderAdminInto },
+    { key: 'code', label: '代码分支', render: renderCodeInto },
+    { key: 'quirks', label: '其他信息或备注', render: renderQuirksInto }
+];
+
+// 左侧模块导航：全部 + 各模块；切换时只重渲染内容区，不改动其他模块的数据
+function renderModuleSide() {
+    const box = document.getElementById('env-side');
+    box.innerHTML = '';
+    [{ key: 'all', label: '全部' }].concat(MODULES).forEach(({ key, label }) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'side-btn' + (key === activeModule ? ' active' : '');
+        // 当前环境下已填数据的模块在按钮上显示小圆点（“全部”不参与）；
+        // 复用 pruneEmpty：空对象/空数组/空字符串都视为无数据
+        const moduleData = ((state.environments || {})[activeTab] || {})[key];
+        // 远程方式：仅选择了方式（type）不算有数据，需连接码/密码/备注等实际内容
+        let dataForCheck = moduleData;
+        if (key === 'sunlogin' && moduleData) {
+            dataForCheck = Object.assign({}, moduleData);
+            delete dataForCheck.type;
+        }
+        if (key !== 'all' && pruneEmpty(dataForCheck) !== undefined) {
+            btn.classList.add('has-data');
+        }
+        btn.textContent = label;
+        btn.addEventListener('click', () => {
+            if (key === activeModule) return;
+            collectAll(); // 切换前先收集当前输入
+            activeModule = key;
+            rerenderWithStableScroll(() => {
+                renderModuleSide();
+                renderEnvContent();
+            });
+        });
+        box.appendChild(btn);
+    });
+}
+
+function renderSunloginInto(box, p) {
     const sl = cardContainer();
-    sl.appendChild(subSection('向日葵', [
+    sl.appendChild(subSection('远程方式', [
+        fieldRow('远程方式', p + '.sunlogin.type', { type: 'select', options: ['向日葵', 'Todesk'] }),
         fieldRow('连接码', p + '.sunlogin.id', { copy: true }),
         fieldRow('密码', p + '.sunlogin.password', { type: 'password', copy: true, reveal: true }),
         fieldRow('备注', p + '.sunlogin.notes', { type: 'textarea' })
     ]));
     box.appendChild(sl);
+}
 
-    // VPN
+function renderVpnInto(box, p) {
     const vpn = cardContainer();
     vpn.appendChild(subSection('VPN', [
         fieldRow('客户端类型', p + '.vpn.how'),
@@ -437,39 +539,22 @@ function renderEnvContent() {
         fieldRow('备注', p + '.vpn.notes', { type: 'textarea' })
     ]));
     box.appendChild(vpn);
+}
 
-    // 堡垒机
+function renderBastionInto(box, p) {
     const bastion = cardContainer();
     bastion.appendChild(subSection('堡垒机', [
         fieldRow('类型', p + '.bastion.type'),
         fieldRow('入口地址', p + '.bastion.entry', { copy: true }),
         fieldRow('用户名', p + '.bastion.account.user'),
-        fieldRow('密码', p + '.bastion.account.password', { type: 'password', copy: true, reveal: true })
+        fieldRow('密码', p + '.bastion.account.password', { type: 'password', copy: true, reveal: true }),
+        fieldRow('备注', p + '.bastion.notes', { type: 'textarea' })
     ]));
     box.appendChild(bastion);
+}
 
-    // 客户端清单（多条）：app / db / 文档服务等
-    const clientsBox = document.createElement('div');
-    renderClientsInto(clientsBox, p);
-    box.appendChild(clientsBox);
-
-    // 到达路径（多条）
-    const accessBox = document.createElement('div');
-    renderAccessInto(accessBox, p);
-    box.appendChild(accessBox);
-
-    // 管理员账号（含找回流程）
-    const adminBox = document.createElement('div');
-    renderAdminInto(adminBox, p);
-    box.appendChild(adminBox);
-
-    // 代码分支（多条）
-    const codeBox = document.createElement('div');
-    renderCodeInto(codeBox, p);
-    box.appendChild(codeBox);
-
-    // 坑
-    box.appendChild(subSection('坑（该环境特有的注意事项）', [
+function renderQuirksInto(box, p) {
+    box.appendChild(subSection('其他信息或备注', [
         fieldRow('', p + '.quirks', { type: 'textarea' })
     ]));
 }
@@ -480,7 +565,7 @@ function renderClientsInto(box, p) {
     collectAll();
     const basePath = p + '.clients';
 
-    // 名称候选：常见客户端角色，也允许自定义输入
+    // 名称候选：常见服务器角色，也允许自定义输入
     let datalist = document.getElementById('client-name-options');
     if (!datalist) {
         datalist = document.createElement('datalist');
@@ -499,13 +584,13 @@ function renderClientsInto(box, p) {
         const headRow = document.createElement('div');
         headRow.className = 'form-row';
         const headLabel = document.createElement('label');
-        headLabel.textContent = '客户端 ' + (i + 1);
+        headLabel.textContent = '服务器 ' + (i + 1);
         const delBtn = document.createElement('button');
         delBtn.type = 'button';
         delBtn.className = 'icon-btn';
-        delBtn.textContent = '删除此客户端';
+        delBtn.textContent = '删除此服务器';
         delBtn.addEventListener('click', () => {
-            if (!confirm('确认删除这个客户端？')) return;
+            if (!confirm('确认删除这个服务器？')) return;
             collectAll();
             getPath(state, basePath).splice(i, 1);
             if (getPath(state, basePath).length === 0) setPath(state, p + '.clients', null);
@@ -525,7 +610,7 @@ function renderClientsInto(box, p) {
         card.appendChild(fieldRow('密码', basePath + '.' + i + '.account.password', { type: 'password', copy: true, reveal: true }));
         box.appendChild(card);
     });
-    addSectionButton(box, '+ 添加客户端', () => {
+    addSectionButton(box, '+ 添加服务器', () => {
         collectAll();
         if (!getPath(state, basePath)) setPath(state, basePath, []);
         getPath(state, basePath).push({});
@@ -692,16 +777,21 @@ function pruneEmpty(value) {
 async function init() {
     if (isNew) {
         document.getElementById('page-title').textContent = '新建客户';
+        document.getElementById('page-subtitle').textContent = '';
         state = {};
     } else {
         document.getElementById('page-title').textContent = '客户：' + envName;
         state = await api('/api/environments/' + encodeURIComponent(envName));
+        // 更新时间以灰色小字展示在标题下方（保存后 init() 会重新渲染刷新）
+        document.getElementById('page-subtitle').textContent =
+            state.updated_at ? '更新时间：' + state.updated_at : '';
     }
 
     renderBasic();
     renderTags();
     renderFiles();
     renderTabs();
+    renderModuleSide();
     renderEnvContent();
 
     document.getElementById('delete-btn').classList.toggle('hidden', isNew);

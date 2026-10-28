@@ -20,7 +20,7 @@ public class EnvBlock {
     /** 向日葵连接信息（需要向日葵连接的环境使用） */
     private Sunlogin sunlogin;
 
-    /** 客户端清单：app、db、文档服务等，各含 IP 与账号 */
+    /** 服务器清单：app、db、文档服务等，各含 IP 与账号 */
     private List<ClientInfo> clients;
 
     /** 若干条「到达路径」 */
@@ -32,7 +32,7 @@ public class EnvBlock {
     /** 该环境部署的项目代码分支 */
     private List<CodeEntry> code;
 
-    /** 该环境特有的坑 */
+    /** 该环境特有的其他信息或备注 */
     private String quirks;
 
     public Vpn getVpn() {

@@ -19,6 +19,9 @@ public class Bastion {
 
     private Account account;
 
+    /** 备注（如：登录方式说明、使用限制等） */
+    private String notes;
+
     public String getType() {
         return type;
     }
@@ -41,5 +44,13 @@ public class Bastion {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

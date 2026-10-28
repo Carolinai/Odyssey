@@ -31,6 +31,12 @@ public class Environment {
     /** 客户附件（VPN 软件、使用文档等），文件实体在 files/<客户名>/ 下 */
     private List<FileInfo> files;
 
+    /** 创建时间（yyyy-MM-dd HH:mm） */
+    private String createdAt;
+
+    /** 更新时间（yyyy-MM-dd HH:mm），每次保存刷新，列表页按此倒序展示 */
+    private String updatedAt;
+
     public String getName() {
         return name;
     }
@@ -69,5 +75,21 @@ public class Environment {
 
     public void setFiles(List<FileInfo> files) {
         this.files = files;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

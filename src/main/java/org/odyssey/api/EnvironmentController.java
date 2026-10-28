@@ -76,11 +76,11 @@ public class EnvironmentController {
 
     @PostMapping
     public Environment create(@RequestBody Environment env) {
-        store.create(env);
+        store.create(env); // created_at / updated_at 由存储层统一生成
         return env;
     }
 
-    /** name 不可改：以路径参数为准，忽略请求体中的 name */
+    /** name 不可改：以路径参数为准，忽略请求体中的 name；时间字段由存储层维护 */
     @PutMapping("/{name}")
     public Environment update(@PathVariable String name, @RequestBody Environment env) {
         env.setName(name);
