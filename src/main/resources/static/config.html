@@ -20,17 +20,18 @@
     <div class="form-section">
         <h2>远程方式唤起链接</h2>
         <p class="page-hint">
-            详情页「远程方式」填入下方名称（如：向日葵）时会出现「唤起」按钮，点击后通过自定义协议唤起<strong>访问者本机</strong>的应用。
-            本页配置存于服务器、配一次所有人共用；若点击唤起时提示「没有注册协议」，在对应电脑上点开下方的注册说明操作一次即可。
+            每行配置「远程方式名 → 唤起链接（自定义协议）」，例如：向日葵 → <code>sunlogin://</code>、Todesk → <code>todesk://</code>。<br>
+            远程方式名必须与客户信息中填写的「远程方式」<strong>完全一致（一一对应）</strong>，详情页才会出现「唤起」按钮；点击后唤起的是<strong>访问者本机</strong>的应用。<br>
+            本页配置存于服务器、配一次所有人共用；若点击唤起时提示「没有注册协议」或进程启动但不弹窗，在对应电脑上点开下方的注册说明操作一次即可。
         </p>
 
         <details class="protocol-guide">
             <summary>向日葵（sunlogin://）注册说明</summary>
             <div class="protocol-body">
                 <p>
-                    向日葵国内版安装后通常已自动注册，无需操作。AweSun 等版本若无自动注册：
-                    在本机开始菜单打开 <strong>PowerShell</strong>（普通权限即可），整段粘贴执行
-                    （脚本中的安装路径请按实际位置修改；写入的是当前用户注册表，不影响其他用户）：
+                    向日葵国内版安装后通常已自动注册，无需操作，AweSun 等版本若无自动注册：<br>
+                    在本机开始菜单打开 <strong>PowerShell</strong>（普通权限即可），整段粘贴执行：<br>
+                    （脚本中的安装路径请按实际位置修改；写入的是当前用户注册表，不影响其他用户）
                 </p>
 <pre class="reg-sample">$r=[Microsoft.Win32.Registry]::CurrentUser
 $k=$r.CreateSubKey('Software\Classes\sunlogin')
@@ -45,10 +46,10 @@ Write-Output '注册完成'</pre>
                     完成后用 <code>Win + R</code> 输入 <code>sunlogin://</code> 验证，向日葵能弹出即成功。
                 </p>
                 <p>
-                    <strong>为什么用 explorer 包装：</strong>部分远程软件（如 ToDesk、AweSun）启动时依赖工作目录，
-                    协议直接启动 exe 会出现「进程已启动但不弹窗」的情况；用 explorer 启动与双击图标等效
-                    （工作目录自动为 exe 所在目录），可避免此问题。若之前注册过直接启动的写法且不弹窗，
-                    把 command 值改为上面的 explorer 包装写法即可。
+                    <strong>为什么用 explorer 包装：</strong><br>
+                    部分远程软件（如 ToDesk、AweSun）启动时依赖工作目录，协议直接启动 exe 会出现「进程已启动但不弹窗」的情况。<br>
+                    用 explorer 启动与双击图标等效（工作目录自动为 exe 所在目录），可避免此问题。<br>
+                    若之前注册过直接启动的写法且不弹窗，把 command 值改为上面的 explorer 包装写法即可。
                 </p>
             </div>
         </details>
@@ -57,9 +58,9 @@ Write-Output '注册完成'</pre>
             <summary>Todesk（todesk://）注册说明</summary>
             <div class="protocol-body">
                 <p>
-                    Todesk 无官方 URL 协议，且直接启动时依赖工作目录，需要用 <code>explorer.exe</code> 包装
-                    （等同双击效果）。在本机开始菜单打开 <strong>PowerShell</strong>（普通权限即可），整段粘贴执行
-                    （脚本中的安装路径请按实际位置修改；写入的是当前用户注册表，不影响其他用户）：
+                    Todesk 无官方 URL 协议，且直接启动时依赖工作目录，需要用 <code>explorer.exe</code> 包装（等同双击效果）。<br>
+                    在本机开始菜单打开 <strong>PowerShell</strong>（普通权限即可），整段粘贴执行：<br>
+                    （脚本中的安装路径请按实际位置修改；写入的是当前用户注册表，不影响其他用户）
                 </p>
 <pre class="reg-sample">$r=[Microsoft.Win32.Registry]::CurrentUser
 $k=$r.CreateSubKey('Software\Classes\todesk')

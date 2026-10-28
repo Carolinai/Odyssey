@@ -14,7 +14,8 @@
 <main class="container">
     <h1>RSA 解密工具</h1>
     <p style="color:#888;font-size:13px">
-        粘贴 SQL 查出的密文直接反解。密文与明文只在内存中处理，不落盘。
+        粘贴 SQL 查出的密文直接反解。<br>
+        密文与明文只在内存中处理，不落盘。
     </p>
 
     <div class="form-section">
@@ -23,6 +24,7 @@
             <label>密文（Base64）</label>
             <textarea id="cipher-input" placeholder="粘贴密文"></textarea>
         </div>
+        <p class="decrypt-tip">已自动通过密钥解密，无需输入密钥</p>
         <button id="decrypt-btn" class="btn btn-primary">解密</button>
     </div>
 

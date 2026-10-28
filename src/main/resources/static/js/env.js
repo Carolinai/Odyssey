@@ -181,7 +181,6 @@ function renderBasic() {
     aliasLabel.textContent = '别名';
     const aliasInput = document.createElement('input');
     aliasInput.dataset.path = 'alias';
-    aliasInput.placeholder = '多个别名用顿号或换行分隔，如：XX行、某行生产';
     aliasInput.value = (state.alias || []).join('、');
     aliasRow.appendChild(aliasLabel);
     aliasRow.appendChild(aliasInput);
@@ -1005,3 +1004,28 @@ document.getElementById('delete-btn').addEventListener('click', async () => {
 });
 
 init();
+
+// 详情页左侧 tab：点击滚动定位 + 滚动时高亮当前区块
+(function initDetailNav() {
+    const nav = document.getElementById('detail-nav');
+    if (!nav) return;
+    const links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+    const sections = links
+        .map(a => document.getElementById(a.getAttribute('href').slice(1)))
+        .filter(Boolean);
+
+    links.forEach(a => a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(a.getAttribute('href').slice(1));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }));
+
+    window.addEventListener('scroll', () => {
+        let current = sections[0];
+        sections.forEach(s => {
+            if (s.getBoundingClientRect().top <= 120) current = s;
+        });
+        links.forEach(a => a.classList.toggle('active',
+            current && a.getAttribute('href') === '#' + current.id));
+    }, { passive: true });
+})();

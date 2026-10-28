@@ -11,6 +11,24 @@ searchInput.addEventListener('input', () => {
     debounceTimer = setTimeout(loadList, 250);
 });
 
+// 列表展现方式：一行一个 / 一行两个 / 一行三个（图标按钮切换，记忆在本浏览器）
+const colBtns = document.querySelectorAll('#list-cols button');
+const LIST_COLS_KEY = 'odyssey.list.columns';
+
+function applyListCols(n) {
+    envList.classList.remove('cols-2', 'cols-3');
+    if (n === 2 || n === 3) envList.classList.add('cols-' + n);
+    colBtns.forEach(b => b.classList.toggle('active', Number(b.dataset.cols) === n));
+}
+
+const savedCols = Number(localStorage.getItem(LIST_COLS_KEY)) || 1;
+applyListCols(savedCols);
+
+colBtns.forEach(b => b.addEventListener('click', () => {
+    localStorage.setItem(LIST_COLS_KEY, b.dataset.cols);
+    applyListCols(Number(b.dataset.cols));
+}));
+
 async function loadList() {
     const kw = searchInput.value.trim();
     const items = await api('/api/environments?kw=' + encodeURIComponent(kw) + '&detail=true');

@@ -13,7 +13,18 @@
 
 <main class="container">
     <div class="search-row">
-        <input id="search" type="search" placeholder="输入客户名或别名过滤，如：某某银行 / XX行" autofocus>
+        <input id="search" type="search" placeholder="输入客户名或别名过滤" autofocus>
+        <div class="view-toggle" id="list-cols">
+            <button type="button" data-cols="1" title="一行一个">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="5" y="2" width="6" height="12" rx="1.5"/></svg>
+            </button>
+            <button type="button" data-cols="2" title="一行两个">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1.5" y="3" width="5.5" height="10" rx="1.5"/><rect x="9" y="3" width="5.5" height="10" rx="1.5"/></svg>
+            </button>
+            <button type="button" data-cols="3" title="一行三个">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="3" width="4" height="10" rx="1.2"/><rect x="6" y="3" width="4" height="10" rx="1.2"/><rect x="11" y="3" width="4" height="10" rx="1.2"/></svg>
+            </button>
+        </div>
         <a class="btn btn-primary" href="/env.html">+ 新建客户</a>
     </div>
 

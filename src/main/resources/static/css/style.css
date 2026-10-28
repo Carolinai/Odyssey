@@ -107,6 +107,40 @@ body.sidebar-collapsed .menu-link { justify-content: center; padding: 9px 4px; }
     padding: 1px 5px;
     font-size: 12px;
 }
+/* 详情页左侧锚点 tab 导航 */
+.detail-layout { display: flex; gap: 16px; align-items: flex-start; }
+.detail-nav {
+    position: sticky;
+    top: 16px;
+    flex: 0 0 104px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.detail-nav a {
+    display: block;
+    padding: 9px 12px;
+    font-size: 13px;
+    color: #666;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #e3e6ea;
+    border-left: 3px solid transparent;
+    border-radius: 6px;
+}
+.detail-nav a:hover { color: #2980b9; }
+.detail-nav a.active {
+    color: #2980b9;
+    font-weight: bold;
+    border-left-color: #2980b9;
+    background: #eaf4fb;
+}
+.detail-body { flex: 1; min-width: 0; }
+#sec-basic, #sec-files, #sec-env { scroll-margin-top: 12px; }
+
+/* RSA 解密工具红色提示 */
+.decrypt-tip { color: #e74c3c; font-size: 13px; font-weight: bold; margin: 0 0 10px; }
+
 .reg-sample {
     background: #f0f3f6;
     border: 1px solid #e3e6ea;
@@ -173,6 +207,31 @@ body {
     border: 1px solid #ccc;
     border-radius: 6px;
 }
+
+/* 列表展现方式：图标按钮组 */
+.view-toggle { display: flex; }
+.view-toggle button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #999;
+    cursor: pointer;
+}
+.view-toggle button + button { border-left: none; }
+.view-toggle button:first-child { border-radius: 6px 0 0 6px; }
+.view-toggle button:last-child { border-radius: 0 6px 6px 0; }
+.view-toggle button:hover { color: #2980b9; }
+.view-toggle button.active { background: #2980b9; color: #fff; border-color: #2980b9; }
+
+/* 列表展现方式：一行一个/两个/三个 */
+#env-list { display: grid; gap: 14px; }
+#env-list.cols-2 { grid-template-columns: repeat(2, 1fr); }
+#env-list.cols-3 { grid-template-columns: repeat(3, 1fr); }
+#env-list .env-card { margin-bottom: 0; }
 
 .btn {
     display: inline-block;
