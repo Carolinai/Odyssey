@@ -73,8 +73,8 @@ public class JenkinsService {
         return props.getBaseUrl() == null ? "" : props.getBaseUrl().replaceAll("/+$", "");
     }
 
-    public List<ViewInfo> fetchViews() {
-        String output = executeScript(LIST_VIEWS_SCRIPT);
+    public List<ViewInfo> fetchViews(String username, String credential) {
+        String output = executeScript(username, credential, LIST_VIEWS_SCRIPT);
         List<ViewInfo> views = new ArrayList<>();
         for (String line : output.split("\r?\n")) {
             if (!line.startsWith("VIEW|")) {
@@ -89,21 +89,52 @@ public class JenkinsService {
         return views;
     }
 
-    /** 执行 Groovy 脚本，返回结果 <pre> 块中的纯文本 */
-    private String executeScript(String script) {
-        if (props.getBaseUrl() == null || props.getBaseUrl().trim().isEmpty()) {
-            throw new IllegalStateException("未配置 Jenkins 连接（jenkins.base-url）");
-        }
-        String base = props.getBaseUrl().replaceAll("/+$", "");
+    /**
+     * 校验 Jenkins 账号凭据（登录用）：调 /me/api/json，
+     * HTTP 200 返回显示名（fullName，空则退回账号名）；
+     * 401/403 视为凭据错误返回 null。
+     */
+    public String authenticate(String username, String credential) {
+        String base = requireBaseUrl();
         try {
-            String crumb = fetchCrumb(base);
+            HttpURLConnection conn = (HttpURLConnection) new URL(base + "/me/api/json").openConnection();
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(CONNECT_TIMEOUT);
+            conn.setReadTimeout(READ_TIMEOUT);
+            conn.setRequestProperty("Authorization", basicAuth(username, credential));
+
+            int status = conn.getResponseCode();
+            if (status == 200) {
+                String body = readStream(conn.getInputStream());
+                JsonNode node = jsonMapper.readTree(body);
+                String fullName = node.path("fullName").asText("");
+                return fullName.trim().isEmpty() ? username : fullName.trim();
+            }
+            if (status == 401 || status == 403) {
+                return null;
+            }
+            // 消费并关闭流，避免连接泄漏
+            readStream(status < 400 ? conn.getInputStream() : conn.getErrorStream());
+            throw new IllegalStateException("Jenkins 账号校验失败（HTTP " + status + "）");
+        } catch (IllegalStateException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new IllegalStateException("Jenkins 连接失败：" + e.getMessage(), e);
+        }
+    }
+
+    /** 执行 Groovy 脚本，返回结果 <pre> 块中的纯文本 */
+    private String executeScript(String username, String credential, String script) {
+        String base = requireBaseUrl();
+        try {
+            String crumb = fetchCrumb(base, username, credential);
 
             HttpURLConnection conn = (HttpURLConnection) new URL(base + "/script").openConnection();
             conn.setRequestMethod("POST");
             conn.setConnectTimeout(CONNECT_TIMEOUT);
             conn.setReadTimeout(READ_TIMEOUT);
             conn.setDoOutput(true);
-            conn.setRequestProperty("Authorization", basicAuth());
+            conn.setRequestProperty("Authorization", basicAuth(username, credential));
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             if (crumb != null) {
                 conn.setRequestProperty("Jenkins-Crumb", crumb);
@@ -137,12 +168,12 @@ public class JenkinsService {
     }
 
     /** 获取 CSRF crumb；未启用 CSRF 时返回 null */
-    private String fetchCrumb(String base) throws Exception {
+    private String fetchCrumb(String base, String username, String credential) throws Exception {
         HttpURLConnection conn = (HttpURLConnection) new URL(base + "/crumbIssuer/api/json").openConnection();
         conn.setRequestMethod("GET");
         conn.setConnectTimeout(CONNECT_TIMEOUT);
         conn.setReadTimeout(READ_TIMEOUT);
-        conn.setRequestProperty("Authorization", basicAuth());
+        conn.setRequestProperty("Authorization", basicAuth(username, credential));
 
         int status = conn.getResponseCode();
         if (status == 404) {
@@ -150,15 +181,24 @@ public class JenkinsService {
         }
         String body = readStream(status < 400 ? conn.getInputStream() : conn.getErrorStream());
         if (status != 200) {
-            throw new IllegalStateException("获取 Jenkins crumb 失败（HTTP " + status + "），请检查账号配置");
+            throw new IllegalStateException("获取 Jenkins crumb 失败（HTTP " + status + "），请检查账号凭据");
         }
         JsonNode node = jsonMapper.readTree(body);
         return node.path("crumb").asText(null);
     }
 
-    private String basicAuth() {
-        String token = props.getUsername() + ":" + props.getPassword();
+    /** 拼接 Basic 认证头（密码或 API Token 通用） */
+    private String basicAuth(String username, String credential) {
+        String token = username + ":" + credential;
         return "Basic " + Base64.getEncoder().encodeToString(token.getBytes(StandardCharsets.UTF_8));
+    }
+
+    /** 取去除尾部斜杠的 base-url；未配置时抛出明确错误 */
+    private String requireBaseUrl() {
+        if (props.getBaseUrl() == null || props.getBaseUrl().trim().isEmpty()) {
+            throw new IllegalStateException("未配置 Jenkins 连接（jenkins.base-url）");
+        }
+        return props.getBaseUrl().replaceAll("/+$", "");
     }
 
     private String readStream(java.io.InputStream in) throws Exception {

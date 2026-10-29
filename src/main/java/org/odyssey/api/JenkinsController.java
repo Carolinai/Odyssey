@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,10 +31,14 @@ public class JenkinsController {
     }
 
     @GetMapping("/views")
-    public ResponseEntity<?> views() {
+    public ResponseEntity<?> views(HttpServletRequest request) {
+        // 视图查询用当前登录用户自己的 Jenkins 凭据，看到的即其在 Jenkins 里有权限看的视图
+        HttpSession session = request.getSession();
+        String user = (String) session.getAttribute(AuthController.SESSION_USER);
+        String credential = (String) session.getAttribute(AuthController.SESSION_CREDENTIAL);
         try {
             Map<String, Object> result = new HashMap<>();
-            result.put("views", service.fetchViews());
+            result.put("views", service.fetchViews(user, credential));
             // 前端拼视图详情页链接用（{base}/view/{视图名}/）
             result.put("base_url", service.getBaseUrl());
             return ResponseEntity.ok(result);

@@ -1,6 +1,12 @@
 # 服务端口（避开常用 8080，减少冲突）
 server:
   port: 8787
+  servlet:
+    session:
+      # 内部工具：会话 30 天有效且 Cookie 持久化，避免频繁重新登录（服务重启仍会全部失效）
+      timeout: 30d
+      cookie:
+        max-age: 30d
 
 spring:
   application:
@@ -15,10 +21,7 @@ spring:
 odyssey:
   data-dir: ${user.home}/.odyssey
 
-# Jenkins 连接（主页「Jenkins 视图」区块用）
-# 真实值通过环境变量或启动参数传入，例如：
-#   --jenkins.base-url=... --jenkins.username=... --jenkins.password=...
+# Jenkins 连接（主页「Jenkins 视图」区块用；账号用各用户自己登录的 Jenkins 账号，不在配置里）
+# 真实值通过环境变量或启动参数传入，例如：--jenkins.base-url=...
 jenkins:
   base-url: ${JENKINS_BASE_URL:}
-  username: ${JENKINS_USERNAME:}
-  password: ${JENKINS_PASSWORD:}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 个人中心</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="personal">
+<div class="layout">
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="container">
+    <h1>个人中心</h1>
+    <p class="page-hint">
+        系统不建立独立账号，你的用户身份即 Jenkins 账号；后续各项业务权限均基于该身份控制。
+    </p>
+
+    <div class="form-section">
+        <div class="profile-row">
+            <span class="profile-label">用户名称</span>
+            <span id="profile-name">加载中…</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">账号</span>
+            <span id="profile-user">加载中…</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">身份来源</span>
+            <span>Jenkins 账号（登录时经 Jenkins 校验）</span>
+        </div>
+        <div class="profile-row">
+            <span class="profile-label">凭据保存</span>
+            <span>仅保存在服务器会话中，注销或会话过期即失效</span>
+        </div>
+    </div>
+</main>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/personal.js"></script>
+</body>
+</html>

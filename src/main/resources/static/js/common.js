@@ -1,8 +1,14 @@
 // 公共工具：请求封装、复制、toast 提示（列表页、表单页、RSA 工具页共用）
 
-/** 请求 JSON 接口，非 2xx 时抛出含 message 的 Error */
+/** 请求 JSON 接口，非 2xx 时抛出含 message 的 Error；401 统一跳登录页（带来源地址） */
 async function api(url, options) {
     const resp = await fetch(url, options);
+    if (resp.status === 401 && !location.pathname.startsWith('/login.html')) {
+        location.href = '/login.html?next=' + encodeURIComponent(location.pathname + location.search);
+        const err = new Error('未登录');
+        err.status = 401;
+        throw err;
+    }
     if (!resp.ok) {
         let message = '请求失败（HTTP ' + resp.status + '）';
         try {
@@ -55,6 +61,7 @@ function toast(message) {
 const DEFAULT_MENUS = [
     { key: 'envs', label: '客户列表', url: '/' },
     { key: 'jenkins', label: 'Jenkins 视图', url: '/jenkins.html' },
+    { key: 'audit', label: '审计日志', url: '/audit.html' },
     { key: 'decrypt', label: 'RSA 工具', url: '/decrypt.html' },
     { key: 'config', label: '全局配置', url: '/config.html' },
     { key: 'menus', label: '菜单管理', url: '/menus.html' }
@@ -189,9 +196,100 @@ function renderSidebar() {
         renderSidebar();
     });
     side.appendChild(toggle);
+
+    // 最底部用户卡片：展示当前登录用户（中文显示名 + 账号），点卡片/「个人中心」进个人信息页
+    api('/api/auth/me').then(r => {
+        if (!r || !r.user) return;
+        side.appendChild(buildUserCard(r.name || r.user, r.user));
+    }).catch(() => { /* 未登录：api() 已统一跳登录页 */ });
+}
+
+/** 侧栏底部用户卡片：头像 + 显示名/账号，下方「个人中心」「注销」按钮 */
+function buildUserCard(displayName, account) {
+    const card = document.createElement('div');
+    card.className = 'user-card';
+
+    const main = document.createElement('div');
+    main.className = 'user-card-main';
+    main.title = '个人中心';
+    main.addEventListener('click', () => { location.href = '/personal.html'; });
+
+    const avatar = document.createElement('div');
+    avatar.className = 'user-card-avatar';
+    avatar.textContent = displayName.charAt(0);
+    main.appendChild(avatar);
+
+    const info = document.createElement('div');
+    info.className = 'user-card-info';
+    const name = document.createElement('div');
+    name.className = 'user-card-name';
+    name.textContent = displayName;
+    const sub = document.createElement('div');
+    sub.className = 'user-card-sub';
+    sub.textContent = account;
+    info.appendChild(name);
+    info.appendChild(sub);
+    main.appendChild(info);
+    card.appendChild(main);
+
+    const actions = document.createElement('div');
+    actions.className = 'user-card-actions';
+    const centerBtn = document.createElement('button');
+    centerBtn.type = 'button';
+    centerBtn.textContent = '个人中心';
+    centerBtn.addEventListener('click', () => { location.href = '/personal.html'; });
+    const logoutBtn = document.createElement('button');
+    logoutBtn.type = 'button';
+    logoutBtn.textContent = '注销';
+    logoutBtn.addEventListener('click', async () => {
+        try {
+            await api('/api/auth/logout', { method: 'POST' });
+        } catch (e) { /* 会话已失效也继续跳转 */ }
+        location.href = '/login.html';
+    });
+    actions.appendChild(centerBtn);
+    actions.appendChild(logoutBtn);
+    card.appendChild(actions);
+
+    return card;
 }
 
 document.addEventListener('DOMContentLoaded', renderSidebar);
+
+/** 构造一条审计日志行：时间 | 用户名称(中文) | 账号 | 事件徽标 | 描述（审计日志页与详情页共用） */
+function buildAuditRow(entry) {
+    const row = document.createElement('div');
+    row.className = 'audit-row';
+
+    const time = document.createElement('span');
+    time.className = 'audit-time';
+    time.textContent = entry.time || '';
+    row.appendChild(time);
+
+    const userName = document.createElement('span');
+    userName.className = 'audit-user';
+    userName.textContent = entry.user_name || '';
+    row.appendChild(userName);
+
+    const user = document.createElement('span');
+    user.className = 'audit-account';
+    user.textContent = entry.user || '';
+    row.appendChild(user);
+
+    const evt = entry.event || '';
+    const event = document.createElement('span');
+    event.className = 'audit-event audit-event-'
+        + (evt === '新增' ? 'create' : (evt === '删除' ? 'delete' : 'update'));
+    event.textContent = evt;
+    row.appendChild(event);
+
+    const desc = document.createElement('span');
+    desc.className = 'audit-desc';
+    desc.textContent = entry.description || '';
+    row.appendChild(desc);
+
+    return row;
+}
 
 // ---------- 全局配置（懒加载缓存；详情页唤起按钮等处使用） ----------
 let _globalConfigPromise = null;

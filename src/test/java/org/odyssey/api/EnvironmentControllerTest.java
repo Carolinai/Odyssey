@@ -10,12 +10,16 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.context.annotation.Import;
+import org.odyssey.config.AuthedMockMvcConfig;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
@@ -30,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(AuthedMockMvcConfig.class)
 class EnvironmentControllerTest {
 
     @TempDir
@@ -213,5 +218,52 @@ class EnvironmentControllerTest {
                         .file(new MockMultipartFile("file", "a.txt",
                                 MediaType.TEXT_PLAIN_VALUE, "x".getBytes(StandardCharsets.UTF_8))))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void 增改删均记录审计日志_倒序返回() throws Exception {
+        createEnv("审计甲银行");
+
+        mvc.perform(put("/api/environments/审计甲银行")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\": \"审计甲银行\", \"environments\": {\"prod\": {\"quirks\": \"改后备注\"}}}"))
+                .andExpect(status().isOk());
+
+        mvc.perform(delete("/api/environments/审计甲银行"))
+                .andExpect(status().isOk());
+
+        String resp = mvc.perform(get("/api/audit?target_name=审计甲银行"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        com.fasterxml.jackson.databind.JsonNode logs =
+                new com.fasterxml.jackson.databind.ObjectMapper().readTree(resp);
+        assertEquals(3, logs.size(), "增改删各记一条");
+        assertEquals("删除", logs.get(0).get("event").asText());
+        assertEquals("修改", logs.get(1).get("event").asText());
+        assertTrue(logs.get(1).get("description").asText().contains("备注"), "修改描述应含变更字段");
+        assertEquals("新增", logs.get(2).get("event").asText());
+        // 字段维度：账号 / 用户名称 / 操作对象 / 对象名称
+        assertEquals("tester", logs.get(2).get("user").asText());
+        assertEquals("测试用户", logs.get(2).get("user_name").asText());
+        assertEquals("客户信息", logs.get(2).get("target").asText());
+        assertEquals("审计甲银行", logs.get(2).get("target_name").asText());
+        assertTrue(logs.get(2).has("time"), "应含操作时间");
+    }
+
+    @Test
+    void 无差异的保存不记审计日志() throws Exception {
+        createEnv("审计乙银行");
+        // 原样保存一遍（前端提交全量数据、内容未变的场景）
+        mvc.perform(put("/api/environments/审计乙银行")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(String.format(FULL_ENV_JSON, "审计乙银行")))
+                .andExpect(status().isOk());
+
+        String resp = mvc.perform(get("/api/audit?target_name=审计乙银行"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        com.fasterxml.jackson.databind.JsonNode logs =
+                new com.fasterxml.jackson.databind.ObjectMapper().readTree(resp);
+        assertEquals(1, logs.size(), "只有创建一条，无差异保存不记审计");
     }
 }

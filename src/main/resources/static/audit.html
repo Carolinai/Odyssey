@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 审计日志</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="audit">
+<div class="layout">
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="container">
+    <h1>审计日志</h1>
+    <p class="page-hint">
+        系统操作留痕：按操作对象（客户）分组、组内时间倒序；新增 / 修改 / 删除以不同颜色标注，只记录变更字段、不记录字段值。
+    </p>
+
+    <div class="search-row">
+        <input id="audit-filter" type="search" placeholder="过滤用户、客户名或描述">
+    </div>
+
+    <div id="audit-groups">尚未加载</div>
+</main>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/audit.js"></script>
+</body>
+</html>

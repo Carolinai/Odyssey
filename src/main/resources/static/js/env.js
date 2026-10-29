@@ -70,6 +70,10 @@ function fieldRow(label, path, opts) {
     } else {
         input = document.createElement('input');
         input.type = opts.type === 'password' ? 'password' : 'text';
+        // 本页是业务数据表单，不是登录表单：明确关闭浏览器自动填充，
+        // 避免密码管理器把「文本框+密码框」误判成登录表单、回填 Jenkins 账号密码；
+        // 密码框必须用 new-password（Chrome 会忽略 autocomplete="off"）
+        input.setAttribute('autocomplete', opts.type === 'password' ? 'new-password' : 'off');
     }
     input.dataset.path = path;
     if (opts.list) input.setAttribute('list', opts.list); // datalist：下拉候选 + 可自行输入
@@ -955,8 +959,29 @@ async function init() {
     renderTabs();
     renderModuleSide();
     renderEnvContent();
+    loadAuditSection();
 
     document.getElementById('delete-btn').classList.toggle('hidden', isNew);
+}
+
+// 详情页审计 tab：只展示本客户的日志（保存/删除后 init() 会重新加载刷新）
+async function loadAuditSection() {
+    const box = document.getElementById('audit-section');
+    if (isNew) {
+        box.textContent = '新建客户暂无审计日志';
+        return;
+    }
+    try {
+        const logs = await api('/api/audit?target_name=' + encodeURIComponent(envName));
+        box.innerHTML = '';
+        if (!logs.length) {
+            box.textContent = '（暂无审计日志）';
+            return;
+        }
+        logs.forEach(l => box.appendChild(buildAuditRow(l)));
+    } catch (e) {
+        box.textContent = '加载失败：' + e.message;
+    }
 }
 
 document.getElementById('save-btn').addEventListener('click', async () => {

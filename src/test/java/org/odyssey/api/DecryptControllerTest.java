@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.context.annotation.Import;
+import org.odyssey.config.AuthedMockMvcConfig;
 
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
@@ -29,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /** RSA 解密接口测试：用内置私钥对应的公钥走通「加密→解密」闭环及错误分支 */
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(AuthedMockMvcConfig.class)
 class DecryptControllerTest {
 
     @TempDir

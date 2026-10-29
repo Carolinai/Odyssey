@@ -28,4 +28,9 @@ public class StoreConfig {
     public GlobalConfigStore globalConfigStore(Path dataRoot) {
         return new GlobalConfigStore(dataRoot);
     }
+
+    @Bean
+    public AuditStore auditStore(Path dataRoot) {
+        return new AuditStore(dataRoot);
+    }
 }

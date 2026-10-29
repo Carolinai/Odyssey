@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 登录</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="login-page">
+<div class="login-card">
+    <h1 class="login-title">Odyssey</h1>
+    <p class="login-hint">使用 Jenkins 账号登录</p>
+
+    <input id="login-user" type="text" placeholder="Jenkins 用户名" autocomplete="username">
+    <input id="login-cred" type="password" placeholder="密码或 API Token" autocomplete="current-password">
+    <button id="login-submit" class="btn btn-primary" type="button">登录</button>
+
+    <div id="login-error" class="login-error"></div>
+    <p class="login-tip">
+        建议使用 Jenkins API Token，避免暴露登录密码<br>
+        获取路径：Jenkins → 用户名 → 设置 → API Token
+    </p>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/login.js"></script>
+</body>
+</html>

@@ -526,8 +526,9 @@ body {
     box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
 }
 
-/* 详情页底部留出空间，避免内容被悬浮操作栏遮挡 */
-.detail-page { padding-bottom: 96px; }
+/* 详情页底部留出空间，避免内容（尤其最后的审计日志区块）被悬浮操作栏遮挡；
+   注意与 .layout > .container 的 padding 声明竞争，需保持同等或更高优先级 */
+.layout > .detail-page { padding-bottom: 96px; }
 
 .pwd-masked { letter-spacing: 2px; }
 
@@ -626,4 +627,163 @@ body {
     max-height: 92vh;
     border-radius: 4px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* 侧栏最底部用户卡片：头像 + 用户名，下方「个人中心」「注销」按钮 */
+.user-card {
+    flex-shrink: 0;
+    margin-top: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 10px 10px 8px;
+}
+.user-card-main {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.user-card-main:hover .user-card-name { color: #5dade2; }
+.user-card-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #2980b9;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: bold;
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+.user-card-info { min-width: 0; }
+.user-card-name {
+    color: #fff;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.user-card-sub { color: #95a5a6; font-size: 11px; }
+.user-card-actions { display: flex; gap: 6px; margin-top: 8px; }
+.user-card-actions button {
+    flex: 1;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 0;
+    background: rgba(255, 255, 255, 0.12);
+    color: #d5dbe1;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.user-card-actions button:hover { background: #2980b9; color: #fff; }
+/* 收起态：只留头像，按钮隐藏 */
+body.sidebar-collapsed .user-card-main { justify-content: center; }
+body.sidebar-collapsed .user-card-info,
+body.sidebar-collapsed .user-card-actions { display: none; }
+body.sidebar-collapsed .user-card { padding: 6px 4px; }
+
+/* 个人中心：信息行 */
+.profile-row {
+    display: flex;
+    gap: 16px;
+    padding: 9px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f2f5;
+}
+.profile-row:last-child { border-bottom: none; }
+.profile-label { flex: 0 0 88px; color: #888; }
+
+/* 审计日志行（审计日志页、详情页审计 tab 共用） */
+.audit-list { display: flex; flex-direction: column; }
+.audit-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f2f5;
+    font-size: 13px;
+}
+.audit-row:last-child { border-bottom: none; }
+.audit-time { color: #999; flex: 0 0 148px; white-space: nowrap; }
+.audit-user { flex: 0 0 90px; color: #555; word-break: break-all; }
+.audit-account { flex: 0 0 100px; color: #999; word-break: break-all; }
+.audit-event {
+    flex: 0 0 44px;
+    text-align: center;
+    border-radius: 4px;
+    padding: 1px 0;
+    font-size: 12px;
+    color: #fff;
+}
+.audit-event-create { background: #27ae60; }
+.audit-event-update { background: #2980b9; }
+.audit-event-delete { background: #c0392b; }
+.audit-desc { flex: 1; min-width: 0; word-break: break-all; }
+
+/* 审计日志页：按对象名称（客户）分组 */
+.audit-group { margin-bottom: 22px; }
+.audit-group-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c3e50;
+    padding: 6px 0;
+    border-bottom: 1px solid #e3e6ea;
+}
+.audit-group-count { color: #999; font-weight: normal; font-size: 12px; }
+
+/* 登录页：居中卡片 */
+.login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+.login-card {
+    width: 320px;
+    background: #fff;
+    border: 1px solid #e3e6ea;
+    border-radius: 8px;
+    padding: 32px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.login-title {
+    margin: 0;
+    text-align: center;
+    font-size: 24px;
+}
+.login-hint {
+    margin: 0 0 8px;
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+}
+.login-card input {
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+.login-card .btn { width: 100%; padding: 10px 0; }
+.login-error {
+    color: #c0392b;
+    font-size: 13px;
+    min-height: 18px;
+    margin: -4px 0 0;
+}
+.login-tip {
+    margin: 8px 0 0;
+    color: #aaa;
+    font-size: 12px;
+    line-height: 1.8;
+    text-align: center;
 }

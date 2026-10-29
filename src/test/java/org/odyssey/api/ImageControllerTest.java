@@ -11,6 +11,8 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.context.annotation.Import;
+import org.odyssey.config.AuthedMockMvcConfig;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -33,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import(AuthedMockMvcConfig.class)
 class ImageControllerTest {
 
     @TempDir
