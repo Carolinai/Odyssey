@@ -1,0 +1,1368 @@
+{
+ "url": "http://localhost:8787/env.html",
+ "at": "2026-10-29T02:40:05.283Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.56,
+    0.64,
+    0.55
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 2448,
+     "screens": 2.7,
+     "words": 99,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 11,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "新建客户",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 24,
+     "vw": 1.7,
+     "font": "Microsoft YaHei",
+     "weight": 600,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 59,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "新建客户",
+     "words": 1,
+     "lines": 1,
+     "size": 24,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": null,
+     "measureChars": null,
+     "max": {
+      "size": 24,
+      "vw": 1.7,
+      "font": "Microsoft YaHei",
+      "text": "新建客户"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.08,
+     "centerShare": 0.28,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f2f4f7",
+     "bodyBgHsl": {
+      "h": 216,
+      "s": 0.24,
+      "l": 0.96
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 443,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#5c636b",
+       "share": 0.56
+      },
+      {
+       "color": "#1a1d21",
+       "share": 0.43
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      },
+      {
+       "color": "#0e3a5c",
+       "share": 0
+      }
+     ],
+     "button": {
+      "bg": "#e9ecef",
+      "hsl": {
+       "h": 210,
+       "s": 0.16,
+       "l": 0.93
+      },
+      "fg": "#1a1d21"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 3,
+     "inHero": 3,
+     "radius": 6,
+     "height": 37,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "客户列表",
+      "基本信息",
+      "全部"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "aside#sidebar.sidebar 168px",
+      "div#env-tabs.tabs 890px",
+      "div.action-bar 1272px"
+     ],
+     "outlinedBoxes": 7,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 7,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 98
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 2,
+     "fixed": true,
+     "height": 138,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 2448,
+    "margins": {
+     "left": 46,
+     "right": 131
+    },
+    "sections": [
+     {
+      "sel": "div#sec-basic.form-section",
+      "tag": "div",
+      "top": 98,
+      "height": 210,
+      "words": 6,
+      "media": 0,
+      "middle": 17,
+      "heading": {
+       "text": "基本信息",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 419,
+      "right": 131,
+      "textLeft": 419,
+      "textRight": 947,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div#sec-env.form-section",
+      "tag": "div",
+      "top": 443,
+      "height": 1731,
+      "words": 62,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "远程方式",
+       "size": 16,
+       "tag": "h3"
+      },
+      "left": 419,
+      "right": 131,
+      "textLeft": 419,
+      "textRight": 140,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div#sec-audit.form-section",
+      "tag": "div",
+      "top": 2190,
+      "height": 122,
+      "words": 3,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "审计日志",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 419,
+      "right": 722,
+      "textLeft": 419,
+      "textRight": 722,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "新建客户",
+      "size": 24,
+      "top": 59,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 419,
+      "n": 4
+     },
+     {
+      "x": 557,
+      "n": 3
+     },
+     {
+      "x": 544,
+      "n": 2
+     },
+     {
+      "x": 278,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 10,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.16,
+    "voidBox": {
+     "x": 960,
+     "y": 240,
+     "w": 480,
+     "h": 420
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#f2f4f7",
+    "sidebar": {
+     "w": 168,
+     "tag": "aside",
+     "links": 10,
+     "share": 0.12
+    },
+    "topbar": null,
+    "canvas": {
+     "left": 122,
+     "right": 131
+    },
+    "hero": {
+     "text": "新建客户",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 24,
+     "vw": 1.7,
+     "font": "Microsoft YaHei",
+     "weight": 600,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 59,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 5,
+     "firstScreen": 4,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 8,
+     "radii": [
+      [
+       6,
+       4
+      ],
+      [
+       8,
+       4
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.03,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24
+     ]
+    },
+    "title": {
+     "text": "新建客户",
+     "size": 24,
+     "top": 59
+    },
+    "colourShare": 0
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.63,
+    0.7,
+    0.65
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 2534,
+     "screens": 2.5,
+     "words": 99,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 11,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "新建客户",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 24,
+     "vw": 3.1,
+     "font": "Microsoft YaHei",
+     "weight": 600,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 59,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "新建客户",
+     "words": 1,
+     "lines": 1,
+     "size": 24,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": null,
+     "measureChars": null,
+     "max": {
+      "size": 24,
+      "vw": 3.1,
+      "font": "Microsoft YaHei",
+      "text": "新建客户"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.08,
+     "centerShare": 0.28,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f2f4f7",
+     "bodyBgHsl": {
+      "h": 216,
+      "s": 0.24,
+      "l": 0.96
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 492,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#5c636b",
+       "share": 0.56
+      },
+      {
+       "color": "#1a1d21",
+       "share": 0.43
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      },
+      {
+       "color": "#0e3a5c",
+       "share": 0
+      }
+     ],
+     "button": {
+      "bg": "#e9ecef",
+      "hsl": {
+       "h": 210,
+       "s": 0.16,
+       "l": 0.93
+      },
+      "fg": "#1a1d21"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 3,
+     "inHero": 3,
+     "radius": 6,
+     "height": 37,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "客户列表",
+      "基本信息",
+      "全部"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "aside#sidebar.sidebar 168px",
+      "div#env-tabs.tabs 510px",
+      "div.action-bar 600px"
+     ],
+     "outlinedBoxes": 8,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 8,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 147
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 4,
+     "fixed": false,
+     "height": 33,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 2534,
+    "margins": {
+     "left": 46,
+     "right": 45
+    },
+    "sections": [
+     {
+      "sel": "div#sec-basic.form-section",
+      "tag": "div",
+      "top": 147,
+      "height": 210,
+      "words": 6,
+      "media": 0,
+      "middle": 17,
+      "heading": {
+       "text": "基本信息",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 213,
+      "right": 45,
+      "textLeft": 213,
+      "textRight": 481,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div#sec-env.form-section",
+      "tag": "div",
+      "top": 492,
+      "height": 1768,
+      "words": 62,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "远程方式",
+       "size": 16,
+       "tag": "h3"
+      },
+      "left": 213,
+      "right": 45,
+      "textLeft": 213,
+      "textRight": 54,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div#sec-audit.form-section",
+      "tag": "div",
+      "top": 2276,
+      "height": 122,
+      "words": 3,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "审计日志",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 213,
+      "right": 256,
+      "textLeft": 213,
+      "textRight": 256,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "新建客户",
+      "size": 24,
+      "top": 59,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 213,
+      "n": 4
+     },
+     {
+      "x": 351,
+      "n": 3
+     },
+     {
+      "x": 338,
+      "n": 2
+     },
+     {
+      "x": 192,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 10,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#f2f4f7",
+    "sidebar": {
+     "w": 168,
+     "tag": "aside",
+     "links": 10,
+     "share": 0.22
+    },
+    "topbar": null,
+    "canvas": {
+     "left": 36,
+     "right": 45
+    },
+    "hero": {
+     "text": "新建客户",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 24,
+     "vw": 3.1,
+     "font": "Microsoft YaHei",
+     "weight": 600,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 59,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 5,
+     "firstScreen": 4,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 9,
+     "radii": [
+      [
+       6,
+       5
+      ],
+      [
+       8,
+       4
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.03,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24
+     ]
+    },
+    "title": {
+     "text": "新建客户",
+     "size": 24,
+     "top": 59
+    },
+    "colourShare": 0
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 4,
+   "filled": [
+    0.81,
+    0.88,
+    0.88,
+    0.84
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 402,
+     "h": 870
+    },
+    "page": {
+     "height": 3319,
+     "screens": 3.8,
+     "words": 94,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 11,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "新建客户",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 20,
+     "vw": 5,
+     "font": "Microsoft YaHei",
+     "weight": 600,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 99,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "新建客户",
+     "words": 1,
+     "lines": 1,
+     "size": 20,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      13,
+      14,
+      15,
+      16,
+      20
+     ],
+     "sizeCount": 5,
+     "notLoaded": [],
+     "body": null,
+     "measureChars": null,
+     "max": {
+      "size": 20,
+      "vw": 5,
+      "font": "Microsoft YaHei",
+      "text": "新建客户"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.08,
+     "centerShare": 0.28,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f2f4f7",
+     "bodyBgHsl": {
+      "h": 216,
+      "s": 0.24,
+      "l": 0.96
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 585,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#f7f8fa",
+       "top": 1329,
+       "hsl": {
+        "h": 220,
+        "s": 0.23,
+        "l": 0.97
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#5c636b",
+       "share": 0.55
+      },
+      {
+       "color": "#1a1d21",
+       "share": 0.44
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      },
+      {
+       "color": "#0e3a5c",
+       "share": 0
+      }
+     ],
+     "button": {
+      "bg": "#e9ecef",
+      "hsl": {
+       "h": 210,
+       "s": 0.16,
+       "l": 0.93
+      },
+      "fg": "#1a1d21"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 6,
+     "height": 33,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "基本信息",
+      "全部"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "aside#sidebar.sidebar 390px",
+      "div#env-tabs.tabs 328px",
+      "div.action-bar 402px"
+     ],
+     "outlinedBoxes": 9,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 9,
+     "boxRadius": 6,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 4,
+     "fixed": false,
+     "height": 33,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 402,
+     "h": 870
+    },
+    "pageH": 3319,
+    "margins": {
+     "left": 37,
+     "right": 37
+    },
+    "sections": [
+     {
+      "sel": "div#sec-basic.form-section",
+      "tag": "div",
+      "top": 182,
+      "height": 268,
+      "words": 6,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "基本信息",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 37,
+      "right": 37,
+      "textLeft": 37,
+      "textRight": 291,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div#sec-env.form-section",
+      "tag": "div",
+      "top": 585,
+      "height": 2564,
+      "words": 62,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "远程方式",
+       "size": 16,
+       "tag": "h3"
+      },
+      "left": 37,
+      "right": 37,
+      "textLeft": 37,
+      "textRight": 46,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div#sec-audit.form-section",
+      "tag": "div",
+      "top": 3165,
+      "height": 122,
+      "words": 3,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "审计日志",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 37,
+      "right": 66,
+      "textLeft": 37,
+      "textRight": 66,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "新建客户",
+      "size": 20,
+      "top": 99,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 37,
+      "n": 4
+     },
+     {
+      "x": 175,
+      "n": 3
+     },
+     {
+      "x": 162,
+      "n": 2
+     },
+     {
+      "x": 16,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 10,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 402,
+     "h": 870
+    },
+    "dark": false,
+    "ground": "#f2f4f7",
+    "sidebar": null,
+    "topbar": {
+     "h": 48
+    },
+    "canvas": {
+     "left": 26,
+     "right": 33
+    },
+    "hero": {
+     "text": "新建客户",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 20,
+     "vw": 5,
+     "font": "Microsoft YaHei",
+     "weight": 600,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 99,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 4,
+     "firstScreen": 3,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 9,
+     "radii": [
+      [
+       6,
+       5
+      ],
+      [
+       8,
+       4
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.03,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      20
+     ]
+    },
+    "title": {
+     "text": "新建客户",
+     "size": 20,
+     "top": 99
+    },
+    "colourShare": 0
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\after-env\\desktop-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\after-env\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\after-env\\tablet-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\after-env\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\after-env\\mobile-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\after-env\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

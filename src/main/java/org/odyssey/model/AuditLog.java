@@ -30,7 +30,10 @@ public class AuditLog {
     /** 操作事件（新增 / 修改 / 删除） */
     private String event;
 
-    /** 操作描述（细粒度变更内容） */
+    /** 信息类型（变更字段所属路径，如 生产→向日葵） */
+    private String module;
+
+    /** 操作描述（字段与值） */
     private String description;
 
     public String getUser() {
@@ -79,6 +82,14 @@ public class AuditLog {
 
     public void setEvent(String event) {
         this.event = event;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
     }
 
     public String getDescription() {

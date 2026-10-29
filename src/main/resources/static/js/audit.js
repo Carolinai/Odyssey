@@ -34,7 +34,7 @@ function renderAuditGroups() {
         const hit = logs.filter(l => {
             if (!kw) return true;
             return name.toLowerCase().includes(kw)
-                || ((l.user || '') + ' ' + (l.description || '')).toLowerCase().includes(kw);
+                || ((l.user || '') + ' ' + (l.module || '') + ' ' + (l.description || '')).toLowerCase().includes(kw);
         });
         if (hit.length === 0) return;
         shown += hit.length;

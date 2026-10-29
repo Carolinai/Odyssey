@@ -1,0 +1,1152 @@
+{
+ "url": "http://localhost:8787/",
+ "at": "2026-10-29T02:00:40.789Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.12
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 900,
+     "screens": 1,
+     "words": 17,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Odyssey",
+     "words": 1,
+     "chars": 7,
+     "lines": 1,
+     "size": 24,
+     "vw": 1.7,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 289,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Odyssey",
+     "words": 1,
+     "lines": 1,
+     "size": 24,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 0.98,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      12,
+      13,
+      14,
+      24
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Microsoft YaHei",
+      "size": 12,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 2.3
+     },
+     "measureChars": 44,
+     "max": {
+      "size": 24,
+      "vw": 1.7,
+      "font": "Microsoft YaHei",
+      "text": "Odyssey"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 1,
+     "smallText": 1
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f5f6f8",
+     "bodyBgHsl": {
+      "h": 220,
+      "s": 0.18,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#aaaaaa",
+       "share": 0.74
+      },
+      {
+       "color": "#888888",
+       "share": 0.16
+      },
+      {
+       "color": "#333333",
+       "share": 0.08
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#2980b9",
+      "hsl": {
+       "h": 204,
+       "s": 0.64,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "建议使用 Jenkins API Token，避免暴露登录密码 获取路径：Jen",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#aaaaaa",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "使用 Jenkins 账号登录",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 6,
+     "height": 40,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "登录"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 900,
+    "margins": {
+     "left": 589,
+     "right": 589
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Odyssey",
+      "size": 24,
+      "top": 289,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [],
+    "leftBlocks": 0,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.33,
+    "voidBox": {
+     "x": 0,
+     "y": 120,
+     "w": 540,
+     "h": 780
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#f5f6f8",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 589,
+     "right": 589
+    },
+    "hero": {
+     "text": "Odyssey",
+     "words": 1,
+     "chars": 7,
+     "lines": 1,
+     "size": 24,
+     "vw": 1.7,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 289,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 1,
+     "firstScreen": 1,
+     "ragged": [],
+     "voids": [
+      {
+       "gap": 48,
+       "at": 509,
+       "panel": "Odyssey"
+      }
+     ]
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 1,
+     "radii": [
+      [
+       8,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.73,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      12,
+      13,
+      14,
+      24
+     ]
+    },
+    "title": {
+     "text": "Odyssey",
+     "size": 24,
+     "top": 289
+    },
+    "colourShare": 0.009
+   },
+   "consoleErrors": [
+    "Error: 未登录\n    at api (http://localhost:8787/js/common.js:8:21)\n    at async loadList (http://localhost:8787/js/index.js:34:19)"
+   ]
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.14
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1024,
+     "screens": 1,
+     "words": 17,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Odyssey",
+     "words": 1,
+     "chars": 7,
+     "lines": 1,
+     "size": 24,
+     "vw": 3.1,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 351,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Odyssey",
+     "words": 1,
+     "lines": 1,
+     "size": 24,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 0.98,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      12,
+      13,
+      14,
+      24
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Microsoft YaHei",
+      "size": 12,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 2.3
+     },
+     "measureChars": 44,
+     "max": {
+      "size": 24,
+      "vw": 3.1,
+      "font": "Microsoft YaHei",
+      "text": "Odyssey"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 1,
+     "smallText": 1
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f5f6f8",
+     "bodyBgHsl": {
+      "h": 220,
+      "s": 0.18,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#aaaaaa",
+       "share": 0.74
+      },
+      {
+       "color": "#888888",
+       "share": 0.16
+      },
+      {
+       "color": "#333333",
+       "share": 0.08
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#2980b9",
+      "hsl": {
+       "h": 204,
+       "s": 0.64,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "建议使用 Jenkins API Token，避免暴露登录密码 获取路径：Jen",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#aaaaaa",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "使用 Jenkins 账号登录",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 6,
+     "height": 40,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "登录"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1024,
+    "margins": {
+     "left": 253,
+     "right": 253
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Odyssey",
+      "size": 24,
+      "top": 351,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [],
+    "leftBlocks": 0,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#f5f6f8",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 253,
+     "right": 253
+    },
+    "hero": {
+     "text": "Odyssey",
+     "words": 1,
+     "chars": 7,
+     "lines": 1,
+     "size": 24,
+     "vw": 3.1,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 351,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 1,
+     "firstScreen": 1,
+     "ragged": [],
+     "voids": [
+      {
+       "gap": 48,
+       "at": 571,
+       "panel": "Odyssey"
+      }
+     ]
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 1,
+     "radii": [
+      [
+       8,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.73,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      12,
+      13,
+      14,
+      24
+     ]
+    },
+    "title": {
+     "text": "Odyssey",
+     "size": 24,
+     "top": 351
+    },
+    "colourShare": 0.014
+   },
+   "consoleErrors": [
+    "Error: 未登录\n    at api (http://localhost:8787/js/common.js:8:21)\n    at async loadList (http://localhost:8787/js/index.js:34:19)"
+   ]
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.39
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 844,
+     "screens": 1,
+     "words": 17,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 0,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Odyssey",
+     "words": 1,
+     "chars": 7,
+     "lines": 1,
+     "size": 24,
+     "vw": 6.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 261,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Odyssey",
+     "words": 1,
+     "lines": 1,
+     "size": 24,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [
+     {
+      "text": "Odyssey",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Microsoft YaHei",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.67,
+      "top": 261,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 1,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 0.98,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0.02,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      12,
+      13,
+      14,
+      24
+     ],
+     "sizeCount": 4,
+     "notLoaded": [],
+     "body": {
+      "font": "Microsoft YaHei",
+      "size": 12,
+      "leading": 1.8,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 2.3
+     },
+     "measureChars": 44,
+     "max": {
+      "size": 24,
+      "vw": 6.2,
+      "font": "Microsoft YaHei",
+      "text": "Odyssey"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 1,
+     "smallText": 1
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f5f6f8",
+     "bodyBgHsl": {
+      "h": 220,
+      "s": 0.18,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 228,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#aaaaaa",
+       "share": 0.74
+      },
+      {
+       "color": "#888888",
+       "share": 0.16
+      },
+      {
+       "color": "#333333",
+       "share": 0.08
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#2980b9",
+      "hsl": {
+       "h": 204,
+       "s": 0.64,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "建议使用 Jenkins API Token，避免暴露登录密码 获取路径：Jen",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#aaaaaa",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "使用 Jenkins 账号登录",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 6,
+     "height": 40,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "登录"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 1,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 844,
+    "margins": {
+     "left": 64,
+     "right": 64
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Odyssey",
+      "size": 24,
+      "top": 261,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [],
+    "leftBlocks": 0,
+    "bodySize": 16,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "dark": false,
+    "ground": "#f5f6f8",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 64,
+     "right": 64
+    },
+    "hero": {
+     "text": "Odyssey",
+     "words": 1,
+     "chars": 7,
+     "lines": 1,
+     "size": 24,
+     "vw": 6.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 261,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 1,
+     "firstScreen": 1,
+     "ragged": [],
+     "voids": [
+      {
+       "gap": 48,
+       "at": 481,
+       "panel": "Odyssey"
+      }
+     ]
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 1,
+     "radii": [
+      [
+       8,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.73,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      12,
+      13,
+      14,
+      24
+     ]
+    },
+    "title": {
+     "text": "Odyssey",
+     "size": 24,
+     "top": 261
+    },
+    "colourShare": 0.03
+   },
+   "consoleErrors": [
+    "Error: 未登录\n    at api (http://localhost:8787/js/common.js:8:21)\n    at async loadList (http://localhost:8787/js/index.js:34:19)"
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "contrast",
+   "width": 1440,
+   "message": "Unreadable text: \"建议使用 Jenkins API Token，避免暴露登录密码 获取路径：Jen\" 2.3:1 (#aaaaaa on #ffffff)",
+   "fix": "Raise contrast to at least 4.5:1 for text, 3:1 for large display.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "hero-void",
+   "width": 1440,
+   "message": "33% of the first screen is one empty block (540×780px at 0,120).",
+   "fix": "Place the void on purpose or fill it: move the picture, the film or one fact into it, grow the headline to meet it, or shrink the screen to its content. A void reads as placed only when something closes it on the far side and it is the screen's one rest."
+  },
+  {
+   "level": "WARN",
+   "id": "tiny-text",
+   "width": 1440,
+   "message": "73% of the text is under 13px.",
+   "fix": "Data and labels read at 13–14px; keep 11–12px for sublines and axis ticks.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "panel-void",
+   "width": 1440,
+   "message": "1 card(s) hold a blank band inside: 48px in \"Odyssey\".",
+   "fix": "A card stretches to its neighbour only when it has content to fill. Keep a legend or a note directly under its chart (only an action or a total may sit at a stretched card's foot), let a short card keep its own height (align-items: start), and let a filtered block shrink to its rows."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before\\desktop-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before\\tablet-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before\\mobile-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

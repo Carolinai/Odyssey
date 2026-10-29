@@ -1,0 +1,1381 @@
+{
+ "url": "http://localhost:8787/config.html",
+ "at": "2026-10-29T02:08:54.498Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.53
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 900,
+     "screens": 1,
+     "words": 34,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "全局配置",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 32,
+     "vw": 2.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "全局配置",
+     "words": 1,
+     "lines": 1,
+     "size": 32,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [
+     {
+      "text": "全局配置",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Microsoft YaHei",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.73,
+      "top": 45,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 0.51,
+       "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0.48,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0.01,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      32
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Microsoft YaHei",
+      "size": 16,
+      "leading": 1.2,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 12.2
+     },
+     "measureChars": 155,
+     "max": {
+      "size": 32,
+      "vw": 2.2,
+      "font": "Microsoft YaHei",
+      "text": "全局配置"
+     },
+     "monoShare": 0.48,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "monospace"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f5f6f8",
+     "bodyBgHsl": {
+      "h": 220,
+      "s": 0.18,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#555555",
+       "share": 0.43
+      },
+      {
+       "color": "#333333",
+       "share": 0.36
+      },
+      {
+       "color": "#888888",
+       "share": 0.14
+      },
+      {
+       "color": "#2c3e50",
+       "share": 0.03
+      },
+      {
+       "color": "#d5dbe1",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#2980b9",
+      "hsl": {
+       "h": 204,
+       "s": 0.64,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "全局配置保存在服务器上，对所有使用者生效。",
+       "ratio": 3.3,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#f5f6f8"
+      },
+      {
+       "text": "每行配置「远程方式名 → 唤起链接（自定义协议）」，例如：向日葵 → 、Tode",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "sunlogin://",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "todesk://",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "完全一致（一一对应）",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "访问者本机",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 6,
+     "height": 37,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "全局配置",
+      "+ 添加映射"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "h2 1050px",
+      "div.action-bar 1272px"
+     ],
+     "outlinedBoxes": 3,
+     "dashed": 2,
+     "blurred": 1,
+     "roundedBoxes": 3,
+     "boxRadius": 6,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 900,
+    "margins": {
+     "left": 20,
+     "right": 131
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "全局配置",
+      "size": 32,
+      "top": 45,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 312,
+      "n": 2
+     },
+     {
+      "x": 278,
+      "n": 1
+     },
+     {
+      "x": 299,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 4,
+    "bodySize": 12,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.13,
+    "voidBox": {
+     "x": 180,
+     "y": 720,
+     "w": 900,
+     "h": 180
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#f5f6f8",
+    "sidebar": {
+     "w": 168,
+     "tag": "aside",
+     "links": 10,
+     "share": 0.12
+    },
+    "topbar": null,
+    "canvas": {
+     "left": 110,
+     "right": 131
+    },
+    "hero": {
+     "text": "全局配置",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 32,
+     "vw": 2.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 2,
+     "firstScreen": 2,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 2,
+     "radii": [
+      [
+       0,
+       1
+      ],
+      [
+       6,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.47,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      32
+     ]
+    },
+    "title": {
+     "text": "全局配置",
+     "size": 32,
+     "top": 45
+    },
+    "colourShare": 0.007
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.68
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1024,
+     "screens": 1,
+     "words": 34,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "全局配置",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 32,
+     "vw": 4.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "全局配置",
+     "words": 1,
+     "lines": 1,
+     "size": 32,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [
+     {
+      "text": "全局配置",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Microsoft YaHei",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.72,
+      "top": 45,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 0.51,
+       "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0.48,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0.01,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      32
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Microsoft YaHei",
+      "size": 16,
+      "leading": 1.2,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 12.2
+     },
+     "measureChars": 78,
+     "max": {
+      "size": 32,
+      "vw": 4.2,
+      "font": "Microsoft YaHei",
+      "text": "全局配置"
+     },
+     "monoShare": 0.48,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "monospace"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f5f6f8",
+     "bodyBgHsl": {
+      "h": 220,
+      "s": 0.18,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#555555",
+       "share": 0.43
+      },
+      {
+       "color": "#333333",
+       "share": 0.36
+      },
+      {
+       "color": "#888888",
+       "share": 0.14
+      },
+      {
+       "color": "#2c3e50",
+       "share": 0.03
+      },
+      {
+       "color": "#d5dbe1",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#2980b9",
+      "hsl": {
+       "h": 204,
+       "s": 0.64,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "全局配置保存在服务器上，对所有使用者生效。",
+       "ratio": 3.3,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#f5f6f8"
+      },
+      {
+       "text": "每行配置「远程方式名 → 唤起链接（自定义协议）」，例如：向日葵 → 、Tode",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "sunlogin://",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "todesk://",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "完全一致（一一对应）",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "访问者本机",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 6,
+     "height": 37,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "全局配置",
+      "+ 添加映射"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 2,
+     "hairlineSamples": [
+      "h2 550px",
+      "div.action-bar 600px"
+     ],
+     "outlinedBoxes": 3,
+     "dashed": 2,
+     "blurred": 1,
+     "roundedBoxes": 3,
+     "boxRadius": 6,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1024,
+    "margins": {
+     "left": 20,
+     "right": 45
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "全局配置",
+      "size": 32,
+      "top": 45,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 226,
+      "n": 2
+     },
+     {
+      "x": 192,
+      "n": 1
+     },
+     {
+      "x": 213,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 4,
+    "bodySize": 12,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#f5f6f8",
+    "sidebar": {
+     "w": 168,
+     "tag": "aside",
+     "links": 10,
+     "share": 0.22
+    },
+    "topbar": null,
+    "canvas": {
+     "left": 24,
+     "right": 32
+    },
+    "hero": {
+     "text": "全局配置",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 32,
+     "vw": 4.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 2,
+     "firstScreen": 2,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 2,
+     "radii": [
+      [
+       0,
+       1
+      ],
+      [
+       6,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.47,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      32
+     ]
+    },
+    "title": {
+     "text": "全局配置",
+     "size": 32,
+     "top": 45
+    },
+    "colourShare": 0.011
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.43,
+    0.43
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 646,
+     "h": 1399
+    },
+    "page": {
+     "height": 1399,
+     "screens": 1,
+     "words": 34,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "全局配置",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 32,
+     "vw": 5,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "全局配置",
+     "words": 1,
+     "lines": 1,
+     "size": 32,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [
+     {
+      "text": "全局配置",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 32,
+      "vw": 5,
+      "font": "Microsoft YaHei",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.27,
+      "top": 45,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 0.51,
+       "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0.48,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0.01,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      32
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Microsoft YaHei",
+      "size": 16,
+      "leading": 1.2,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 12.2
+     },
+     "measureChars": 20,
+     "max": {
+      "size": 32,
+      "vw": 5,
+      "font": "Microsoft YaHei",
+      "text": "全局配置"
+     },
+     "monoShare": 0.48,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "monospace"
+     ],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f5f6f8",
+     "bodyBgHsl": {
+      "h": 220,
+      "s": 0.18,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [],
+     "textColors": [
+      {
+       "color": "#555555",
+       "share": 0.43
+      },
+      {
+       "color": "#333333",
+       "share": 0.36
+      },
+      {
+       "color": "#888888",
+       "share": 0.14
+      },
+      {
+       "color": "#2c3e50",
+       "share": 0.03
+      },
+      {
+       "color": "#d5dbe1",
+       "share": 0.02
+      }
+     ],
+     "button": {
+      "bg": "#2980b9",
+      "hsl": {
+       "h": 204,
+       "s": 0.64,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "全局配置保存在服务器上，对所有使用者生效。",
+       "ratio": 3.3,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#f5f6f8"
+      },
+      {
+       "text": "每行配置「远程方式名 → 唤起链接（自定义协议）」，例如：向日葵 → 、Tode",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "sunlogin://",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "todesk://",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "完全一致（一一对应）",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "访问者本机",
+       "ratio": 3.5,
+       "need": 4.5,
+       "size": 13,
+       "fg": "#888888",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 2,
+     "radius": 6,
+     "height": 37,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "全局配置",
+      "+ 添加映射"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 1,
+     "hairlineSamples": [
+      "div.action-bar 478px"
+     ],
+     "outlinedBoxes": 1,
+     "dashed": 2,
+     "blurred": 1,
+     "roundedBoxes": 1,
+     "boxRadius": 6,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 646,
+     "h": 1399
+    },
+    "pageH": 1399,
+    "margins": {
+     "left": 20,
+     "right": 0
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "全局配置",
+      "size": 32,
+      "top": 45,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 226,
+      "n": 2
+     },
+     {
+      "x": 192,
+      "n": 1
+     },
+     {
+      "x": 213,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 4,
+    "bodySize": 12,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 646,
+     "h": 1399
+    },
+    "dark": false,
+    "ground": "#f5f6f8",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 20,
+     "right": -9
+    },
+    "hero": {
+     "text": "全局配置",
+     "words": 1,
+     "chars": 4,
+     "lines": 1,
+     "size": 32,
+     "vw": 5,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 2,
+     "firstScreen": 2,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 2,
+     "radii": [
+      [
+       0,
+       1
+      ],
+      [
+       6,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.47,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      32
+     ]
+    },
+    "title": {
+     "text": "全局配置",
+     "size": 32,
+     "top": 45
+    },
+    "colourShare": 0.019
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "contrast",
+   "width": 1440,
+   "message": "Low-contrast text: \"全局配置保存在服务器上，对所有使用者生效。\" 3.3:1 needs 4.5:1; \"每行配置「远程方式名 → 唤起链接（自定义协议）」，例如：向日葵 → 、Tode\" 3.5:1 needs 4.5:1; \"sunlogin://\" 3.5:1 needs 4.5:1; \"todesk://\" 3.5:1 needs 4.5:1",
+   "fix": "Darken or lighten the text colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "tiny-text",
+   "width": 1440,
+   "message": "47% of the text is under 13px.",
+   "fix": "Data and labels read at 13–14px; keep 11–12px for sublines and axis ticks.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "app-title-size",
+   "width": 390,
+   "message": "The h1 is 32px (\"全局配置\").",
+   "fix": "An app screen is not a landing page: the title is 18-32px (20-24px on a phone)."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-config\\desktop-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-config\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-config\\tablet-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-config\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-config\\mobile-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-config\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

@@ -1,0 +1,1378 @@
+{
+ "url": "http://localhost:8787/jenkins.html",
+ "at": "2026-10-29T02:08:18.409Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 4,
+   "filled": [
+    0.75,
+    0.83,
+    0.83,
+    0.79
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 3422,
+     "screens": 3.8,
+     "words": 233,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Jenkins 视图",
+     "words": 2,
+     "chars": 10,
+     "lines": 1,
+     "size": 32,
+     "vw": 2.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Jenkins 视图",
+     "words": 2,
+     "lines": 1,
+     "size": 32,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [
+     {
+      "text": "Jenkins 视图",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Microsoft YaHei",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.73,
+      "top": 45,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 1,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      18,
+      32
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Microsoft YaHei",
+      "size": 14,
+      "leading": 1.2,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.7
+     },
+     "measureChars": 98,
+     "max": {
+      "size": 32,
+      "vw": 2.2,
+      "font": "Microsoft YaHei",
+      "text": "Jenkins 视图"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0,
+     "smallText": 1
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f5f6f8",
+     "bodyBgHsl": {
+      "h": 220,
+      "s": 0.18,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 109,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#2980b9",
+       "share": 0.72
+      },
+      {
+       "color": "#666666",
+       "share": 0.25
+      },
+      {
+       "color": "#d5dbe1",
+       "share": 0.01
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      },
+      {
+       "color": "#999999",
+       "share": 0
+      }
+     ],
+     "button": {
+      "bg": "#2980b9",
+      "hsl": {
+       "h": 204,
+       "s": 0.64,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "共 98 / 98 个视图",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#999999",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "Jenkins 视图",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#ffffff",
+       "bg": "#2980b9"
+      },
+      {
+       "text": "chouhp",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#95a5a6",
+       "bg": "#2c3e50"
+      },
+      {
+       "text": "build-sdks-test",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#2980b9",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "demo-qdt",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#2980b9",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "dev-qdt-web",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#2980b9",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 6,
+     "height": 37,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Jenkins 视图"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 97,
+     "hairlineSamples": [
+      "div.jenkins-row 1010px",
+      "div.jenkins-row 1010px",
+      "div.jenkins-row 1010px",
+      "div.jenkins-row 1010px",
+      "div.jenkins-row 1010px"
+     ],
+     "outlinedBoxes": 1,
+     "dashed": 97,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 6,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 3422,
+    "margins": {
+     "left": 46,
+     "right": 141
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Jenkins 视图",
+      "size": 32,
+      "top": 45,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 278,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 14,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.25,
+    "voidBox": {
+     "x": 540,
+     "y": 540,
+     "w": 900,
+     "h": 360
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#f5f6f8",
+    "sidebar": {
+     "w": 168,
+     "tag": "aside",
+     "links": 10,
+     "share": 0.12
+    },
+    "topbar": null,
+    "canvas": {
+     "left": 135,
+     "right": 141
+    },
+    "hero": {
+     "text": "Jenkins 视图",
+     "words": 2,
+     "chars": 10,
+     "lines": 1,
+     "size": 32,
+     "vw": 2.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 2,
+     "firstScreen": 2,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 2,
+     "radii": [
+      [
+       0,
+       1
+      ],
+      [
+       6,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.01,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      18,
+      32
+     ]
+    },
+    "title": {
+     "text": "Jenkins 视图",
+     "size": 32,
+     "top": 45
+    },
+    "colourShare": 0.009
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 4,
+   "filled": [
+    0.82,
+    0.92,
+    0.92,
+    0.87
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 3802,
+     "screens": 3.7,
+     "words": 233,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Jenkins 视图",
+     "words": 2,
+     "chars": 10,
+     "lines": 1,
+     "size": 32,
+     "vw": 4.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Jenkins 视图",
+     "words": 2,
+     "lines": 1,
+     "size": 32,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [
+     {
+      "text": "Jenkins 视图",
+      "words": 2,
+      "chars": 10,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Microsoft YaHei",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.72,
+      "top": 45,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 1,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      18,
+      32
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Microsoft YaHei",
+      "size": 14,
+      "leading": 1.2,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.7
+     },
+     "measureChars": 27,
+     "max": {
+      "size": 32,
+      "vw": 4.2,
+      "font": "Microsoft YaHei",
+      "text": "Jenkins 视图"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0,
+     "smallText": 1
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f5f6f8",
+     "bodyBgHsl": {
+      "h": 220,
+      "s": 0.18,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 109,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#2980b9",
+       "share": 0.72
+      },
+      {
+       "color": "#666666",
+       "share": 0.25
+      },
+      {
+       "color": "#d5dbe1",
+       "share": 0.01
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      },
+      {
+       "color": "#999999",
+       "share": 0
+      }
+     ],
+     "button": {
+      "bg": "#2980b9",
+      "hsl": {
+       "h": 204,
+       "s": 0.64,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "共 98 / 98 个视图",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#999999",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "Jenkins 视图",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#ffffff",
+       "bg": "#2980b9"
+      },
+      {
+       "text": "chouhp",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#95a5a6",
+       "bg": "#2c3e50"
+      },
+      {
+       "text": "build-sdks-test",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#2980b9",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "demo-qdt",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#2980b9",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "dev-qdt-web",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#2980b9",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 6,
+     "height": 37,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Jenkins 视图"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 97,
+     "hairlineSamples": [
+      "div.jenkins-row 510px",
+      "div.jenkins-row 510px",
+      "div.jenkins-row 510px",
+      "div.jenkins-row 510px",
+      "div.jenkins-row 510px"
+     ],
+     "outlinedBoxes": 1,
+     "dashed": 97,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 6,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 3802,
+    "margins": {
+     "left": 46,
+     "right": 50
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Jenkins 视图",
+      "size": 32,
+      "top": 45,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 192,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 14,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#f5f6f8",
+    "sidebar": {
+     "w": 168,
+     "tag": "aside",
+     "links": 10,
+     "share": 0.22
+    },
+    "topbar": null,
+    "canvas": {
+     "left": 49,
+     "right": 50
+    },
+    "hero": {
+     "text": "Jenkins 视图",
+     "words": 2,
+     "chars": 10,
+     "lines": 1,
+     "size": 32,
+     "vw": 4.2,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 2,
+     "firstScreen": 2,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 2,
+     "radii": [
+      [
+       0,
+       1
+      ],
+      [
+       6,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.01,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      18,
+      32
+     ]
+    },
+    "title": {
+     "text": "Jenkins 视图",
+     "size": 32,
+     "top": 45
+    },
+    "colourShare": 0.027
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 11,
+   "filled": [
+    0.6,
+    0.63,
+    0.7,
+    0.67,
+    0.7,
+    0.66,
+    0.66,
+    0.67,
+    0.68,
+    0.64,
+    0.64
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 640,
+     "h": 1386
+    },
+    "page": {
+     "height": 8933,
+     "screens": 6.4,
+     "words": 233,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 7,
+     "sections": 0,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Jenkins 视图",
+     "words": 2,
+     "chars": 10,
+     "lines": 2,
+     "size": 32,
+     "vw": 5,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Jenkins 视图",
+     "words": 2,
+     "lines": 2,
+     "size": 32,
+     "font": "Microsoft YaHei"
+    },
+    "headings": [
+     {
+      "text": "Jenkins 视图",
+      "words": 2,
+      "chars": 10,
+      "lines": 2,
+      "size": 32,
+      "vw": 5,
+      "font": "Microsoft YaHei",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.27,
+      "top": 45,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Microsoft YaHei",
+       "share": 1,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      18,
+      32
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Microsoft YaHei",
+      "size": 14,
+      "leading": 1.2,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.7
+     },
+     "measureChars": 16,
+     "max": {
+      "size": 32,
+      "vw": 5,
+      "font": "Microsoft YaHei",
+      "text": "Jenkins 视图"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0,
+     "smallText": 1
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#f5f6f8",
+     "bodyBgHsl": {
+      "h": 220,
+      "s": 0.18,
+      "l": 0.97
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 151,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#2980b9",
+       "share": 0.72
+      },
+      {
+       "color": "#666666",
+       "share": 0.25
+      },
+      {
+       "color": "#d5dbe1",
+       "share": 0.01
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      },
+      {
+       "color": "#999999",
+       "share": 0
+      }
+     ],
+     "button": {
+      "bg": "#2980b9",
+      "hsl": {
+       "h": 204,
+       "s": 0.64,
+       "l": 0.44
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": [
+      {
+       "text": "共 98 / 98 个视图",
+       "ratio": 2.8,
+       "need": 4.5,
+       "size": 12,
+       "fg": "#999999",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "Jenkins 视图",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#ffffff",
+       "bg": "#2980b9"
+      },
+      {
+       "text": "chouhp",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 11,
+       "fg": "#95a5a6",
+       "bg": "#2c3e50"
+      },
+      {
+       "text": "build-sdks-test",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#2980b9",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "demo-qdt",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#2980b9",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "dev-qdt-web",
+       "ratio": 4.3,
+       "need": 4.5,
+       "size": 14,
+       "fg": "#2980b9",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 1,
+     "radius": 6,
+     "height": 37,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Jenkins 视图"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 1,
+     "dashed": 97,
+     "blurred": 0,
+     "roundedBoxes": 1,
+     "boxRadius": 6,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": null,
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 640,
+     "h": 1386
+    },
+    "pageH": 8933,
+    "margins": {
+     "left": 46,
+     "right": 55
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Jenkins 视图",
+      "size": 32,
+      "top": 45,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [
+     {
+      "text": "→ 已废弃，用户进行了代码升级到25r2标准版-2026.04.20-wzl",
+      "side": "right",
+      "px": 10
+     },
+     {
+      "text": "→ 每次变更首次发布时先修改a-saas-version-record中的版本号为最新版本号并构建一",
+      "side": "right",
+      "px": 0
+     }
+    ],
+    "edges": [
+     {
+      "x": 192,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 14,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 640,
+     "h": 1386
+    },
+    "dark": false,
+    "ground": "#f5f6f8",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 22,
+     "right": 55
+    },
+    "hero": {
+     "text": "Jenkins 视图",
+     "words": 2,
+     "chars": 10,
+     "lines": 2,
+     "size": 32,
+     "vw": 5,
+     "font": "Microsoft YaHei",
+     "weight": 700,
+     "tracking": 0,
+     "leading": 1.2,
+     "top": 45,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 2,
+     "firstScreen": 2,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 2,
+     "radii": [
+      [
+       0,
+       1
+      ],
+      [
+       6,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.01,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      18,
+      32
+     ]
+    },
+    "title": {
+     "text": "Jenkins 视图",
+     "size": 32,
+     "top": 45
+    },
+    "colourShare": 0.023
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "contrast",
+   "width": 1440,
+   "message": "Low-contrast text: \"共 98 / 98 个视图\" 2.8:1 needs 4.5:1; \"Jenkins 视图\" 4.3:1 needs 4.5:1; \"chouhp\" 4.3:1 needs 4.5:1; \"build-sdks-test\" 4.3:1 needs 4.5:1",
+   "fix": "Darken or lighten the text colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "edge-text",
+   "width": 390,
+   "message": "2 text block(s) sit within 12px of the screen edge: \"→ 已废弃，用户进行了代码升级到25r2标准版-2026.0\" (10px from the right); \"→ 每次变更首次发布时先修改a-saas-version-r\" (0px from the right)",
+   "fix": "Keep text inside the page margin (16–20px). Only display type deliberately bled past the edge may touch it."
+  },
+  {
+   "level": "WARN",
+   "id": "app-title-size",
+   "width": 390,
+   "message": "The h1 is 32px (\"Jenkins 视图\").",
+   "fix": "An app screen is not a landing page: the title is 18-32px (20-24px on a phone)."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-jenkins\\desktop-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-jenkins\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-jenkins\\tablet-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-jenkins\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-jenkins\\mobile-fold.jpg",
+   "pages": [
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-jenkins\\mobile-page-01.jpg",
+    "D:\\projects\\vp_controller\\Odyssey\\.taste-skill\\before-jenkins\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

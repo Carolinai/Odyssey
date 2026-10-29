@@ -723,6 +723,7 @@ body.sidebar-collapsed .user-card { padding: 6px 4px; }
 .audit-event-create { background: #27ae60; }
 .audit-event-update { background: #2980b9; }
 .audit-event-delete { background: #c0392b; }
+.audit-module { flex: 0 0 140px; color: #555; word-break: break-all; }
 .audit-desc { flex: 1; min-width: 0; word-break: break-all; }
 
 /* 审计日志页：按对象名称（客户）分组 */

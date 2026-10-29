@@ -256,7 +256,7 @@ function buildUserCard(displayName, account) {
 
 document.addEventListener('DOMContentLoaded', renderSidebar);
 
-/** 构造一条审计日志行：时间 | 用户名称(中文) | 账号 | 事件徽标 | 描述（审计日志页与详情页共用） */
+/** 构造一条审计日志行：时间 | 用户名称(中文) | 账号 | 事件徽标 | 信息类型 | 字段与值 */
 function buildAuditRow(entry) {
     const row = document.createElement('div');
     row.className = 'audit-row';
@@ -282,6 +282,11 @@ function buildAuditRow(entry) {
         + (evt === '新增' ? 'create' : (evt === '删除' ? 'delete' : 'update'));
     event.textContent = evt;
     row.appendChild(event);
+
+    const module = document.createElement('span');
+    module.className = 'audit-module';
+    module.textContent = entry.module || '';
+    row.appendChild(module);
 
     const desc = document.createElement('span');
     desc.className = 'audit-desc';

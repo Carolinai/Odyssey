@@ -221,7 +221,7 @@ class EnvironmentControllerTest {
     }
 
     @Test
-    void 增改删均记录审计日志_倒序返回() throws Exception {
+    void 增改删均记录审计日志_逐字段带动作() throws Exception {
         createEnv("审计甲银行");
 
         mvc.perform(put("/api/environments/审计甲银行")
@@ -237,17 +237,50 @@ class EnvironmentControllerTest {
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         com.fasterxml.jackson.databind.JsonNode logs =
                 new com.fasterxml.jackson.databind.ObjectMapper().readTree(resp);
-        assertEquals(3, logs.size(), "增改删各记一条");
-        assertEquals("删除", logs.get(0).get("event").asText());
-        assertEquals("修改", logs.get(1).get("event").asText());
-        assertTrue(logs.get(1).get("description").asText().contains("备注"), "修改描述应含变更字段");
-        assertEquals("新增", logs.get(2).get("event").asText());
-        // 字段维度：账号 / 用户名称 / 操作对象 / 对象名称
-        assertEquals("tester", logs.get(2).get("user").asText());
-        assertEquals("测试用户", logs.get(2).get("user_name").asText());
-        assertEquals("客户信息", logs.get(2).get("target").asText());
-        assertEquals("审计甲银行", logs.get(2).get("target_name").asText());
-        assertTrue(logs.get(2).has("time"), "应含操作时间");
+        assertTrue(logs.size() > 0, "应有逐字段的审计记录");
+        for (com.fasterxml.jackson.databind.JsonNode log : logs) {
+            // 字段维度：账号 / 用户名称 / 操作对象 / 对象名称 / 信息类型
+            assertEquals("tester", log.get("user").asText());
+            assertEquals("测试用户", log.get("user_name").asText());
+            assertEquals("客户信息", log.get("target").asText());
+            assertEquals("审计甲银行", log.get("target_name").asText());
+            assertTrue(log.has("module"), "应含信息类型");
+            assertTrue(log.has("time"), "应含操作时间");
+        }
+
+        // 新增：管理员账号密码按用户要求明文记录；信息类型含字段名
+        assertTrue(containsLog(logs, "新增", "生产→管理员账号→密码", "p1"), "应含明文密码新增记录");
+        // 删除动作独立成条（整个测试环境块被删，下钻到备注字段）
+        assertTrue(containsLog(logs, "删除", "测试→备注", "测试环境备注"), "字段删除应记为删除而非新增");
+        // 整条删除时客户名也有一条删除记录
+        assertTrue(containsLog(logs, "删除", "基本信息→客户名", "审计甲银行"), "应含客户名删除记录");
+        // 本次改动纯增删，不应出现「修改」动作
+        assertTrue(!containsEvent(logs, "修改"), "纯增删场景不应有修改记录");
+    }
+
+    @Test
+    void 删除图片后保存_审计日志记录删除() throws Exception {
+        // 新建带图片引用的客户
+        mvc.perform(post("/api/environments")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\": \"图片银行\", \"environments\": {\"test\": {\"sunlogin\": "
+                                + "{\"id\": \"123\", \"password\": \"p\", \"images\": [\"a.png\"]}}}}"))
+                .andExpect(status().isOk());
+
+        // 保存时不再携带 images（对应前端移除图片后的提交）
+        mvc.perform(put("/api/environments/图片银行")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"name\": \"图片银行\", \"environments\": {\"test\": {\"sunlogin\": "
+                                + "{\"id\": \"123\", \"password\": \"p\"}}}}"))
+                .andExpect(status().isOk());
+
+        String resp = mvc.perform(get("/api/audit?target_name=图片银行"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        com.fasterxml.jackson.databind.JsonNode logs =
+                new com.fasterxml.jackson.databind.ObjectMapper().readTree(resp);
+        assertTrue(containsLog(logs, "删除", "测试→远程方式→图片", "a.png"),
+                "删除图片应产生审计记录，实际日志：" + resp);
     }
 
     @Test
@@ -264,6 +297,34 @@ class EnvironmentControllerTest {
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         com.fasterxml.jackson.databind.JsonNode logs =
                 new com.fasterxml.jackson.databind.ObjectMapper().readTree(resp);
-        assertEquals(1, logs.size(), "只有创建一条，无差异保存不记审计");
+        // 只有创建时逐字段的记录，无差异保存不产生新记录
+        // （name + alias + tags 两字段 + access 两字段 + admin_account 两字段 + quirks = 9）
+        assertEquals(9, logs.size());
+        for (com.fasterxml.jackson.databind.JsonNode log : logs) {
+            assertEquals("新增", log.get("event").asText());
+        }
+    }
+
+    /** 是否存在匹配动作/信息类型/描述的日志 */
+    private static boolean containsLog(com.fasterxml.jackson.databind.JsonNode logs,
+                                       String event, String module, String description) {
+        for (com.fasterxml.jackson.databind.JsonNode log : logs) {
+            if (event.equals(log.get("event").asText())
+                    && module.equals(log.get("module").asText())
+                    && description.equals(log.get("description").asText())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** 是否存在某动作的日志 */
+    private static boolean containsEvent(com.fasterxml.jackson.databind.JsonNode logs, String event) {
+        for (com.fasterxml.jackson.databind.JsonNode log : logs) {
+            if (event.equals(log.get("event").asText())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
