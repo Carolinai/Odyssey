@@ -1,5 +1,6 @@
 package org.odyssey.api;
 
+import org.odyssey.service.AuthService;
 import org.odyssey.service.JenkinsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,17 +25,19 @@ public class JenkinsController {
     private static final Logger log = LoggerFactory.getLogger(JenkinsController.class);
 
     private final JenkinsService service;
+    private final AuthService authService;
 
-    public JenkinsController(JenkinsService service) {
+    public JenkinsController(JenkinsService service, AuthService authService) {
         this.service = service;
+        this.authService = authService;
     }
 
     @GetMapping("/views")
     public ResponseEntity<?> views(HttpServletRequest request) {
         // 视图查询用当前登录用户自己的 Jenkins 凭据，看到的即其在 Jenkins 里有权限看的视图
-        HttpSession session = request.getSession();
-        String user = (String) session.getAttribute(AuthController.SESSION_USER);
-        String credential = (String) session.getAttribute(AuthController.SESSION_CREDENTIAL);
+        AuthService.AuthSession session = authService.resolve(request);
+        String user = session == null ? null : session.getUser();
+        String credential = session == null ? null : session.getCredential();
         try {
             Map<String, Object> result = new HashMap<>();
             result.put("views", service.fetchViews(user, credential));

@@ -1,12 +1,7 @@
 # 服务端口（避开常用 8080，减少冲突）
+# 登录态不再依赖容器会话：令牌 Cookie + 数据目录 sessions.json，重启不丢
 server:
   port: 8787
-  servlet:
-    session:
-      # 内部工具：会话 30 天有效且 Cookie 持久化，避免频繁重新登录（服务重启仍会全部失效）
-      timeout: 30d
-      cookie:
-        max-age: 30d
 
 spring:
   application:

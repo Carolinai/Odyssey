@@ -33,4 +33,9 @@ public class StoreConfig {
     public AuditStore auditStore(Path dataRoot) {
         return new AuditStore(dataRoot);
     }
+
+    @Bean
+    public SessionStore sessionStore(Path dataRoot) {
+        return new SessionStore(dataRoot);
+    }
 }

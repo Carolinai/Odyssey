@@ -4,6 +4,7 @@ import org.odyssey.config.OdysseyProperties;
 import org.odyssey.model.Environment;
 import org.odyssey.model.FileInfo;
 import org.odyssey.service.AuditService;
+import org.odyssey.service.AuthService;
 import org.odyssey.store.EnvironmentNotFoundException;
 import org.odyssey.store.EnvironmentStore;
 import org.springframework.http.ContentDisposition;
@@ -50,12 +51,16 @@ public class EnvironmentController {
 
     private final AuditService audit;
 
+    private final AuthService authService;
+
     /** 附件根目录：<dataDir>/files/<客户名>/ */
     private final Path filesRoot;
 
-    public EnvironmentController(EnvironmentStore store, AuditService audit, OdysseyProperties properties) {
+    public EnvironmentController(EnvironmentStore store, AuditService audit, OdysseyProperties properties,
+                                 AuthService authService) {
         this.store = store;
         this.audit = audit;
+        this.authService = authService;
         this.filesRoot = Paths.get(properties.getDataDir(), "files");
     }
 
@@ -84,8 +89,8 @@ public class EnvironmentController {
     @PostMapping
     public Environment create(@RequestBody Environment env, HttpServletRequest request) {
         store.create(env); // created_at / updated_at 由存储层统一生成
-        audit.recordEnvironmentChanges(AuthController.currentUser(request),
-                AuthController.currentUserName(request), env.getName(), null, env);
+        audit.recordEnvironmentChanges(authService.currentUser(request),
+                authService.currentUserName(request), env.getName(), null, env);
         return env;
     }
 
@@ -96,8 +101,8 @@ public class EnvironmentController {
         env.setName(name);
         Environment before = store.get(name); // 不存在时 update 也会失败，这里同时留作 diff 基准
         store.update(env);
-        audit.recordEnvironmentChanges(AuthController.currentUser(request),
-                AuthController.currentUserName(request), name, before, env); // 无变更时不会产生记录
+        audit.recordEnvironmentChanges(authService.currentUser(request),
+                authService.currentUserName(request), name, before, env); // 无变更时不会产生记录
         return env;
     }
 
@@ -105,8 +110,8 @@ public class EnvironmentController {
     public void delete(@PathVariable String name, HttpServletRequest request) throws IOException {
         Environment before = store.get(name); // 不存在时抛 404，避免误记审计
         store.delete(name);
-        audit.recordEnvironmentChanges(AuthController.currentUser(request),
-                AuthController.currentUserName(request), name, before, null);
+        audit.recordEnvironmentChanges(authService.currentUser(request),
+                authService.currentUserName(request), name, before, null);
         // 连带清理附件目录
         Path dir = filesRoot.resolve(name);
         if (Files.exists(dir)) {
@@ -144,7 +149,7 @@ public class EnvironmentController {
         }
         env.getFiles().add(info);
         store.update(env);
-        audit.record(AuthController.currentUser(request), AuthController.currentUserName(request),
+        audit.record(authService.currentUser(request), authService.currentUserName(request),
                 AuditService.EVENT_CREATE, name, "附件", "文件 = " + info.getName());
         return info;
     }
@@ -190,7 +195,7 @@ public class EnvironmentController {
         }
         Files.deleteIfExists(filesRoot.resolve(name).resolve(storedName));
         store.update(env);
-        audit.record(AuthController.currentUser(request), AuthController.currentUserName(request),
+        audit.record(authService.currentUser(request), authService.currentUserName(request),
                 AuditService.EVENT_DELETE, name, "附件", "文件 = " + fileName);
     }
 
