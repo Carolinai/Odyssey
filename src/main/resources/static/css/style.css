@@ -788,3 +788,96 @@ body.sidebar-collapsed .user-card { padding: 6px 4px; }
     line-height: 1.8;
     text-align: center;
 }
+
+/* ---------- 本机连接初始化蒙版（登录页） ---------- */
+
+.tunnel-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 27, 42, 0.55);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.tunnel-mask.hidden {
+    display: none;
+}
+
+.tunnel-mask-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 28px 32px;
+    max-width: 440px;
+    margin: 0 16px;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+}
+
+.tunnel-mask-box h2 {
+    margin: 0 0 12px;
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.tunnel-mask-box p {
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #555;
+}
+
+.tunnel-mask-box a {
+    font-size: 12px;
+    color: #999;
+    text-decoration: underline;
+}
+
+/* ---------- 通用确认弹窗 ---------- */
+
+.app-confirm-mask {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 27, 42, 0.45);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+}
+
+.app-confirm-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 24px 28px 20px;
+    max-width: 360px;
+    margin: 0 16px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.28);
+    animation: app-confirm-in 0.15s ease-out;
+}
+
+@keyframes app-confirm-in {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.app-confirm-box p {
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #2c3e50;
+}
+
+.app-confirm-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.app-confirm-actions .btn-plain {
+    background: #fff;
+    color: #555;
+    border: 1px solid #d5dbe1;
+}

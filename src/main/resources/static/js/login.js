@@ -1,10 +1,95 @@
 // 登录页：Jenkins 账号校验通过后进入系统
+// 登录前会自动确保「本机连接」（SSH 反向隧道）在线：首次使用自动下发初始化脚本，
+// 用户双击运行后蒙版自动消失进入登录；已装过但离线则提示重跑守护脚本。
 
 // 登录成功后的去向：?next= 指定的来源页，默认首页。只允许站内路径
 function nextUrl() {
     const next = new URLSearchParams(location.search).get('next');
     return next && next.startsWith('/') && !next.startsWith('//') ? next : '/';
 }
+
+// ---------- 本机连接（隧道）初始化 ----------
+
+let tunnelSkipped = false;
+
+function maskEl() {
+    return document.getElementById('tunnel-mask');
+}
+
+function setMaskText(text) {
+    document.getElementById('tunnel-mask-text').textContent = text;
+}
+
+function showMask() {
+    tunnelSkipped = false;
+    maskEl().classList.remove('hidden');
+}
+
+function hideMask() {
+    maskEl().classList.add('hidden');
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * 确保该用户的本机连接在线；返回 false 表示初始化未完成（用户可跳过直接登录）。
+ * 状态接口异常时静默放行，不阻塞登录。
+ */
+async function ensureTunnel(username) {
+    let status;
+    try {
+        status = await api('/api/auth/tunnel-status?username=' + encodeURIComponent(username));
+    } catch (e) {
+        return true; // 检测失败不阻塞登录（后端多线路会自行尝试）
+    }
+    if (status.online) {
+        return true;
+    }
+
+    showMask();
+    if (!status.installed) {
+        // 首次使用：自动下载专属初始化脚本
+        const a = document.createElement('a');
+        a.href = '/api/auth/tunnel-script?username=' + encodeURIComponent(username);
+        a.download = 'odyssey-tunnel-init.bat';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setMaskText('首次使用，已为您下载初始化脚本，请双击运行下载的 odyssey-tunnel-init.bat，完成后本页自动继续。');
+    } else {
+        // 已装过：公司组策略禁用注册表，无法用 odyssey:// 协议静默拉起，
+        // 提示手动重跑守护脚本，轮询等待恢复
+        setMaskText('本机连接未响应，请双击运行 %USERPROFILE%\\.odyssey-tunnel\\start-tunnel.bat'
+                + '（或注销重新登录电脑），完成后本页自动继续。');
+    }
+
+    // 轮询状态，最久等 90 秒
+    const deadline = Date.now() + 90000;
+    while (Date.now() < deadline) {
+        if (tunnelSkipped) {
+            hideMask();
+            return false;
+        }
+        await sleep(3000);
+        try {
+            const s = await api('/api/auth/tunnel-status?username=' + encodeURIComponent(username));
+            if (s.online) {
+                hideMask();
+                return true;
+            }
+        } catch (e) { /* 继续轮询 */ }
+    }
+    setMaskText('等待超时。可直接登录（若他人连接在线），或重新运行初始化脚本后再登录。');
+    return false;
+}
+
+document.getElementById('tunnel-skip').addEventListener('click', () => {
+    tunnelSkipped = true;
+});
+
+// ---------- 登录 ----------
 
 async function doLogin() {
     const username = document.getElementById('login-user').value.trim();
@@ -20,6 +105,10 @@ async function doLogin() {
     errBox.textContent = '';
     btn.disabled = true;
     btn.textContent = '登录中…';
+
+    // 登录前先确保本机连接在线（首次使用会引导初始化，离线则提示重跑守护脚本）
+    await ensureTunnel(username);
+
     try {
         await api('/api/auth/login', {
             method: 'POST',

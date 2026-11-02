@@ -21,6 +21,8 @@ import java.util.regex.Pattern;
 
 /**
  * Jenkins 脚本代理：执行 Groovy 脚本并解析结果。
+ * 多线路：首选配置的 base-url，失败时依次尝试各 SSH 隧道候选线路（127.0.0.N:18081），
+ * 连上一次后缓存该线路优先复用。
  * 注意：提交给 Jenkins 的脚本必须为纯 ASCII——该版本 Jenkins 对表单中的
  * 非 ASCII 字符解析会直接 500；中文只在「输出结果」中出现没有问题。
  */
@@ -28,7 +30,8 @@ import java.util.regex.Pattern;
 public class JenkinsService {
 
     private static final Pattern PRE_BLOCK = Pattern.compile("<pre>([\\s\\S]*?)</pre>");
-    private static final int CONNECT_TIMEOUT = 10_000;
+    /** 连接超时：多线路依次尝试，单线不宜过长 */
+    private static final int CONNECT_TIMEOUT = 3_000;
     private static final int READ_TIMEOUT = 30_000;
 
     /** 列出全部视图及备注的脚本（纯 ASCII，输出行格式 VIEW|视图名|备注） */
@@ -41,6 +44,8 @@ public class JenkinsService {
 
     private final JenkinsProperties props;
     private final ObjectMapper jsonMapper = new ObjectMapper();
+    /** 最近一次连通的线路，优先复用 */
+    private volatile String lastGoodBase;
 
     public JenkinsService(JenkinsProperties props) {
         this.props = props;
@@ -70,7 +75,50 @@ public class JenkinsService {
     }
 
     public String getBaseUrl() {
+        // 展示/拼视图详情链接用：始终返回配置的真实地址（用户浏览器可达），
+        // 不返回隧道回环地址（用户浏览器连不上服务器的回环）
         return props.getBaseUrl() == null ? "" : props.getBaseUrl().replaceAll("/+$", "");
+    }
+
+    /** 全部候选线路：配置的 base-url 优先，其后是隧道回环线路；上次连通的线路置顶复用 */
+    List<String> candidateBaseUrls() {
+        List<String> candidates = new ArrayList<>();
+        if (props.getBaseUrl() != null && !props.getBaseUrl().trim().isEmpty()) {
+            candidates.add(props.getBaseUrl().replaceAll("/+$", ""));
+        }
+        if (props.getTunnelStart() <= props.getTunnelEnd()) {
+            for (int i = props.getTunnelStart(); i <= props.getTunnelEnd(); i++) {
+                candidates.add("http://127.0.0." + i + ":" + props.getTunnelPort()
+                        + (props.getTunnelContext().isEmpty() ? "" : props.getTunnelContext()));
+            }
+        }
+        if (lastGoodBase != null) {
+            candidates.remove(lastGoodBase);
+            candidates.add(0, lastGoodBase);
+        }
+        return candidates;
+    }
+
+    /** 多线路调用：连接层失败自动切换下一条线路；业务错误（HTTP 状态/凭据问题）立即抛出 */
+    private <T> T forAnyBase(BaseCall<T> call) {
+        List<String> candidates = candidateBaseUrls();
+        IllegalStateException last = null;
+        for (String base : candidates) {
+            try {
+                T result = call.run(base);
+                lastGoodBase = base;
+                return result;
+            } catch (IllegalStateException e) {
+                throw e; // HTTP 状态类错误与线路无关，不切换
+            } catch (Exception e) {
+                last = new IllegalStateException("Jenkins 连接失败：" + e.getMessage(), e);
+            }
+        }
+        throw last != null ? last : new IllegalStateException("未配置 Jenkins 连接（jenkins.base-url）");
+    }
+
+    private interface BaseCall<T> {
+        T run(String base) throws Exception;
     }
 
     public List<ViewInfo> fetchViews(String username, String credential) {
@@ -95,8 +143,7 @@ public class JenkinsService {
      * 401/403 视为凭据错误返回 null。
      */
     public String authenticate(String username, String credential) {
-        String base = requireBaseUrl();
-        try {
+        return forAnyBase(base -> {
             HttpURLConnection conn = (HttpURLConnection) new URL(base + "/me/api/json").openConnection();
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(CONNECT_TIMEOUT);
@@ -116,17 +163,12 @@ public class JenkinsService {
             // 消费并关闭流，避免连接泄漏
             readStream(status < 400 ? conn.getInputStream() : conn.getErrorStream());
             throw new IllegalStateException("Jenkins 账号校验失败（HTTP " + status + "）");
-        } catch (IllegalStateException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new IllegalStateException("Jenkins 连接失败：" + e.getMessage(), e);
-        }
+        });
     }
 
     /** 执行 Groovy 脚本，返回结果 <pre> 块中的纯文本 */
     private String executeScript(String username, String credential, String script) {
-        String base = requireBaseUrl();
-        try {
+        return forAnyBase(base -> {
             String crumb = fetchCrumb(base, username, credential);
 
             HttpURLConnection conn = (HttpURLConnection) new URL(base + "/script").openConnection();
@@ -160,11 +202,7 @@ public class JenkinsService {
                 last = matcher.group(1);
             }
             return last == null ? "" : unescapeHtml(last);
-        } catch (IllegalStateException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new IllegalStateException("Jenkins 连接失败：" + e.getMessage(), e);
-        }
+        });
     }
 
     /** 获取 CSRF crumb；未启用 CSRF 时返回 null */
@@ -191,14 +229,6 @@ public class JenkinsService {
     private String basicAuth(String username, String credential) {
         String token = username + ":" + credential;
         return "Basic " + Base64.getEncoder().encodeToString(token.getBytes(StandardCharsets.UTF_8));
-    }
-
-    /** 取去除尾部斜杠的 base-url；未配置时抛出明确错误 */
-    private String requireBaseUrl() {
-        if (props.getBaseUrl() == null || props.getBaseUrl().trim().isEmpty()) {
-            throw new IllegalStateException("未配置 Jenkins 连接（jenkins.base-url）");
-        }
-        return props.getBaseUrl().replaceAll("/+$", "");
     }
 
     private String readStream(java.io.InputStream in) throws Exception {

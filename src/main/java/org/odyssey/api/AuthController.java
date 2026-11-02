@@ -2,19 +2,23 @@ package org.odyssey.api;
 
 import org.odyssey.service.AuthService;
 import org.odyssey.service.JenkinsService;
+import org.odyssey.service.TunnelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,10 +40,13 @@ public class AuthController {
 
     private final JenkinsService jenkinsService;
     private final AuthService authService;
+    private final TunnelService tunnelService;
 
-    public AuthController(JenkinsService jenkinsService, AuthService authService) {
+    public AuthController(JenkinsService jenkinsService, AuthService authService,
+                          TunnelService tunnelService) {
         this.jenkinsService = jenkinsService;
         this.authService = authService;
+        this.tunnelService = tunnelService;
     }
 
     @PostMapping("/login")
@@ -89,6 +96,38 @@ public class AuthController {
         result.put("user", authService.currentUser(request));
         result.put("name", authService.currentUserName(request));
         return ResponseEntity.ok(result);
+    }
+
+    // ---------- Jenkins 隧道（登录前初始化，见 TunnelService 类注释） ----------
+
+    /** 隧道状态：installed=该用户已登记、online=该用户隧道当前在线（登录页据此决定是否引导初始化） */
+    @GetMapping("/tunnel-status")
+    public ResponseEntity<?> tunnelStatus(@RequestParam String username) {
+        TunnelService.Status status = tunnelService.statusOf(username == null ? "" : username.trim());
+        Map<String, Object> result = new HashMap<>();
+        result.put("installed", status.installed);
+        result.put("online", status.online);
+        return ResponseEntity.ok(result);
+    }
+
+    /** 下载初始化脚本：为该用户分配槽位并生成专属密钥，返回可直接双击运行的 bat（可重复运行换新密钥） */
+    @GetMapping("/tunnel-script")
+    public ResponseEntity<byte[]> tunnelScript(@RequestParam String username) {
+        String user = username == null ? "" : username.trim();
+        try {
+            TunnelService.Enrollment enrollment = tunnelService.enroll(user);
+            log.info("为用户 {} 生成隧道初始化脚本（槽位 127.0.0.{}）", user, enrollment.getSlot());
+            String script = tunnelService.buildInitScript(enrollment, user);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=\"odyssey-tunnel-init.bat\"")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(script.getBytes(StandardCharsets.US_ASCII));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("{\"message\":\"用户名含非法字符\"}".getBytes(StandardCharsets.UTF_8));
+        }
     }
 
     private static ResponseCookie loginCookie(String token) {

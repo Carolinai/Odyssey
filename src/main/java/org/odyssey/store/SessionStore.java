@@ -116,7 +116,8 @@ public class SessionStore {
                     new TypeReference<Map<String, SessionInfo>>() {
                     });
         } catch (IOException e) {
-            throw new UncheckedIOException("读取会话文件失败：" + file, e);
+            // 空文件或损坏文件按无会话处理：登录态丢失可重登，不应阻塞整个系统
+            sessions = new HashMap<>();
         }
     }
 

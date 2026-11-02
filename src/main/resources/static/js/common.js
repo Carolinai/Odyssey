@@ -204,6 +204,36 @@ function renderSidebar() {
     }).catch(() => { /* 未登录：api() 已统一跳登录页 */ });
 }
 
+/** 系统风格确认弹窗：页面居中，确定/取消，Esc 或点击遮罩等同取消；返回 Promise<boolean> */
+function appConfirm(message) {
+    return new Promise(resolve => {
+        const mask = document.createElement('div');
+        mask.className = 'app-confirm-mask';
+        mask.innerHTML =
+            '<div class="app-confirm-box">' +
+            '  <p></p>' +
+            '  <div class="app-confirm-actions">' +
+            '    <button type="button" class="btn btn-plain">取消</button>' +
+            '    <button type="button" class="btn btn-primary">确定</button>' +
+            '  </div>' +
+            '</div>';
+        mask.querySelector('p').textContent = message; // textContent 防注入
+        function done(value) {
+            document.removeEventListener('keydown', onKey);
+            mask.remove();
+            resolve(value);
+        }
+        function onKey(e) {
+            if (e.key === 'Escape') done(false);
+        }
+        mask.querySelector('.btn-plain').addEventListener('click', () => done(false));
+        mask.querySelector('.btn-primary').addEventListener('click', () => done(true));
+        mask.addEventListener('click', e => { if (e.target === mask) done(false); });
+        document.addEventListener('keydown', onKey);
+        document.body.appendChild(mask);
+    });
+}
+
 /** 侧栏底部用户卡片：头像 + 显示名/账号，下方「个人中心」「注销」按钮 */
 function buildUserCard(displayName, account) {
     const card = document.createElement('div');
@@ -242,6 +272,7 @@ function buildUserCard(displayName, account) {
     logoutBtn.type = 'button';
     logoutBtn.textContent = '注销';
     logoutBtn.addEventListener('click', async () => {
+        if (!(await appConfirm('确认注销当前登录？'))) return;
         try {
             await api('/api/auth/logout', { method: 'POST' });
         } catch (e) { /* 会话已失效也继续跳转 */ }

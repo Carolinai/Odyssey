@@ -48,4 +48,15 @@ class SessionStoreTest {
         assertNull(store.get(null));
         assertNull(store.get(""));
     }
+
+    @Test
+    void 空或损坏的会话文件按无会话处理() throws Exception {
+        java.nio.file.Files.write(tempDir.resolve("sessions.json"), new byte[0]);
+
+        // 不抛异常，等同未登录；且仍能正常创建新会话
+        SessionStore store = new SessionStore(tempDir);
+        assertNull(store.get("any-token"));
+        String token = store.create("tester", "测试用户", "t");
+        assertEquals("tester", store.get(token).getUser());
+    }
 }

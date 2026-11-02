@@ -23,6 +23,15 @@
     </p>
 </div>
 
+<!-- 本机连接初始化蒙版：首次使用/隧道离线时展示，初始化完成自动消失 -->
+<div id="tunnel-mask" class="tunnel-mask hidden">
+    <div class="tunnel-mask-box">
+        <h2>正在建立本机连接</h2>
+        <p id="tunnel-mask-text">正在准备连接，请稍候…</p>
+        <a id="tunnel-skip" href="javascript:void(0)">跳过初始化，直接登录</a>
+    </div>
+</div>
+
 <script src="/js/common.js"></script>
 <script src="/js/login.js"></script>
 </body>
