@@ -193,9 +193,9 @@ function renderBasic() {
 
 function renderTags() {
     const box = document.getElementById('tags-section');
-    // 先清空本区域再收集：已删除行的残留输入框会把刚删掉的数据写回 state
     box.innerHTML = '';
-    collectAll();
+    // 注意：渲染期间不要 collectAll——init 时 state 已是新数据而 DOM 还是旧的，
+    // 全文档收集会把旧 DOM 的值（如已删除附件行的备注）写进新 state，产生幽灵条目
     const labelRow = document.createElement('div');
     labelRow.className = 'form-row';
     const labelEl = document.createElement('label');
@@ -287,6 +287,15 @@ function renderFiles() {
     fileInput.type = 'file';
     uploadRow.appendChild(fileInput);
 
+    // 选中文件后明确展示文件名与大小（原生选择框的文件名展示不明显，容易被认为没选上）
+    const fileHint = document.createElement('span');
+    fileHint.className = 'file-meta';
+    fileInput.addEventListener('change', () => {
+        const f = fileInput.files && fileInput.files[0];
+        fileHint.textContent = f ? '已选择：' + f.name + '（' + formatSize(f.size) + '）' : '';
+    });
+    uploadRow.appendChild(fileHint);
+
     const noteInput = document.createElement('input');
     noteInput.placeholder = '用途备注（可选），如：VPN 软件 / 使用文档';
     uploadRow.appendChild(noteInput);
@@ -319,6 +328,12 @@ function renderFiles() {
     });
     uploadRow.appendChild(uploadBtn);
     box.appendChild(uploadRow);
+
+    // 公司安全软件会拦截文件对话框中的压缩包/可执行文件，提示用户找开发人员代传
+    const interceptHint = document.createElement('div');
+    interceptHint.className = 'page-hint';
+    interceptHint.textContent = '如遇点击「选择文件」后无反应，是公司统一拦截原因（压缩包/可执行文件），可以找开发人员手动放置';
+    box.appendChild(interceptHint);
 
     // 附件列表：文件名（点击下载）+ 大小/时间 + 备注（可编辑，随保存提交）+ 删除
     (state.files || []).forEach((f, i) => {

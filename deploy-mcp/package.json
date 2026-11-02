@@ -1,0 +1,13 @@
+{
+  "name": "odyssey-deploy-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Odyssey 自动部署 MCP 服务器：打包 → 备份旧包 → 上传 → 重建容器 → 健康检查",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0"
+  }
+}

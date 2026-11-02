@@ -44,3 +44,5 @@ build/
 .idea/
 # Claude Code 本地数据
 .claude/
+### deploy-mcp ###
+node_modules/
