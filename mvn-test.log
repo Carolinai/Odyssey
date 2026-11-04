@@ -1,0 +1,311 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< org.odyssey:Odyssey >-------------------------
+[INFO] Building Odyssey 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:3.2.0:resources (default-resources) @ Odyssey ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 1 resource
+[INFO] Copying 28 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:compile (default-compile) @ Odyssey ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 65 source files to D:\projects\vp_controller\Odyssey\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.2.0:testResources (default-testResources) @ Odyssey ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory D:\projects\vp_controller\Odyssey\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:testCompile (default-testCompile) @ Odyssey ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 19 source files to D:\projects\vp_controller\Odyssey\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ Odyssey ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running org.odyssey.api.AuthControllerTest
+09:50:53.603 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+09:50:53.615 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+09:50:53.663 [main] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [org.odyssey.api.AuthControllerTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+09:50:53.676 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [org.odyssey.api.AuthControllerTest], using SpringBootContextLoader
+09:50:53.680 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [org.odyssey.api.AuthControllerTest]: class path resource [org/odyssey/api/AuthControllerTest-context.xml] does not exist
+09:50:53.681 [main] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [org.odyssey.api.AuthControllerTest]: class path resource [org/odyssey/api/AuthControllerTestContext.groovy] does not exist
+09:50:53.681 [main] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [org.odyssey.api.AuthControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+09:50:53.681 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [org.odyssey.api.AuthControllerTest]: AuthControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:50:53.766 [main] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [org.odyssey.api.AuthControllerTest]
+09:50:53.945 [main] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [D:\projects\vp_controller\Odyssey\target\classes\org\odyssey\OdysseyApplication.class]
+09:50:53.950 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration org.odyssey.OdysseyApplication for test class org.odyssey.api.AuthControllerTest
+09:50:54.144 [main] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [org.odyssey.api.AuthControllerTest]: using defaults.
+09:50:54.145 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+09:50:54.167 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@48d5f34e, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@fc258b1, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@6ff65192, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@2dd80673, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4af0df05, org.springframework.test.context.support.DirtiesContextTestExecutionListener@57ea113a, org.springframework.test.context.transaction.TransactionalTestExecutionListener@acdb094, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@674bd420, org.springframework.test.context.event.EventPublishingTestExecutionListener@2b0f373b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2ceb80a1, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4b45dcb8, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@7216fb24, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2072acb2, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@50ecde95, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@35a9782c]
+09:50:54.171 [main] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@61e94def testClass = AuthControllerTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@3300f4fd testClass = AuthControllerTest, locations = '{}', classes = '{class org.odyssey.OdysseyApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[[ImportsContextCustomizer@ebb6851 key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.reactive.WebTestClientAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@46d59067, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@5dafbe45, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@6dffd935, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@78452606, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@3b6d844d, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@4b3fa0b3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@5038d0b5, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@fa49d7a9, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@ea1a8d5], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true]], class annotated with @DirtiesContext [false] with mode [null].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.18)
+
+2026-11-04 09:50:54.697  INFO 12584 --- [           main] org.odyssey.api.AuthControllerTest       : Starting AuthControllerTest using Java 17.0.11 on MDWHDZSBL050095 with PID 12584 (started by chouhp in D:\projects\vp_controller\Odyssey)
+2026-11-04 09:50:54.699  INFO 12584 --- [           main] org.odyssey.api.AuthControllerTest       : No active profile set, falling back to 1 default profile: "default"
+2026-11-04 09:50:58.843  INFO 12584 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-11-04 09:50:59.480  INFO 12584 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-04 09:50:59.480  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-04 09:50:59.481  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-11-04 09:50:59.516  INFO 12584 --- [           main] org.odyssey.api.AuthControllerTest       : Started AuthControllerTest in 5.284 seconds (JVM running for 7.924)
+2026-11-04 09:51:00.019  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:00.022  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit2277064796433482958\data
+2026-11-04 09:51:00.024  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit2277064796433482958\keys
+2026-11-04 09:51:00.026  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit2277064796433482958\data\images
+2026-11-04 09:51:00.030  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 数据目录就绪：C:\Users\chouhp\AppData\Local\Temp\junit2277064796433482958
+2026-11-04 09:51:00.202  WARN 12584 --- [           main] org.odyssey.api.AuthController           : Jenkins 登录校验失败：Jenkins 连接失败：timeout
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.508 s - in org.odyssey.api.AuthControllerTest
+[INFO] Running org.odyssey.api.ConfigControllerTest
+2026-11-04 09:51:00.544  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [org.odyssey.api.ConfigControllerTest], using SpringBootContextLoader
+2026-11-04 09:51:00.545  INFO 12584 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [org.odyssey.api.ConfigControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2026-11-04 09:51:00.545  INFO 12584 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.odyssey.api.ConfigControllerTest]: ConfigControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04 09:51:00.551  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.odyssey.OdysseyApplication for test class org.odyssey.api.ConfigControllerTest
+2026-11-04 09:51:00.553  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2026-11-04 09:51:00.554  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@21ea1d9d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@19f497aa, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@36a58466, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@78e387d6, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@9147ba2, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3460e4ed, org.springframework.test.context.transaction.TransactionalTestExecutionListener@2efcc0b3, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4a453f8d, org.springframework.test.context.event.EventPublishingTestExecutionListener@60a6840c, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@53525379, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@1be3f8f8, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@78b9155e, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2ceb68a1, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@6de33fde, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@69c33ea2]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.18)
+
+2026-11-04 09:51:00.593  INFO 12584 --- [           main] org.odyssey.api.ConfigControllerTest     : Starting ConfigControllerTest using Java 17.0.11 on MDWHDZSBL050095 with PID 12584 (started by chouhp in D:\projects\vp_controller\Odyssey)
+2026-11-04 09:51:00.594  INFO 12584 --- [           main] org.odyssey.api.ConfigControllerTest     : No active profile set, falling back to 1 default profile: "default"
+2026-11-04 09:51:01.763  INFO 12584 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-11-04 09:51:02.102  INFO 12584 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-04 09:51:02.103  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-04 09:51:02.103  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-11-04 09:51:02.114  INFO 12584 --- [           main] org.odyssey.api.ConfigControllerTest     : Started ConfigControllerTest in 1.557 seconds (JVM running for 10.522)
+2026-11-04 09:51:02.773  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:02.774  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit7476145784949234826\data
+2026-11-04 09:51:02.775  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit7476145784949234826\keys
+2026-11-04 09:51:02.776  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit7476145784949234826\data\images
+2026-11-04 09:51:02.777  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 数据目录就绪：C:\Users\chouhp\AppData\Local\Temp\junit7476145784949234826
+2026-11-04 09:51:02.885  INFO 12584 --- [           main] org.odyssey.store.GlobalConfigStore      : 已保存全局配置：C:\Users\chouhp\AppData\Local\Temp\junit7476145784949234826\config.yaml
+2026-11-04 09:51:02.958  INFO 12584 --- [           main] org.odyssey.store.GlobalConfigStore      : 已保存全局配置：C:\Users\chouhp\AppData\Local\Temp\junit7476145784949234826\config.yaml
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.504 s - in org.odyssey.api.ConfigControllerTest
+[INFO] Running org.odyssey.api.DecryptControllerTest
+2026-11-04 09:51:03.087  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [org.odyssey.api.DecryptControllerTest], using SpringBootContextLoader
+2026-11-04 09:51:03.088  INFO 12584 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [org.odyssey.api.DecryptControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2026-11-04 09:51:03.088  INFO 12584 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.odyssey.api.DecryptControllerTest]: DecryptControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04 09:51:03.092  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.odyssey.OdysseyApplication for test class org.odyssey.api.DecryptControllerTest
+2026-11-04 09:51:03.094  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2026-11-04 09:51:03.095  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3400d6fa, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@30a62a5b, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@41a8f0d8, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@30133a11, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2168def, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3639b04, org.springframework.test.context.transaction.TransactionalTestExecutionListener@5cb8580, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@2ca1e49a, org.springframework.test.context.event.EventPublishingTestExecutionListener@1aee6d14, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@54a6ef6, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@5c740c5a, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@7fd2a67a, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@163df259, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@405603b6, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3c3cd13a]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.18)
+
+2026-11-04 09:51:03.123  INFO 12584 --- [           main] org.odyssey.api.DecryptControllerTest    : Starting DecryptControllerTest using Java 17.0.11 on MDWHDZSBL050095 with PID 12584 (started by chouhp in D:\projects\vp_controller\Odyssey)
+2026-11-04 09:51:03.124  INFO 12584 --- [           main] org.odyssey.api.DecryptControllerTest    : No active profile set, falling back to 1 default profile: "default"
+2026-11-04 09:51:04.485  INFO 12584 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-11-04 09:51:04.758  INFO 12584 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-04 09:51:04.758  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-04 09:51:04.759  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-11-04 09:51:04.771  INFO 12584 --- [           main] org.odyssey.api.DecryptControllerTest    : Started DecryptControllerTest in 1.674 seconds (JVM running for 13.178)
+2026-11-04 09:51:05.224  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:05.225  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit16029608322547715485\data
+2026-11-04 09:51:05.225  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit16029608322547715485\keys
+2026-11-04 09:51:05.226  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit16029608322547715485\data\images
+2026-11-04 09:51:05.228  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 数据目录就绪：C:\Users\chouhp\AppData\Local\Temp\junit16029608322547715485
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.393 s - in org.odyssey.api.DecryptControllerTest
+[INFO] Running org.odyssey.api.EnvironmentControllerTest
+2026-11-04 09:51:05.470  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [org.odyssey.api.EnvironmentControllerTest], using SpringBootContextLoader
+2026-11-04 09:51:05.474  INFO 12584 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [org.odyssey.api.EnvironmentControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2026-11-04 09:51:05.474  INFO 12584 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.odyssey.api.EnvironmentControllerTest]: EnvironmentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04 09:51:05.484  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.odyssey.OdysseyApplication for test class org.odyssey.api.EnvironmentControllerTest
+2026-11-04 09:51:05.488  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2026-11-04 09:51:05.488  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4db568e1, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7bc8ffbc, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@120d13ae, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1aaaabd1, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7cbe3a05, org.springframework.test.context.support.DirtiesContextTestExecutionListener@40b70f31, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3adde4ea, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@75663443, org.springframework.test.context.event.EventPublishingTestExecutionListener@780546f8, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@b3004e, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@559c4e06, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@111cbcda, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@437c1a87, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5b55c3d6, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@6c8e5ac4]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.18)
+
+2026-11-04 09:51:05.533  INFO 12584 --- [           main] o.odyssey.api.EnvironmentControllerTest  : Starting EnvironmentControllerTest using Java 17.0.11 on MDWHDZSBL050095 with PID 12584 (started by chouhp in D:\projects\vp_controller\Odyssey)
+2026-11-04 09:51:05.533  INFO 12584 --- [           main] o.odyssey.api.EnvironmentControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-04 09:51:07.048  INFO 12584 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-11-04 09:51:07.322  INFO 12584 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-04 09:51:07.323  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-04 09:51:07.323  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-11-04 09:51:07.334  INFO 12584 --- [           main] o.odyssey.api.EnvironmentControllerTest  : Started EnvironmentControllerTest in 1.843 seconds (JVM running for 15.742)
+2026-11-04 09:51:08.217  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:08.218  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit16510453947054970785\data
+2026-11-04 09:51:08.219  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit16510453947054970785\keys
+2026-11-04 09:51:08.219  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit16510453947054970785\data\images
+2026-11-04 09:51:08.220  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 数据目录就绪：C:\Users\chouhp\AppData\Local\Temp\junit16510453947054970785
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.596 s - in org.odyssey.api.EnvironmentControllerTest
+[INFO] Running org.odyssey.api.ImageControllerTest
+2026-11-04 09:51:09.110  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [org.odyssey.api.ImageControllerTest], using SpringBootContextLoader
+2026-11-04 09:51:09.110  INFO 12584 --- [           main] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [org.odyssey.api.ImageControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2026-11-04 09:51:09.111  INFO 12584 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [org.odyssey.api.ImageControllerTest]: ImageControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-04 09:51:09.116  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration org.odyssey.OdysseyApplication for test class org.odyssey.api.ImageControllerTest
+2026-11-04 09:51:09.116  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2026-11-04 09:51:09.117  INFO 12584 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4fa6fb7f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2520010e, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@163fbbc9, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@1669f4e5, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6e6c8854, org.springframework.test.context.support.DirtiesContextTestExecutionListener@4be1dce6, org.springframework.test.context.transaction.TransactionalTestExecutionListener@206bd7a0, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@79fcd194, org.springframework.test.context.event.EventPublishingTestExecutionListener@73d8c8d7, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@361b3ca6, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@48333b12, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@575c23f1, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@62f7d7bd, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@de63949, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@5c5c784c]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.18)
+
+2026-11-04 09:51:09.148  INFO 12584 --- [           main] org.odyssey.api.ImageControllerTest      : Starting ImageControllerTest using Java 17.0.11 on MDWHDZSBL050095 with PID 12584 (started by chouhp in D:\projects\vp_controller\Odyssey)
+2026-11-04 09:51:09.148  INFO 12584 --- [           main] org.odyssey.api.ImageControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2026-11-04 09:51:11.046  INFO 12584 --- [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-11-04 09:51:11.292  INFO 12584 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-04 09:51:11.292  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-04 09:51:11.292  INFO 12584 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-11-04 09:51:11.302  INFO 12584 --- [           main] org.odyssey.api.ImageControllerTest      : Started ImageControllerTest in 2.183 seconds (JVM running for 19.71)
+2026-11-04 09:51:11.883  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:11.884  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit1029258593181123792\data
+2026-11-04 09:51:11.885  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit1029258593181123792\keys
+2026-11-04 09:51:11.886  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 已创建目录：C:\Users\chouhp\AppData\Local\Temp\junit1029258593181123792\data\images
+2026-11-04 09:51:11.887  INFO 12584 --- [           main] o.o.config.DataDirectoryInitializer      : 数据目录就绪：C:\Users\chouhp\AppData\Local\Temp\junit1029258593181123792
+2026-11-04 09:51:12.131  INFO 12584 --- [           main] org.odyssey.store.EnvironmentStore       : 已清理 1 个未被引用的图片文件
+2026-11-04 09:51:12.164  INFO 12584 --- [           main] org.odyssey.store.EnvironmentStore       : 已清理 1 个未被引用的图片文件
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.11 s - in org.odyssey.api.ImageControllerTest
+[INFO] Running org.odyssey.service.AiGatewayClientTest
+2026-11-04 09:51:12.489  INFO 12584 --- [           main] org.odyssey.store.UserConfigStore        : 已保存个人配置：C:\Users\chouhp\AppData\Local\Temp\junit13477799679978212728\users\tester.yaml
+2026-11-04 09:51:12.864  WARN 12584 --- [           main] org.odyssey.service.AiGatewayClient      : AI 调用失败（线路 http://127.0.0.1:54431，第 1/3 次）：网关返回 HTTP 500：网关内部错误，2000ms 后重试
+2026-11-04 09:51:14.880  INFO 12584 --- [           main] org.odyssey.service.AiGatewayClient      : AI 调用完成（user=tester glm-test http://127.0.0.1:54431/）：轮数 1，token in=10 out=20
+2026-11-04 09:51:14.919  INFO 12584 --- [           main] org.odyssey.store.UserConfigStore        : 已保存个人配置：C:\Users\chouhp\AppData\Local\Temp\junit11268661447107348432\users\tester.yaml
+2026-11-04 09:51:15.003  INFO 12584 --- [           main] org.odyssey.service.AiGatewayClient      : AI 调用完成（user=tester glm-test http://127.0.0.1:60456/）：轮数 1，token in=10 out=20
+2026-11-04 09:51:15.022  INFO 12584 --- [           main] org.odyssey.store.UserConfigStore        : 已保存个人配置：C:\Users\chouhp\AppData\Local\Temp\junit11798083578012446990\users\tester.yaml
+2026-11-04 09:51:15.120  INFO 12584 --- [           main] org.odyssey.service.AiGatewayClient      : AI 输出被 max_tokens 截断（已 3 字符），第 1 次续写
+2026-11-04 09:51:16.259  INFO 12584 --- [           main] org.odyssey.service.AiGatewayClient      : AI 调用完成（user=tester glm-test http://127.0.0.1:60458/）：轮数 2，token in=20 out=40
+2026-11-04 09:51:16.283  INFO 12584 --- [           main] org.odyssey.store.UserConfigStore        : 已保存个人配置：C:\Users\chouhp\AppData\Local\Temp\junit1520827312820497576\users\tester.yaml
+2026-11-04 09:51:19.181  INFO 12584 --- [           main] org.odyssey.service.AiGatewayClient      : AI 调用完成（user=tester glm-test http://127.0.0.1:49387/）：轮数 1，token in=10 out=20
+2026-11-04 09:51:19.184  INFO 12584 --- [           main] org.odyssey.service.AiGatewayClient      : AI 调用完成（user=tester glm-test http://127.0.0.1:49387/）：轮数 1，token in=10 out=20
+2026-11-04 09:51:19.487  INFO 12584 --- [           main] org.odyssey.service.AiGatewayClient      : AI 调用完成（user=tester glm-test http://127.0.0.1:49387/）：轮数 1，token in=10 out=20
+2026-11-04 09:51:19.503  INFO 12584 --- [           main] org.odyssey.store.UserConfigStore        : 已保存个人配置：C:\Users\chouhp\AppData\Local\Temp\junit6585256753190262086\users\tester.yaml
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.288 s - in org.odyssey.service.AiGatewayClientTest
+[INFO] Running org.odyssey.service.EnvironmentDiffTest
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s - in org.odyssey.service.EnvironmentDiffTest
+[INFO] Running org.odyssey.service.OnesClientLiveTest
+[WARNING] Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.007 s - in org.odyssey.service.OnesClientLiveTest
+[INFO] Running org.odyssey.service.OnesClientParseTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in org.odyssey.service.OnesClientParseTest
+[INFO] Running org.odyssey.service.SshKeyGenTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.33 s - in org.odyssey.service.SshKeyGenTest
+[INFO] Running org.odyssey.service.TaskExecutorTest
+2026-11-04 09:51:20.260  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:23.398  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:25.759  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:25.843 ERROR 12584 --- [    task-worker] org.odyssey.service.TaskExecutor         : 后台任务 1 执行失败
+
+java.lang.IllegalStateException: AI 网关连接超时
+	at org.odyssey.service.TaskExecutorTest.lambda$failureStoresErrorMessage$1(TaskExecutorTest.java:83) ~[test-classes/:na]
+	at org.odyssey.service.TaskExecutor.runTask(TaskExecutor.java:92) ~[classes/:na]
+	at org.odyssey.service.TaskExecutor.lambda$submit$1(TaskExecutor.java:85) ~[classes/:na]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2026-11-04 09:51:26.551  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:26.614  WARN 12584 --- [           main] org.odyssey.service.TaskExecutor         : 启动清理：2 个遗留后台任务已标记为失败
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.733 s - in org.odyssey.service.TaskExecutorTest
+[INFO] Running org.odyssey.service.TicketSyncServiceTest
+2026-11-04 09:51:27.722  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:28.852  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:28.856  INFO 12584 --- [           main] org.odyssey.store.UserConfigStore        : 已保存个人配置：C:\Users\chouhp\AppData\Local\Temp\junit15190989328766751777\users\tester.yaml
+2026-11-04 09:51:28.904  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步开始：type=full, trigger=manual, user=tester
+2026-11-04 09:51:28.941 ERROR 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步失败（已完成 0 条）：ONES Cookie 已失效，请到「个人中心 → 工单助手配置」更新
+
+org.odyssey.service.OnesClient$OnesAuthException: ONES Cookie 已失效，请到「个人中心 → 工单助手配置」更新
+	at org.odyssey.service.TicketSyncServiceTest$2.fetchTicketsCreatedSince(TicketSyncServiceTest.java:187) ~[test-classes/:na]
+	at org.odyssey.service.TicketSyncService.runSync(TicketSyncService.java:181) ~[classes/:na]
+	at org.odyssey.service.TicketSyncService.lambda$startSync$0(TicketSyncService.java:91) ~[classes/:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2026-11-04 09:51:29.401  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步开始：type=full, trigger=manual, user=tester
+2026-11-04 09:51:29.433 ERROR 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步失败（已完成 0 条）：ONES Cookie 已失效，请到「个人中心 → 工单助手配置」更新
+
+org.odyssey.service.OnesClient$OnesAuthException: ONES Cookie 已失效，请到「个人中心 → 工单助手配置」更新
+	at org.odyssey.service.TicketSyncServiceTest$2.fetchTicketsCreatedSince(TicketSyncServiceTest.java:187) ~[test-classes/:na]
+	at org.odyssey.service.TicketSyncService.runSync(TicketSyncService.java:181) ~[classes/:na]
+	at org.odyssey.service.TicketSyncService.lambda$startSync$0(TicketSyncService.java:91) ~[classes/:na]
+	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
+
+2026-11-04 09:51:30.091  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:30.098  INFO 12584 --- [           main] org.odyssey.store.UserConfigStore        : 已保存个人配置：C:\Users\chouhp\AppData\Local\Temp\junit1781989391518818375\users\tester.yaml
+2026-11-04 09:51:30.170  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步开始：type=full, trigger=manual, user=tester
+2026-11-04 09:51:30.385  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步完成：1 条工单，评论 1 条，历史 1 条
+2026-11-04 09:51:30.903  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步开始：type=incremental, trigger=manual, user=tester
+2026-11-04 09:51:31.163  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步完成：1 条工单，评论 1 条，历史 1 条
+2026-11-04 09:51:31.398  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步开始：type=incremental, trigger=manual, user=tester
+2026-11-04 09:51:31.657  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步完成：1 条工单，评论 1 条，历史 1 条
+2026-11-04 09:51:32.259  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:32.263  INFO 12584 --- [           main] org.odyssey.store.UserConfigStore        : 已保存个人配置：C:\Users\chouhp\AppData\Local\Temp\junit15582940584364605350\users\tester.yaml
+2026-11-04 09:51:32.294  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步开始：type=full, trigger=manual, user=tester
+2026-11-04 09:51:32.474  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步完成：1 条工单，评论 1 条，历史 1 条
+2026-11-04 09:51:33.085  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:33.098  WARN 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 自动同步跳过：没有任何用户配置 ONES Cookie
+2026-11-04 09:51:33.277  INFO 12584 --- [           main] org.odyssey.store.UserConfigStore        : 已保存个人配置：C:\Users\chouhp\AppData\Local\Temp\junit10805107131768765159\users\tester.yaml
+2026-11-04 09:51:33.316  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步开始：type=full, trigger=auto, user=tester
+2026-11-04 09:51:33.491  INFO 12584 --- [    ticket-sync] org.odyssey.service.TicketSyncService    : 工单同步完成：1 条工单，评论 1 条，历史 1 条
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.022 s - in org.odyssey.service.TicketSyncServiceTest
+[INFO] Running org.odyssey.service.TunnelServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.109 s - in org.odyssey.service.TunnelServiceTest
+[INFO] Running org.odyssey.store.EnvironmentStoreTest
+2026-11-04 09:51:34.201  INFO 12584 --- [           main] org.odyssey.store.EnvironmentStore       : 已为 1 个旧环境文件回填创建/更新时间
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.562 s - in org.odyssey.store.EnvironmentStoreTest
+[INFO] Running org.odyssey.store.FeedbackStoreTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.252 s - in org.odyssey.store.FeedbackStoreTest
+[INFO] Running org.odyssey.store.SessionStoreTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 s - in org.odyssey.store.SessionStoreTest
+[INFO] Running org.odyssey.store.TicketSchemaInitializerTest
+2026-11-04 09:51:35.083  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:35.185  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.836 s - in org.odyssey.store.TicketSchemaInitializerTest
+[INFO] Running org.odyssey.store.TicketStatsStoreTest
+2026-11-04 09:51:35.886  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:36.594  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:37.325  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:37.969  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:38.688  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:39.365  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:40.125  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:40.756  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:41.402  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:42.046  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:42.916  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:43.685  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:44.417  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+2026-11-04 09:51:45.266  INFO 12584 --- [           main] o.odyssey.store.TicketSchemaInitializer  : 工单助手 SQLite 表结构就绪
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.052 s - in org.odyssey.store.TicketStatsStoreTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[WARNING] Tests run: 108, Failures: 0, Errors: 0, Skipped: 1
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:10 min
+[INFO] Finished at: 2026-11-04T09:51:46+08:00
+[INFO] ------------------------------------------------------------------------

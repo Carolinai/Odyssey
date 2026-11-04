@@ -61,7 +61,12 @@ function toast(message) {
 const DEFAULT_MENUS = [
     { key: 'envs', label: '客户列表', url: '/' },
     { key: 'jenkins', label: 'Jenkins 视图', url: '/jenkins.html' },
+    { key: 'ticket-dashboard', label: '工单看板', url: '/ticket-dashboard.html' },
+    { key: 'ticket-reports', label: 'AI 报告', url: '/ticket-reports.html' },
+    { key: 'ticket-insights', label: '经验库', url: '/ticket-insights.html' },
+    { key: 'ticket-sync', label: '工单同步', url: '/ticket-sync.html' },
     { key: 'audit', label: '审计日志', url: '/audit.html' },
+    { key: 'feedback', label: '建议反馈', url: '/feedback.html' },
     { key: 'decrypt', label: 'RSA 工具', url: '/decrypt.html' },
     { key: 'config', label: '全局配置', url: '/config.html' },
     { key: 'menus', label: '菜单管理', url: '/menus.html' }
@@ -106,6 +111,11 @@ const MENU_ICONS = {
     decrypt: '<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>',
     config: '<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>',
     menus: '<line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>',
+    'ticket-sync': '<path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
+    'ticket-dashboard': '<line x1="6" y1="20" x2="6" y2="14"/><line x1="12" y1="20" x2="12" y2="8"/><line x1="18" y1="20" x2="18" y2="4"/>',
+    'ticket-reports': '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 10 8 9"/>',
+    'ticket-insights': '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>',
+    feedback: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="13" y2="12"/>',
     custom: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>'
 };
 
@@ -334,4 +344,42 @@ function loadGlobalConfig() {
         _globalConfigPromise = api('/api/config').catch(() => ({}));
     }
     return _globalConfigPromise;
+}
+
+/**
+ * 轻量 Markdown 渲染（AI 报告/经验为受控生成内容，结构固定：标题/列表/引用/分隔线/粗体/行内代码）。
+ * 先整体转义 HTML 再做替换，防注入。报告页与经验库页共用。
+ */
+function renderMd(md) {
+    const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const inline = s => esc(s)
+        .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>');
+    let html = '', listOpen = false;
+    const closeList = () => { if (listOpen) { html += '</ul>'; listOpen = false; } };
+    md.split('\n').forEach(raw => {
+        const line = raw.trimEnd();
+        const heading = line.match(/^(#{1,4})\s+(.*)$/);
+        if (heading) {
+            closeList();
+            const lv = heading[1].length + 1; // # → h2（弹层内不用 h1）
+            html += '<h' + lv + '>' + inline(heading[2]) + '</h' + lv + '>';
+        } else if (/^[-*]\s+/.test(line)) {
+            if (!listOpen) { html += '<ul>'; listOpen = true; }
+            html += '<li>' + inline(line.replace(/^[-*]\s+/, '')) + '</li>';
+        } else if (/^>\s?/.test(line)) {
+            closeList();
+            html += '<blockquote>' + inline(line.replace(/^>\s?/, '')) + '</blockquote>';
+        } else if (/^(---+|\*\*\*+)\s*$/.test(line)) {
+            closeList();
+            html += '<hr>';
+        } else if (line.trim() === '') {
+            closeList();
+        } else {
+            closeList();
+            html += '<p>' + inline(line) + '</p>';
+        }
+    });
+    closeList();
+    return html;
 }

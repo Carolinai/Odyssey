@@ -2,6 +2,7 @@ package org.odyssey.api;
 
 import org.odyssey.service.AuthService;
 import org.odyssey.service.JenkinsService;
+import org.odyssey.service.RelayService;
 import org.odyssey.service.TunnelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,12 +42,14 @@ public class AuthController {
     private final JenkinsService jenkinsService;
     private final AuthService authService;
     private final TunnelService tunnelService;
+    private final RelayService relayService;
 
     public AuthController(JenkinsService jenkinsService, AuthService authService,
-                          TunnelService tunnelService) {
+                          TunnelService tunnelService, RelayService relayService) {
         this.jenkinsService = jenkinsService;
         this.authService = authService;
         this.tunnelService = tunnelService;
+        this.relayService = relayService;
     }
 
     @PostMapping("/login")
@@ -100,27 +103,30 @@ public class AuthController {
 
     // ---------- Jenkins 隧道（登录前初始化，见 TunnelService 类注释） ----------
 
-    /** 隧道状态：installed=该用户已登记、online=该用户隧道当前在线（登录页据此决定是否引导初始化） */
+    /** 隧道状态：installed/online 为 SSH 槽位状态；relayOnline 为当前在线的中继代理用户列表 */
     @GetMapping("/tunnel-status")
     public ResponseEntity<?> tunnelStatus(@RequestParam String username) {
         TunnelService.Status status = tunnelService.statusOf(username == null ? "" : username.trim());
         Map<String, Object> result = new HashMap<>();
         result.put("installed", status.installed);
         result.put("online", status.online);
+        result.put("relayOnline", relayService.onlineAgents());
         return ResponseEntity.ok(result);
     }
 
-    /** 下载初始化脚本：为该用户分配槽位并生成专属密钥，返回可直接双击运行的 bat（可重复运行换新密钥） */
+    /** 下载初始化脚本：分配槽位与中继令牌，返回可直接双击运行的 bat（可重复运行换新密钥与令牌） */
     @GetMapping("/tunnel-script")
-    public ResponseEntity<byte[]> tunnelScript(@RequestParam String username) {
+    public ResponseEntity<byte[]> tunnelScript(@RequestParam String username, HttpServletRequest request) {
         String user = username == null ? "" : username.trim();
         try {
             TunnelService.Enrollment enrollment = tunnelService.enroll(user);
-            log.info("为用户 {} 生成隧道初始化脚本（槽位 127.0.0.{}）", user, enrollment.getSlot());
-            String script = tunnelService.buildInitScript(enrollment, user);
+            String relayToken = relayService.issueToken(user);
+            log.info("为用户 {} 生成中继安装脚本（槽位 127.0.0.{}）", user, enrollment.getSlot());
+            String script = tunnelService.buildInitScript(enrollment, user,
+                    relayToken, serverBaseUrl(request));
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION,
-                            "attachment; filename=\"odyssey-tunnel-init.bat\"")
+                            "attachment; filename=\"odyssey-relay-init.bat\"")
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(script.getBytes(StandardCharsets.US_ASCII));
         } catch (IllegalArgumentException e) {
@@ -128,6 +134,17 @@ public class AuthController {
                     .contentType(MediaType.APPLICATION_JSON)
                     .body("{\"message\":\"用户名含非法字符\"}".getBytes(StandardCharsets.UTF_8));
         }
+    }
+
+    /** 本应用对外访问地址（代理轮询目标）：scheme://host[:非缺省端口] */
+    private static String serverBaseUrl(HttpServletRequest request) {
+        StringBuilder sb = new StringBuilder()
+                .append(request.getScheme()).append("://").append(request.getServerName());
+        int port = request.getServerPort();
+        if (port != 80 && port != 443) {
+            sb.append(':').append(port);
+        }
+        return sb.toString();
     }
 
     private static ResponseCookie loginCookie(String token) {

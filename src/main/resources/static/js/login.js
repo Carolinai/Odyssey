@@ -23,6 +23,17 @@ function setMaskText(text) {
 function showMask() {
     tunnelSkipped = false;
     maskEl().classList.remove('hidden');
+    document.getElementById('tunnel-mask-redownload').classList.add('hidden');
+}
+
+/** 触发下载该用户的隧道初始化脚本（每次下载即换新密钥、旧密钥作废） */
+function downloadTunnelScript(username) {
+    const a = document.createElement('a');
+    a.href = '/api/auth/tunnel-script?username=' + encodeURIComponent(username);
+    a.download = 'odyssey-tunnel-init.bat';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
 }
 
 function hideMask() {
@@ -51,18 +62,15 @@ async function ensureTunnel(username) {
     showMask();
     if (!status.installed) {
         // 首次使用：自动下载专属初始化脚本
-        const a = document.createElement('a');
-        a.href = '/api/auth/tunnel-script?username=' + encodeURIComponent(username);
-        a.download = 'odyssey-tunnel-init.bat';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+        downloadTunnelScript(username);
         setMaskText('首次使用，已为您下载初始化脚本，请双击运行下载的 odyssey-tunnel-init.bat，完成后本页自动继续。');
     } else {
         // 已装过：公司组策略禁用注册表，无法用 odyssey:// 协议静默拉起，
-        // 提示手动重跑守护脚本，轮询等待恢复
+        // 提示手动重跑守护脚本，轮询等待恢复；重跑无效时可手动重新下载脚本升级连接通道
+        document.getElementById('tunnel-mask-redownload').classList.remove('hidden');
         setMaskText('本机连接未响应，请双击运行 %USERPROFILE%\\.odyssey-tunnel\\start-tunnel.bat'
-                + '（或注销重新登录电脑），完成后本页自动继续。');
+                + '（或注销重新登录电脑），完成后本页自动继续。'
+                + '若重跑无效，可点下方「重新下载初始化脚本」升级连接通道。');
     }
 
     // 轮询状态，最久等 90 秒
@@ -82,11 +90,35 @@ async function ensureTunnel(username) {
         } catch (e) { /* 继续轮询 */ }
     }
     setMaskText('等待超时。可直接登录（若他人连接在线），或重新运行初始化脚本后再登录。');
+    document.getElementById('tunnel-mask-redownload').classList.remove('hidden');
     return false;
 }
 
 document.getElementById('tunnel-skip').addEventListener('click', () => {
     tunnelSkipped = true;
+});
+
+// 蒙版内的重新下载入口（离线提示/等待超时后出现）：用当前填写的用户名换新密钥并下发脚本
+document.getElementById('tunnel-mask-redownload').addEventListener('click', () => {
+    const username = document.getElementById('login-user').value.trim();
+    if (!username) {
+        setMaskText('请先在上方填写用户名，再点「重新下载初始化脚本」。');
+        return;
+    }
+    downloadTunnelScript(username);
+    setMaskText('已重新下载初始化脚本，请双击运行下载的 odyssey-tunnel-init.bat，完成后本页自动继续。');
+});
+
+// 登录卡片上的手动重新下载入口：供已安装但需升级转发通道的用户（隧道在线时蒙版不会出现）
+document.getElementById('tunnel-redownload').addEventListener('click', () => {
+    const username = document.getElementById('login-user').value.trim();
+    const errBox = document.getElementById('login-error');
+    if (!username) {
+        errBox.textContent = '请先填写用户名，再重新下载初始化脚本';
+        return;
+    }
+    errBox.textContent = '';
+    downloadTunnelScript(username);
 });
 
 // ---------- 登录 ----------

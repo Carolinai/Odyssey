@@ -1,5 +1,6 @@
 package org.odyssey.store;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
@@ -28,6 +29,8 @@ public class GlobalConfigStore {
         this.file = rootDir.resolve("config.yaml");
         this.mapper = new ObjectMapper(
                 new YAMLFactory().enable(YAMLGenerator.Feature.MINIMIZE_QUOTES));
+        // 兼容旧版配置文件：工单助手字段已挪为个人配置（UserConfig），旧键读到即忽略
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     /** 读取全局配置；文件不存在或为空时返回空配置 */
@@ -46,7 +49,7 @@ public class GlobalConfigStore {
         }
     }
 
-    /** 保存全局配置：先归一化（去掉空白键值），再原子写回 */
+    /** 保存全局配置：先归一化（去掉空白键值与空白字符串项），再原子写回 */
     public void save(GlobalConfig config) {
         final GlobalConfig cfg = config == null ? new GlobalConfig() : config;
         cfg.getLaunchers().keySet().removeIf(

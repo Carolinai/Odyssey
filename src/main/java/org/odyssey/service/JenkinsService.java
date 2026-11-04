@@ -21,8 +21,8 @@ import java.util.regex.Pattern;
 
 /**
  * Jenkins 脚本代理：执行 Groovy 脚本并解析结果。
- * 多线路：首选配置的 base-url，失败时依次尝试各 SSH 隧道候选线路（127.0.0.N:18081），
- * 连上一次后缓存该线路优先复用。
+ * 多线路：首选配置的 base-url，其次用户电脑的中继代理，最后各 SSH 隧道候选线路
+ * （127.0.0.N:18081），连上一次后缓存该线路优先复用。
  * 注意：提交给 Jenkins 的脚本必须为纯 ASCII——该版本 Jenkins 对表单中的
  * 非 ASCII 字符解析会直接 500；中文只在「输出结果」中出现没有问题。
  */
@@ -80,11 +80,13 @@ public class JenkinsService {
         return props.getBaseUrl() == null ? "" : props.getBaseUrl().replaceAll("/+$", "");
     }
 
-    /** 全部候选线路：配置的 base-url 优先，其后是隧道回环线路；上次连通的线路置顶复用 */
+    /** 全部候选线路：配置的 base-url → 中继代理 → 隧道回环线路；上次连通的线路置顶复用 */
     List<String> candidateBaseUrls() {
         List<String> candidates = new ArrayList<>();
         if (props.getBaseUrl() != null && !props.getBaseUrl().trim().isEmpty()) {
             candidates.add(props.getBaseUrl().replaceAll("/+$", ""));
+            // 中继线路与配置地址同源（服务器不可达 Jenkins，由在线代理的电脑代发）
+            candidates.add(OnesClient.relayBaseOf(props.getBaseUrl().replaceAll("/+$", "")));
         }
         if (props.getTunnelStart() <= props.getTunnelEnd()) {
             for (int i = props.getTunnelStart(); i <= props.getTunnelEnd(); i++) {
@@ -144,7 +146,7 @@ public class JenkinsService {
      */
     public String authenticate(String username, String credential) {
         return forAnyBase(base -> {
-            HttpURLConnection conn = (HttpURLConnection) new URL(base + "/me/api/json").openConnection();
+            HttpURLConnection conn = RelayConnection.open(base + "/me/api/json");
             conn.setRequestMethod("GET");
             conn.setConnectTimeout(CONNECT_TIMEOUT);
             conn.setReadTimeout(READ_TIMEOUT);
@@ -171,7 +173,7 @@ public class JenkinsService {
         return forAnyBase(base -> {
             String crumb = fetchCrumb(base, username, credential);
 
-            HttpURLConnection conn = (HttpURLConnection) new URL(base + "/script").openConnection();
+            HttpURLConnection conn = RelayConnection.open(base + "/script");
             conn.setRequestMethod("POST");
             conn.setConnectTimeout(CONNECT_TIMEOUT);
             conn.setReadTimeout(READ_TIMEOUT);
@@ -207,7 +209,7 @@ public class JenkinsService {
 
     /** 获取 CSRF crumb；未启用 CSRF 时返回 null */
     private String fetchCrumb(String base, String username, String credential) throws Exception {
-        HttpURLConnection conn = (HttpURLConnection) new URL(base + "/crumbIssuer/api/json").openConnection();
+        HttpURLConnection conn = RelayConnection.open(base + "/crumbIssuer/api/json");
         conn.setRequestMethod("GET");
         conn.setConnectTimeout(CONNECT_TIMEOUT);
         conn.setReadTimeout(READ_TIMEOUT);

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 工单看板</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="ticket-dashboard">
+<div class="layout">
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="container">
+    <h1>工单看板</h1>
+    <p class="page-hint">
+        基于已同步工单数据的统计分析（每天凌晨自动增量同步）。点击图表中的条目可下钻查看工单明细。<br>
+        数据同步使用你个人的 ONES Cookie，首次使用请先到<a href="/ticket-sync.html">工单同步页</a>触发一次同步（Cookie 在<a href="/personal.html">个人中心 → 工单助手配置</a>填写）。
+    </p>
+
+    <!-- 筛选区：快捷时间分段控件 + 条件网格（一行四个，时间范围占两列），联动下方全部卡片与图表 -->
+    <div class="dash-filter form-section">
+        <div class="dash-filter-presets">
+            <div class="dash-seg" role="group" aria-label="快捷时间范围">
+                <button type="button" class="dash-preset" data-mode="today">今天</button>
+                <button type="button" class="dash-preset" data-mode="7d">近7天</button>
+                <button type="button" class="dash-preset" data-mode="week">本周</button>
+                <button type="button" class="dash-preset" data-mode="30d">近30天</button>
+                <button type="button" class="dash-preset" data-mode="90d">近90天</button>
+                <button type="button" class="dash-preset" data-mode="180d">近半年</button>
+                <button type="button" class="dash-preset" data-mode="year">本年</button>
+                <button type="button" class="dash-preset" data-mode="all">全部</button>
+            </div>
+            <button type="button" class="dash-reset" id="f-reset">重置条件</button>
+        </div>
+        <div class="dash-filter-grid">
+            <div class="dash-field span-2">
+                <span class="dash-field-label">时间范围</span>
+                <input type="date" id="f-from">
+                <span class="dash-sep">~</span>
+                <input type="date" id="f-to">
+            </div>
+            <div class="dash-field">
+                <span class="dash-field-label">产品线</span>
+                <select id="f-product"><option value="">全部</option></select>
+            </div>
+            <div class="dash-field">
+                <span class="dash-field-label">客户</span>
+                <select id="f-customer"><option value="">全部</option></select>
+            </div>
+            <div class="dash-field">
+                <span class="dash-field-label">状态</span>
+                <select id="f-status"><option value="">全部</option></select>
+            </div>
+            <div class="dash-field">
+                <span class="dash-field-label">负责人</span>
+                <select id="f-assignee"><option value="">全部</option></select>
+            </div>
+            <div class="dash-field">
+                <span class="dash-field-label">解决者</span>
+                <select id="f-resolver"><option value="">全部</option></select>
+            </div>
+            <div class="dash-field">
+                <span class="dash-field-label">关注者</span>
+                <select id="f-watcher"><option value="">全部</option></select>
+            </div>
+        </div>
+    </div>
+
+    <!-- 统计卡片 -->
+    <div class="stat-cards" id="stat-cards">
+        <div class="stat-tile"><div class="stat-label">工单总数</div><div class="stat-value" id="st-total">—</div></div>
+        <div class="stat-tile"><div class="stat-label">待办</div><div class="stat-value" id="st-todo">—</div></div>
+        <div class="stat-tile"><div class="stat-label">进行中</div><div class="stat-value" id="st-doing">—</div></div>
+        <div class="stat-tile"><div class="stat-label">待确认 / 待发布</div><div class="stat-value" id="st-processed">—</div></div>
+        <div class="stat-tile"><div class="stat-label">已解决</div><div class="stat-value" id="st-done">—</div></div>
+        <div class="stat-tile"><div class="stat-label">解决率<span class="stat-help" data-tip="解决率 = 已解决 ÷ 工单总数 × 100%。&#10;已解决 = 状态属于「已解决 / 已发布 / 已完成 / 已废弃」的工单数。&#10;「待确认 / 待发布」（已处理完但未闭环）不计入分子与分母的已解决口径，但计入工单总数。">?</span></div><div class="stat-value" id="st-rate">—</div></div>
+    </div>
+
+    <!-- 图表区 -->
+    <div id="charts" class="dash-charts">
+        <div class="chart-card span-2">
+            <div class="chart-title">月度新增 / 解决趋势</div>
+            <div class="chart-subtip">
+                <b>新增线</b>：按工单创建时间（UTC+8）逐月计数。<br>
+                <b>解决线</b>：按流转历史中最后一次转入已解决类状态（已解决 / 已发布 / 已完成 / 已废弃）的时间逐月计数。<br>
+                说明：无该流转记录的已解决工单（全库约 12%）不进解决线，但计入上方卡片的解决率。
+            </div>
+            <div class="chart" id="chart-trend"></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">产品线分布 Top 15</div>
+            <div class="chart" id="chart-product"></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">客户 Top <span id="customer-top-n">10</span></div>
+            <div class="chart" id="chart-customer"></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">功能模块分布 Top 15</div>
+            <div class="chart" id="chart-module"></div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">负责人分布（待办 / 进行中 / 待确认·待发布 / 已解决）<span class="chart-tip">（随状态筛选联动）</span></div>
+            <div class="chart" id="chart-assignee"></div>
+        </div>
+        <div class="chart-card span-2">
+            <div class="chart-title">优先级分布</div>
+            <div class="chart" id="chart-priority"></div>
+        </div>
+    </div>
+</main>
+</div>
+
+<!-- 下钻工单明细弹层 -->
+<div class="dash-modal-mask" id="drill-mask" style="display:none;">
+    <div class="dash-modal">
+        <div class="dash-modal-head">
+            <span id="drill-title">工单明细</span>
+            <button type="button" class="dash-modal-close" id="drill-close">×</button>
+        </div>
+        <div class="dash-modal-body" id="drill-body">加载中…</div>
+        <div class="dash-modal-foot">
+            <button type="button" class="btn btn-primary" id="drill-prev">上一页</button>
+            <span class="dash-page-text">第</span>
+            <input type="number" id="drill-jump" min="1" value="1">
+            <span class="dash-page-text" id="drill-page-info">—</span>
+            <button type="button" class="btn btn-primary" id="drill-next">下一页</button>
+            <span class="dash-page-hint">编号 / 标题可点击跳转 ONES 工单</span>
+        </div>
+    </div>
+</div>
+
+<script src="/js/lib/echarts.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/ticket-dashboard.js"></script>
+</body>
+</html>

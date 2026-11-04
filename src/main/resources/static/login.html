@@ -21,6 +21,9 @@
         建议使用 Jenkins API Token，避免暴露登录密码<br>
         获取路径：Jenkins → 用户名 → 设置 → API Token
     </p>
+    <p class="login-tip">
+        本机连接异常或需升级？<a id="tunnel-redownload" href="javascript:void(0)">重新下载初始化脚本</a>（需先填写用户名）
+    </p>
 </div>
 
 <!-- 本机连接初始化蒙版：首次使用/隧道离线时展示，初始化完成自动消失 -->
@@ -28,6 +31,7 @@
     <div class="tunnel-mask-box">
         <h2>正在建立本机连接</h2>
         <p id="tunnel-mask-text">正在准备连接，请稍候…</p>
+        <a id="tunnel-mask-redownload" href="javascript:void(0)" class="hidden">重新下载初始化脚本</a>
         <a id="tunnel-skip" href="javascript:void(0)">跳过初始化，直接登录</a>
     </div>
 </div>

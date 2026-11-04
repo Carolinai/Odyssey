@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 建议反馈</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="feedback">
+<div class="layout">
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="container">
+    <h1>建议反馈</h1>
+    <p class="page-hint">
+        提交使用中遇到的问题（Bug）、功能需求与改进建议，提交后全体成员可见。列表默认按提交时间倒序。
+    </p>
+
+    <div class="form-section">
+        <h2>新增反馈</h2>
+        <div class="form-row">
+            <label for="fb-type">类型</label>
+            <select id="fb-type" style="flex: 0 0 auto; width: 160px;">
+                <option value="bug">Bug（问题）</option>
+                <option value="feature">需求</option>
+                <option value="suggestion">建议</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <label for="fb-content">内容</label>
+            <textarea id="fb-content" placeholder="描述问题或想法：出现在哪个页面、做了什么操作、期望的结果（提交人取当前登录账号）"></textarea>
+        </div>
+        <div class="section-actions">
+            <button id="fb-submit" class="btn btn-primary" type="button">提交反馈</button>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>反馈列表</h2>
+        <!-- 查询条件：一行四个复合字段（与工单看板同款）+ 右侧重置 -->
+        <div class="fb-filter-row">
+            <div class="dash-filter-grid">
+                <div class="dash-field">
+                    <span class="dash-field-label">用户名</span>
+                    <input type="text" id="q-username" placeholder="模糊搜索">
+                </div>
+                <div class="dash-field">
+                    <span class="dash-field-label">类型</span>
+                    <select id="q-type">
+                        <option value="">全部</option>
+                        <option value="bug">Bug</option>
+                        <option value="feature">需求</option>
+                        <option value="suggestion">建议</option>
+                    </select>
+                </div>
+                <div class="dash-field span-2">
+                    <span class="dash-field-label">时间范围</span>
+                    <input type="date" id="q-from">
+                    <span class="dash-sep">~</span>
+                    <input type="date" id="q-to">
+                </div>
+            </div>
+            <button type="button" class="dash-reset" id="q-reset">重置条件</button>
+        </div>
+        <div id="fb-list">尚未加载</div>
+    </div>
+</main>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/feedback.js"></script>
+</body>
+</html>

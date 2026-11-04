@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 解决经验库</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="ticket-insights">
+<div class="layout">
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="container">
+    <h1>解决经验库</h1>
+    <p class="page-hint">
+        由 AI 从已解决工单提炼的「问题现象 / 原因分析 / 解决方式」经验（随工单同步自动增量提炼）。<br>
+        经验提炼使用触发人的个人 AI 配置；手动补提炼可用下方「提炼经验」按钮或<a href="/ticket-sync.html">工单同步页</a>的「重新提炼」。
+    </p>
+
+    <div id="insight-alert" class="sync-alert" style="display:none;"></div>
+
+    <!-- 检索区 -->
+    <div class="dash-filter form-section">
+        <div class="dash-filter-grid">
+            <div class="dash-field">
+                <span class="dash-field-label">客户</span>
+                <select id="f-customer"><option value="">全部</option></select>
+            </div>
+            <div class="dash-field">
+                <span class="dash-field-label">产品线</span>
+                <select id="f-product"><option value="">全部</option></select>
+            </div>
+            <div class="dash-field span-2">
+                <span class="dash-field-label">关键词</span>
+                <input type="text" id="f-q" placeholder="搜经验内容 / 源工单标题 / 描述">
+            </div>
+        </div>
+        <div class="section-actions">
+            <button id="insight-search" class="btn btn-primary" type="button">检索</button>
+            <button id="insight-extract" class="btn" type="button">提炼经验</button>
+            <button id="insight-stop" class="btn" type="button" style="display:none;">终止提炼</button>
+            <span class="dash-page-hint" id="insight-pending"></span>
+        </div>
+        <div id="insight-progress" style="display:none;">
+            <div class="sync-status-row"><span class="running" id="insight-stage">准备中…</span><span class="progress" id="insight-percent"></span></div>
+            <div class="sync-progress-bar"><div class="sync-progress-fill" id="insight-bar" style="width:0%;"></div></div>
+        </div>
+    </div>
+
+    <!-- 经验列表 -->
+    <div class="form-section">
+        <h2>经验列表</h2>
+        <div id="insight-list">尚未加载</div>
+        <div class="section-actions" id="insight-pager" style="display:none;">
+            <button type="button" class="btn" id="insight-prev">上一页</button>
+            <span class="dash-page-text" id="insight-page-info">—</span>
+            <button type="button" class="btn" id="insight-next">下一页</button>
+        </div>
+    </div>
+</main>
+</div>
+
+<!-- 经验详情弹层 -->
+<div class="dash-modal-mask" id="view-mask" style="display:none;">
+    <div class="dash-modal report-modal">
+        <div class="dash-modal-head">
+            <span id="view-title">经验</span>
+            <button type="button" class="dash-modal-close" id="view-close">×</button>
+        </div>
+        <div class="dash-modal-body report-body" id="view-body">加载中…</div>
+        <div class="dash-modal-foot">
+            <a id="view-source" class="btn" href="javascript:void(0)" target="_blank" rel="noopener">查看源工单</a>
+            <span class="dash-page-hint">跳转 ONES 工单详情</span>
+        </div>
+    </div>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/ticket-insights.js"></script>
+</body>
+</html>

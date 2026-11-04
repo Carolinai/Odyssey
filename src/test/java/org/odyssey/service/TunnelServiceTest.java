@@ -86,28 +86,32 @@ class TunnelServiceTest {
     }
 
     @Test
-    void 初始化脚本_含私钥与槽位线路_可重复运行() {
+    void 初始化脚本_含私钥与中继代理_可重复运行() {
         TunnelService service = service();
         TunnelService.Enrollment enrollment = service.enroll("alice");
-        String script = service.buildInitScript(enrollment, "alice");
+        String script = service.buildInitScript(enrollment, "alice",
+                "token123", "http://10.0.106.110:8787");
 
         // CRLF 行尾（Windows bat）
         assertTrue(script.contains("\r\n"), "脚本应为 CRLF 行尾");
-        // 私钥以 base64 内嵌 + certutil 解码（保证 LF 行尾不被 cmd 的 CRLF 污染）
+        // 私钥以 base64 内嵌 + certutil 解码（保留作为 SSH 兜底隧道的手动材料）
         assertTrue(script.contains("certutil -f -decode \"%OD%\\id_ed25519.b64\" \"%OD%\\id_ed25519\" >nul"),
                 "私钥应由 certutil 解码写出");
         String keyB64 = Base64.getEncoder().encodeToString(
                 enrollment.getPrivateKey().getBytes(java.nio.charset.StandardCharsets.UTF_8));
         assertTrue(script.contains(keyB64.substring(0, 64)), "脚本应内嵌私钥 base64");
-        // 内嵌启动脚本（base64）+ certutil 解码
-        assertTrue(script.contains("start-tunnel.bat.b64"));
+        // 中继代理：下载 jar + 启动脚本（base64 内嵌）+ 令牌与白名单参数
+        assertTrue(script.contains("/api/relay/agent.jar"), "应从中继接口下载代理 jar");
+        assertTrue(script.contains("start-relay.bat.b64"));
         assertTrue(script.contains("certutil -f -decode"));
-        // 专用受限账号（ssh 命令行在内嵌 base64 里，用户名以环境变量拼接可见于启动脚本）
-        assertTrue(service.buildStartBat(enrollment)
-                .contains("-R 127.0.0." + enrollment.getSlot() + ":18081:124.70.159.198:8081"));
-        assertTrue(service.buildStartBat(enrollment).contains("odyssey-tunnel@"));
-        // 启动项（注册表 odyssey:// 协议因公司组策略禁用而移除）
-        assertTrue(script.contains("Startup\\odyssey-tunnel.vbs"));
+        String relayBat = service.buildStartRelayBat("http://10.0.106.110:8787", "token123",
+                "124.70.159.198,10.10.191.213,aikeyhub.gateway.mdzy");
+        assertTrue(relayBat.contains("--token token123"), "启动脚本应携带中继令牌");
+        assertTrue(relayBat.contains("--server http://10.0.106.110:8787"), "启动脚本应携带服务器地址");
+        assertTrue(relayBat.contains("--allow"), "启动脚本应携带目标白名单");
+        // 启动项：写入中继守护并删除旧隧道守护
+        assertTrue(script.contains("Startup\\odyssey-relay.vbs"));
+        assertTrue(script.contains("del \"%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\odyssey-tunnel.vbs\""));
         assertFalse(script.contains("reg add"), "不应包含注册表操作（组策略禁用）");
     }
 

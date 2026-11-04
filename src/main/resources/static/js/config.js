@@ -1,5 +1,7 @@
-// 全局配置页：编辑「远程方式 → 唤起链接」映射，整体保存到服务端（全站共享）
-// 保存以页面当前行为准全量覆盖；行编辑不实时写回 state，收集发生在保存时
+// 全局配置页：编辑「远程方式 → 唤起链接」映射（系统级，全站共享），
+// 整体保存到服务端（全站共享）
+// 保存以页面当前内容为准全量覆盖；行编辑不实时写回 state，收集发生在保存时
+// 工单助手相关配置（ONES Cookie / AI）为个人配置，见个人中心页
 
 const listBox = document.getElementById('launcher-list');
 
@@ -60,13 +62,13 @@ document.getElementById('save-config').addEventListener('click', async () => {
     });
     if (duplicated && !confirm('存在重复的远程方式名，将只保留其中一行，确认保存？')) return;
     try {
-        await api('/api/config', {
+        const saved = await api('/api/config', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ launchers: launchers })
         });
         toast('已保存');
-        renderRows(launchers); // 服务端归一化后重渲染（清掉空行）
+        renderRows(saved.launchers); // 服务端归一化后重渲染（清掉空行）
     } catch (e) {
         alert('保存失败：' + e.message);
     }

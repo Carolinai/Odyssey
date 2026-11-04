@@ -35,6 +35,85 @@
             <span>仅保存在服务器会话中，注销或会话过期即失效</span>
         </div>
     </div>
+
+    <div class="form-section">
+        <h2>工单助手配置（个人）</h2>
+        <p class="page-hint">
+            以下配置属于<strong>你个人</strong>：工单同步使用你的 ONES 账号身份拉取数据，AI 能力使用你自己的网关配置；
+            每位使用者各自配置、互不影响（系统级的定时同步开关与频率在<a href="/ticket-sync.html">工单同步页</a>设置）。
+        </p>
+        <div class="form-row">
+            <label for="ucfg-ones-cookie">ONES Cookie</label>
+            <input id="ucfg-ones-cookie" type="password" autocomplete="new-password"
+                   placeholder="ones-uid=...; ones-lt=...; （整段复制）">
+            <button class="icon-btn" type="button" data-reveal="ucfg-ones-cookie">显示</button>
+        </div>
+        <p class="page-hint" style="margin-top: -6px;">
+            从已登录 ONES 的浏览器获取（F12 → 网络 → 任意请求 → 请求头里的整段 Cookie），
+            <strong>过期后同步会失败</strong>，届时回到本页更新即可。
+        </p>
+        <div class="form-row">
+            <label for="ucfg-ai-base-url">AI Base URL</label>
+            <input id="ucfg-ai-base-url" type="text" placeholder="如 http://aikeyhub.gateway.mdzy/api">
+        </div>
+        <div class="form-row">
+            <label for="ucfg-ai-api-key">AI API Key</label>
+            <input id="ucfg-ai-api-key" type="password" autocomplete="new-password" placeholder="网关分配的 API Key">
+            <button class="icon-btn" type="button" data-reveal="ucfg-ai-api-key">显示</button>
+        </div>
+        <div class="form-row">
+            <label for="ucfg-ai-model">AI 模型名</label>
+            <input id="ucfg-ai-model" type="text" placeholder="如 glm-5.3-flash">
+        </div>
+        <div class="form-row">
+            <label for="ucfg-ai-interval">AI 调用间隔</label>
+            <input id="ucfg-ai-interval" type="number" min="0" step="100" style="flex: 0 0 140px;"
+                   placeholder="默认 1000"> <span style="font-size: 13px; color: #555;">毫秒（批量任务两次调用的最小间隔，限速防打爆网关，0 为不限）</span>
+        </div>
+        <div class="form-row">
+            <label for="ucfg-ai-timeout">AI 调用超时</label>
+            <input id="ucfg-ai-timeout" type="number" min="1000" step="1000" style="flex: 0 0 140px;"
+                   placeholder="默认 180000"> <span style="font-size: 13px; color: #555;">毫秒（单次请求读超时）</span>
+        </div>
+        <div class="form-row">
+            <label for="ucfg-ai-retries">AI 失败重试</label>
+            <input id="ucfg-ai-retries" type="number" min="0" max="10" style="flex: 0 0 140px;"
+                   placeholder="默认 2"> <span style="font-size: 13px; color: #555;">次（仅网络异常/服务端错误重试，密钥无效不重试）</span>
+        </div>
+        <div class="form-row">
+            <label>连通测试</label>
+            <button id="ucfg-ai-test" class="icon-btn" type="button" style="flex: 0 0 auto;">测试 AI 连通</button>
+            <span id="ucfg-ai-test-result" style="font-size: 13px;"></span>
+        </div>
+        <div class="form-row">
+            <label for="ucfg-insight-auto">经验提炼</label>
+            <input id="ucfg-insight-auto" type="checkbox" style="flex: 0 0 auto;">
+            <span style="font-size: 13px; color: #555;">工单同步完成后自动提炼「解决经验」（供看板参考与后续问答使用）</span>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>本机连接（隧道）</h2>
+        <p class="page-hint">
+            服务器访问部分内网资源（Jenkins 校验、ONES 数据、AI 网关）需经由你电脑建立的加密反向隧道；
+            隧道脚本升级（如新增转发通道）后需重新下载并运行初始化脚本。
+        </p>
+        <div class="form-row">
+            <label>连接状态</label>
+            <span id="tunnel-state">加载中…</span>
+        </div>
+        <div class="form-row">
+            <label>初始化脚本</label>
+            <button id="tunnel-redownload" class="icon-btn" type="button" style="flex: 0 0 auto;">重新下载初始化脚本</button>
+        </div>
+        <p class="page-hint" style="margin-top: -6px;">
+            注意：重新下载会立即作废旧密钥（当前隧道将断开），下载后请<strong>马上</strong>双击运行新脚本。
+        </p>
+    </div>
+
+    <div class="action-bar">
+        <button id="save-personal-config" class="btn btn-primary">保存</button>
+    </div>
 </main>
 </div>
 

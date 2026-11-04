@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 全局配置 REST 接口：读取 / 整体保存（保存以请求体为准，全量覆盖）。
+ * 仅系统级配置（远程方式映射、定时同步开关与频率）；
+ * 工单助手的个人配置见 {@link UserConfigController}。
  */
 @RestController
 @RequestMapping("/api/config")

@@ -35,11 +35,17 @@ public class AuditService {
     /** 记录一条操作日志（user=账号，userName=用户名称/中文显示名） */
     public void record(String user, String userName, String event,
                        String targetName, String module, String description) {
+        record(user, userName, TARGET_ENVIRONMENT, event, targetName, module, description);
+    }
+
+    /** 记录一条操作日志（指定操作对象大类，如 工单助手；user=账号，userName=用户名称） */
+    public void record(String user, String userName, String target, String event,
+                       String targetName, String module, String description) {
         AuditLog entry = new AuditLog();
         entry.setUser(user);
         entry.setUserName(userName);
         entry.setTime(TIME_FORMAT.format(LocalDateTime.now()));
-        entry.setTarget(TARGET_ENVIRONMENT);
+        entry.setTarget(target);
         entry.setTargetName(targetName);
         entry.setEvent(event);
         entry.setModule(module);

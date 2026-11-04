@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Odyssey - 工单同步</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-page="ticket-sync">
+<div class="layout">
+<aside class="sidebar" id="sidebar"></aside>
+
+<main class="container">
+    <h1>工单同步</h1>
+    <p class="page-hint">
+        从 ONES 平台同步「工单」数据到本地库（标题、描述、状态、客户、产品线、评论与流转历史）。每天凌晨自动增量同步，也可随时手动触发。<br>
+        同步使用<strong>你个人的</strong> ONES Cookie：首次同步前请到<a href="/personal.html">个人中心 → 工单助手配置</a>填写；Cookie 过期导致同步失败时也回到那里更新。
+    </p>
+
+    <div id="sync-alert" class="sync-alert" style="display:none;"></div>
+
+    <div class="form-section">
+        <h2>同步状态</h2>
+        <div class="sync-status-row" id="sync-status">加载中…</div>
+        <div class="sync-meta" id="sync-meta"></div>
+        <div class="form-row" style="margin-top: 8px;">
+            <input type="checkbox" id="auto-sync-enabled" style="flex: 0 0 auto;">
+            <span style="font-size: 13px; color: #555;">定时同步，每</span>
+            <input type="number" id="auto-sync-interval" min="1" step="1" style="width: 76px; flex: 0 0 auto;" disabled>
+            <select id="auto-sync-unit" style="width: 84px; flex: 0 0 auto;" disabled>
+                <option value="minutes">分钟</option>
+                <option value="hours">小时</option>
+            </select>
+            <span style="font-size: 13px; color: #555;">自动同步一次（关闭页面后仍生效）</span>
+            <button id="auto-sync-save" class="btn btn-primary" type="button" style="flex: 0 0 auto; padding: 5px 16px; font-size: 13px;">保存</button>
+        </div>
+        <div class="section-actions">
+            <button id="sync-run" class="btn btn-primary" type="button">立即同步</button>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>经验提炼</h2>
+        <div class="form-row">
+            <input type="checkbox" id="insight-auto" style="flex: 0 0 auto;">
+            <span style="font-size: 13px; color: #555;">同步完成后自动提炼已解决工单的「解决经验」（个人开关，与<a href="/personal.html">个人中心</a>的设置一致）</span>
+        </div>
+        <div class="section-actions">
+            <button id="insight-rerun" class="btn btn-primary" type="button" title="每次一批（约 200 张），对尚无经验的已解决工单提炼解决经验">重新提炼</button>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h2>同步日志</h2>
+        <div id="sync-logs">尚未加载</div>
+    </div>
+</main>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/ticket-sync.js"></script>
+</body>
+</html>

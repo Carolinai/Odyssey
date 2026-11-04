@@ -18,14 +18,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Jenkins 隧道服务：服务器出网受限，登录校验依赖「各用户电脑建立的 SSH 反向隧道」。
+ * 隧道/中继登记服务：服务器出网受限，部分内网目标依赖「各用户电脑代发」。
  *
- * 工作方式：每位登录用户首次登录时领取一份专属初始化脚本（内嵌该用户专属 ed25519 私钥），
- * 运行后其电脑与服务器建立反向隧道，把服务器回环 127.0.0.{槽位}:18081 转发到 Jenkins。
- * authorized_keys 中的每个公钥都带 permitlisten 限制——只能绑定自己的槽位，做不了别的。
+ * 主线路是 HTTP 中继（见 RelayService）：用户领取初始化脚本（内嵌专属 ed25519 私钥与
+ * 中继令牌），运行后其电脑常驻中继代理（org.odyssey.agent.RelayAgentMain），定期向
+ * 服务器报到并代发上游请求。之所以用 HTTP 轮询而非 SSH 长连接：公司零信任客户端
+ * （aTrust）在内核层劫持出站 SSH 且会周期性掐断长连接，短 HTTP 请求则不受影响。
  *
- * authorized_keys 文件由本服务维护（数据目录下），宿主机 cron 周期同步给系统账号
- * odyssey-tunnel（仅端口转发、无 shell）。
+ * SSH 反向隧道降级为手动兜底：每位用户仍分配专属槽位，运行脚本后可在同一条 SSH
+ * 连接上携带三条转发（127.0.0.{槽位}:18081/18082/18083 → Jenkins/ONES/AI 网关），
+ * 由各客户端作为最后的候选线路尝试。authorized_keys 只存公钥本体（原因见 enroll
+ * 注释），端口绑定白名单由宿主机 sshd_config 的 Match User odyssey-tunnel 统一限制。
+ *
+ * authorized_keys 文件由本服务维护（数据目录下），宿主机 systemd path 单元
+ * （odyssey-tunnel-keys.path）在文件变化时同步给系统账号 odyssey-tunnel。
  */
 @Service
 public class TunnelService {
@@ -62,6 +68,8 @@ public class TunnelService {
 
     private static final Pattern SLOT_PATTERN =
             Pattern.compile("permitlisten=\"127\\.0\\.0\\.(\\d+):\\d+\"");
+    /** 新格式槽位标记：授权行不再写 permitlisten（见 enroll 注释），槽位记录在用户标签前 */
+    private static final Pattern SLOT_TAG_PATTERN = Pattern.compile("odyssey-slot:(\\d+)");
     private static final String USER_TAG_PREFIX = "odyssey-tunnel:";
 
     private final OdysseyProperties props;
@@ -73,6 +81,14 @@ public class TunnelService {
     private final String sshUser;
     private final String targetHost;
     private final int targetPort;
+    /** ONES 备用线路：同一 SSH 会话的第二条转发（127.0.0.{槽位}:{onesListenPort} → ONES） */
+    private final int onesListenPort;
+    private final String onesTargetHost;
+    private final int onesTargetPort;
+    /** AI 网关备用线路：同一 SSH 会话的第三条转发（127.0.0.{槽位}:{aiListenPort} → AI 网关） */
+    private final int aiListenPort;
+    private final String aiTargetHost;
+    private final int aiTargetPort;
 
     public TunnelService(OdysseyProperties props) {
         this.props = props;
@@ -84,6 +100,12 @@ public class TunnelService {
         this.sshUser = strProp("odyssey.tunnel.ssh-user", "odyssey-tunnel");
         this.targetHost = strProp("odyssey.tunnel.target-host", "124.70.159.198");
         this.targetPort = intProp("odyssey.tunnel.target-port", 8081);
+        this.onesListenPort = intProp("odyssey.tunnel.ones-listen-port", 18082);
+        this.onesTargetHost = strProp("odyssey.tunnel.ones-target-host", "10.10.191.213");
+        this.onesTargetPort = intProp("odyssey.tunnel.ones-target-port", 80);
+        this.aiListenPort = intProp("odyssey.tunnel.ai-listen-port", 18083);
+        this.aiTargetHost = strProp("odyssey.tunnel.ai-target-host", "aikeyhub.gateway.mdzy");
+        this.aiTargetPort = intProp("odyssey.tunnel.ai-target-port", 80);
     }
 
     private static int intProp(String key, int def) {
@@ -167,8 +189,12 @@ public class TunnelService {
         }
 
         SshKeyGen.KeyPair key = SshKeyGen.generate(USER_TAG_PREFIX + username);
-        String newLine = "permitlisten=\"127.0.0." + slot + ":" + listenPort + "\" "
-                + key.getOpenSshPublicKey() + " " + USER_TAG_PREFIX + username;
+        // 端口绑定限制由 sshd_config 的 Match User odyssey-tunnel → PermitListen 白名单统一兜底
+        // （授权行不能写多个 permitlisten：OpenSSH 9.9p1 下第二个选项起静默解析失败、整行失效，
+        //   实测 2026-11-03，三种写法均复现；单选项又表达不了三个端口，故只能省略。
+        //   槽位号写在用户标签前，供槽位分配/状态探测解析——行尾仍以用户标签结束）
+        String newLine = key.getOpenSshPublicKey() + " odyssey-slot:" + slot
+                + " " + USER_TAG_PREFIX + username;
 
         // 替换该用户旧行或追加
         boolean replaced = false;
@@ -199,45 +225,60 @@ public class TunnelService {
         }
     }
 
-    /** 隧道启动脚本（安装器会将其 base64 内嵌）：静默常驻，断线/密钥未同步时自动重连 */
-    String buildStartBat(Enrollment enrollment) {
-        String slotIp = "127.0.0." + enrollment.getSlot();
+    /** 中继代理启动脚本（安装器将其 base64 内嵌）：结束旧代理后循环拉起，异常退出自动重启 */
+    String buildStartRelayBat(String serverUrl, String relayToken, String allowHosts) {
         return String.join("\r\n",
                 "@echo off",
                 "set \"OD=%USERPROFILE%\\.odyssey-tunnel\"",
-                "if not exist \"%OD%\" mkdir \"%OD%\"",
+                "rem 结束旧的中继代理（按命令行特征匹配，不影响其他 Java 程序），并停掉旧 SSH 隧道",
+                "powershell -NoProfile -Command \"Get-CimInstance Win32_Process"
+                        + " | Where-Object {($_.Name -eq 'java.exe') -and ($_.CommandLine -match 'relay-agent')}"
+                        + " | ForEach-Object {Stop-Process -Id $_.ProcessId -Force}\" >nul 2>&1",
+                "taskkill /F /IM ssh.exe >nul 2>&1",
                 ":loop",
-                "\"C:\\WINDOWS\\System32\\OpenSSH\\ssh.exe\" -N -R "
-                        + slotIp + ":" + listenPort + ":" + targetHost + ":" + targetPort
-                        + " -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 -o ServerAliveCountMax=3"
-                        + " -o BatchMode=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=\"%OD%\\known_hosts\""
-                        + " -i \"%OD%\\id_ed25519\" -p " + sshPort + " " + sshUser + "@" + sshHost,
-                "rem 断线或密钥尚未同步时 15 秒后重连；重复实例会因端口被占快速失败，无害",
-                "ping -n 16 127.0.0.1 >nul",
+                "java -jar \"%OD%\\relay-agent.jar\" --server " + serverUrl
+                        + " --token " + relayToken + " --allow " + allowHosts
+                        + " >> \"%OD%\\relay.log\" 2>&1",
+                "rem 代理退出（异常/网络切换）10 秒后自动重启",
+                "ping -n 11 127.0.0.1 >nul",
                 "goto loop") + "\r\n";
     }
 
-    /** 生成 Windows 初始化脚本：装私钥、写启动脚本、注册 odyssey:// 自愈协议、入启动项并立即启动 */
-    public String buildInitScript(Enrollment enrollment, String username) {
+    /**
+     * 生成 Windows 初始化脚本：下载中继代理 jar、装启动脚本（SSH 反向隧道已由中继方案
+     * 取代——公司零信任客户端 aTrust 会掐断长连 SSH，见 RelayService 类注释；
+     * 私钥仍保留写入，供需要时手动建立 SSH 兜底隧道）、入启动项并立即启动。
+     *
+     * @param relayToken 该用户的中继令牌（RelayService.issueToken 签发）
+     * @param serverUrl  本应用的访问地址（代理轮询目标），形如 http://10.0.106.110:8787
+     */
+    public String buildInitScript(Enrollment enrollment, String username,
+            String relayToken, String serverUrl) {
         String key = enrollment.getPrivateKey();
+        // 代理可代发的目标：与三条 SSH 转发的目标一致（主机维度白名单，代理侧校验）
+        String allowHosts = String.join(",",
+                java.util.Arrays.asList(targetHost, onesTargetHost, aiTargetHost));
 
-        String startBat = buildStartBat(enrollment);
+        String startBat = buildStartRelayBat(serverUrl, relayToken, allowHosts);
 
-        // 守护脚本：静默拉起 start-tunnel.bat（重复启动会因远端端口被占自动退出，无害）
+        // 守护脚本：静默拉起 start-relay.bat（重复启动会先结束旧代理再拉起新的）
         // VBS 引号转义："""" 是一个字面双引号；路径里的反斜杠无需转义，且 Run 语句必须单行
         String checkVbs = String.join("\r\n",
-                "' Odyssey tunnel guard: silently start (duplicate start exits harmless)",
+                "' Odyssey relay guard: silently start (old agent killed by start-relay.bat)",
                 "Set sh = CreateObject(\"WScript.Shell\")",
                 "sh.Run \"\"\"\" & sh.ExpandEnvironmentStrings(\"%USERPROFILE%\")"
-                        + " & \"\\.odyssey-tunnel\\start-tunnel.bat\"\"\", 0, False");
+                        + " & \"\\.odyssey-tunnel\\start-relay.bat\"\"\", 0, False");
 
         List<String> script = new ArrayList<>();
         script.add("@echo off");
-        script.add("rem Odyssey Jenkins tunnel installer for user: " + username);
-        script.add("rem 作用：在本机与公司服务器间建立 SSH 反向隧道，供 Odyssey 访问 Jenkins；可重复运行（会换新密钥）");
+        script.add("rem Odyssey 中继代理安装脚本 for user: " + username);
+        script.add("rem 作用：安装并常驻中继代理（代发服务器对 ONES/Jenkins/AI 网关的请求）；可重复运行（会换新令牌并先结束旧代理）");
         script.add("set \"OD=%USERPROFILE%\\.odyssey-tunnel\"");
         script.add("if not exist \"%OD%\" mkdir \"%OD%\"");
-        // 1. 写私钥（base64 内嵌 + certutil 解码，保证行尾 LF 不被 cmd 的 CRLF 污染）
+        // 1. 下载中继代理 jar（应用自身分发，零第三方依赖）
+        script.add("curl -f -s -S -o \"%OD%\\relay-agent.jar\" \"" + serverUrl + "/api/relay/agent.jar\"");
+        script.add("if errorlevel 1 (echo 代理下载失败，请检查网络后重试 & exit /b 1)");
+        // 2. SSH 私钥（保留写入：SSH 反向隧道作为手动兜底手段）
         script.add("> \"%OD%\\id_ed25519.b64\" (");
         for (String line : wrap64(Base64.getEncoder().encodeToString(
                 key.getBytes(StandardCharsets.UTF_8)))) {
@@ -246,33 +287,32 @@ public class TunnelService {
         script.add(")");
         script.add("certutil -f -decode \"%OD%\\id_ed25519.b64\" \"%OD%\\id_ed25519\" >nul");
         script.add("del \"%OD%\\id_ed25519.b64\"");
-        // 2. 启动脚本与守护脚本以 base64 内嵌（certutil 解码，避免 bat 转义问题）
-        script.add("> \"%OD%\\start-tunnel.bat.b64\" (");
+        script.add("echo " + hostKeyLine() + " > \"%OD%\\known_hosts\"");
+        // 3. 启动脚本与守护脚本以 base64 内嵌（certutil 解码，避免 bat 转义问题）
+        script.add("> \"%OD%\\start-relay.bat.b64\" (");
         for (String line : wrap64(Base64.getEncoder().encodeToString(
                 startBat.getBytes(StandardCharsets.UTF_8)))) {
             script.add("echo " + line);
         }
         script.add(")");
-        script.add("certutil -f -decode \"%OD%\\start-tunnel.bat.b64\" \"%OD%\\start-tunnel.bat\" >nul");
-        script.add("del \"%OD%\\start-tunnel.bat.b64\"");
-        script.add("> \"%OD%\\check-tunnel.vbs.b64\" (");
+        script.add("certutil -f -decode \"%OD%\\start-relay.bat.b64\" \"%OD%\\start-relay.bat\" >nul");
+        script.add("del \"%OD%\\start-relay.bat.b64\"");
+        script.add("> \"%OD%\\check-relay.vbs.b64\" (");
         for (String line : wrap64(Base64.getEncoder().encodeToString(
                 checkVbs.getBytes(StandardCharsets.UTF_8)))) {
             script.add("echo " + line);
         }
         script.add(")");
-        script.add("certutil -f -decode \"%OD%\\check-tunnel.vbs.b64\" \"%OD%\\check-tunnel.vbs\" >nul");
-        script.add("del \"%OD%\\check-tunnel.vbs.b64\"");
-        // 3. known_hosts 预置服务器指纹（避免首次连接交互确认）
-        script.add("echo " + hostKeyLine() + " > \"%OD%\\known_hosts\"");
-        // 4. 启动项（覆盖写入）
-        script.add("copy /y \"%OD%\\check-tunnel.vbs\" \"%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\odyssey-tunnel.vbs\" >nul");
-        // 5. 立即启动
-        // 说明：曾通过 reg add 注册 odyssey:// 协议实现登录页静默自愈，
-        // 但公司组策略禁用注册表编辑（DisableRegistryTools），故移除该方式；
-        // 隧道中断时由登录页提示手动重跑 start-tunnel.bat
-        script.add("wscript \"%OD%\\check-tunnel.vbs\"");
-        script.add("echo Odyssey tunnel installed.");
+        script.add("certutil -f -decode \"%OD%\\check-relay.vbs.b64\" \"%OD%\\check-relay.vbs\" >nul");
+        script.add("del \"%OD%\\check-relay.vbs.b64\"");
+        // 4. Java 环境预检（仅提示，不阻断——代理日志会记录启动失败原因）
+        script.add("where java >nul 2>&1 || echo [提示] 未找到 java 命令，中继代理无法启动，请安装 Java 并加入 PATH");
+        // 5. 启动项：替换旧隧道守护为新的中继守护
+        script.add("del \"%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\odyssey-tunnel.vbs\" >nul 2>&1");
+        script.add("copy /y \"%OD%\\check-relay.vbs\" \"%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\odyssey-relay.vbs\" >nul");
+        // 6. 立即启动（start-relay.bat 内部会先结束旧代理与旧 ssh）
+        script.add("wscript \"%OD%\\check-relay.vbs\"");
+        script.add("echo Odyssey relay agent installed.");
         script.add("exit /b 0");
 
         return String.join("\r\n", script) + "\r\n";
@@ -317,7 +357,11 @@ public class TunnelService {
     }
 
     private static int slotOfLine(String line) {
-        Matcher m = SLOT_PATTERN.matcher(line);
+        Matcher m = SLOT_PATTERN.matcher(line); // 旧格式：permitlisten 选项
+        if (m.find()) {
+            return Integer.parseInt(m.group(1));
+        }
+        m = SLOT_TAG_PATTERN.matcher(line); // 新格式：行内 odyssey-slot:N 标记
         return m.find() ? Integer.parseInt(m.group(1)) : -1;
     }
 
