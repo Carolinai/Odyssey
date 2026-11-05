@@ -38,6 +38,10 @@ public class RelayAgentMain {
     private static final int TARGET_READ_TIMEOUT = 120_000;
     /** 代理本地并发线程数 */
     private static final int WORKERS = 6;
+    /** 看门狗阈值：轮询停滞超过该时长即自杀退出（正常 2s 一轮，异常退避最长约 15s 一轮，90s 约合 6 轮，不误杀） */
+    private static final long STALL_LIMIT_MS = 90_000;
+    /** 看门狗检查周期（电脑休眠唤醒后最迟一个周期内触发重启） */
+    private static final long WATCHDOG_CHECK_MS = 30_000;
 
     private final String serverUrl;
     private final String token;
@@ -48,6 +52,9 @@ public class RelayAgentMain {
     private final java.util.concurrent.ConcurrentLinkedDeque<String> resultLines =
             new java.util.concurrent.ConcurrentLinkedDeque<>();
     private final ExecutorService workers = Executors.newFixedThreadPool(WORKERS);
+
+    /** 主循环最近一轮开始的时间戳（看门狗据此判断轮询是否停滞） */
+    private volatile long lastPollAttemptMs = System.currentTimeMillis();
 
     public static void main(String[] args) {
         // 禁用 HttpURLConnection 的 keep-alive 连接池：轮询间隔里连接可能已被服务器关闭
@@ -86,8 +93,10 @@ public class RelayAgentMain {
 
     private void run() {
         System.out.println("[relay] 启动：server=" + serverUrl + " 白名单=" + allowedHosts);
+        startWatchdog();
         while (true) {
             long cycleStart = System.currentTimeMillis();
+            lastPollAttemptMs = cycleStart;
             try {
                 boolean busy = pollOnce();
                 // 有任务或待上报结果时快速轮询，空闲时按 idle 间隔报到
@@ -100,6 +109,31 @@ public class RelayAgentMain {
                 sleepUntil(cycleStart + 5000L);
             }
         }
+    }
+
+    /**
+     * 看门狗：主循环一旦停滞（电脑休眠唤醒后线程卡死在半死连接上、未知原因卡住等）
+     * 守护脚本只会重启"退出的进程"，管不了"活着但不干活的进程"，故由此线程兜底：
+     * 轮询停滞超过阈值即退出进程，交给守护脚本（start-relay.bat）10 秒后拉起新进程。
+     */
+    private void startWatchdog() {
+        Thread watchdog = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(WATCHDOG_CHECK_MS);
+                } catch (InterruptedException e) {
+                    return;
+                }
+                long stall = System.currentTimeMillis() - lastPollAttemptMs;
+                if (stall > STALL_LIMIT_MS) {
+                    System.out.println("[relay] 看门狗：轮询已停滞 " + (stall / 1000)
+                            + " 秒（疑似休眠唤醒或线程卡死），退出并由守护脚本自动重启");
+                    System.exit(1);
+                }
+            }
+        }, "relay-watchdog");
+        watchdog.setDaemon(true);
+        watchdog.start();
     }
 
     /** 一轮报到：上报结果 + 领任务并提交执行。返回本轮是否拿到任务或有待上报结果 */

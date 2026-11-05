@@ -23,7 +23,13 @@ const LOCAL_JAR = path.join(PROJECT_DIR, 'target', 'Odyssey-1.0-SNAPSHOT.jar');
 // ---------- 子进程封装：带超时，收集输出，非零退出码抛错 ----------
 function run(cmd, args, { timeout = 600000, cwd } = {}) {
     return new Promise((resolve, reject) => {
-        const child = spawn(cmd, args, { cwd, shell: false, windowsHide: true });
+        // .cmd/.bat 批处理不能被 spawn 直接启动（Node ≥18.20 出于安全报 EINVAL），
+        // 须经 shell 启动；含空格的参数补引号
+        const quote = a => (/\s/.test(a) ? `"${a}"` : a);
+        const needsShell = /\.(cmd|bat)$/i.test(cmd);
+        const child = needsShell
+            ? spawn(`"${cmd}" ${args.map(quote).join(' ')}`, { cwd, shell: true, windowsHide: true })
+            : spawn(cmd, args, { cwd, shell: false, windowsHide: true });
         let out = '', err = '';
         child.stdout.on('data', d => { out += d; });
         child.stderr.on('data', d => { err += d; });
