@@ -44,15 +44,20 @@ public class RelayConnection extends HttpURLConnection {
 
     /**
      * 中继线路的 Cookie 存续：HttpURLConnection 直连时靠 JVM 级 CookieHandler 自动
-     * 保持会话（Jenkins crumb 与脚本提交必须同会话），中继适配器则自行按目标主机
-     * 记录 Set-Cookie 并在后续请求回带。键为目标主机（host:port）。
+     * 保持会话（Jenkins crumb 与脚本提交必须同会话），中继适配器则自行记录 Set-Cookie
+     * 并在后续请求回带。键为「目标主机（host:port）+ 用户（Authorization）」——
+     * Jenkins 的 crumb 绑定 Web 会话，多用户共用会话会互相覆盖导致 403。
      */
     private static final Map<String, Map<String, String>> COOKIE_STORE = new java.util.concurrent.ConcurrentHashMap<>();
 
     private String cookieHost() {
         try {
             java.net.URI u = java.net.URI.create(targetUrl);
-            return u.getHost() + ":" + (u.getPort() > 0 ? u.getPort() : 80);
+            // 会话按用户隔离：Jenkins 的 crumb 与 Web 会话绑定，多用户共用一个会话时
+            // 后取 crumb 的用户会覆盖前者会话，导致前者提交脚本 403（No valid crumb）。
+            // 以 Authorization 区分用户（各请求方都显式携带）。
+            String user = requestHeaders.getOrDefault("Authorization", "");
+            return u.getHost() + ":" + (u.getPort() > 0 ? u.getPort() : 80) + "|" + user;
         } catch (Exception e) {
             return targetUrl;
         }

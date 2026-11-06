@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.CookieHandler;
-import java.net.CookieManager;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,10 +48,64 @@ public class JenkinsService {
 
     public JenkinsService(JenkinsProperties props) {
         this.props = props;
-        // crumb 与会话绑定，需要携带 cookie
-        if (CookieHandler.getDefault() == null) {
-            CookieHandler.setDefault(new CookieManager());
+    }
+
+    /**
+     * 直连/隧道线路的会话 Cookie 存储，键为「用户@主机:端口」。
+     * Jenkins 的 CSRF crumb 与 Web 会话（JSESSIONID）绑定，会话必须按用户隔离：
+     * 全局共享时后取 crumb 的用户会覆盖前者的会话，前者提交脚本即 403（No valid crumb）。
+     * 中继线路由 {@link RelayConnection} 按同样的口径自行管理。
+     */
+    private static final Map<String, Map<String, String>> COOKIE_STORE = new java.util.concurrent.ConcurrentHashMap<>();
+
+    /** 请求前回带该用户在该主机上的会话 Cookie（中继线路除外，其自行管理） */
+    private static void applyCookies(String username, HttpURLConnection conn) {
+        if (conn instanceof RelayConnection) {
+            return;
         }
+        Map<String, String> cookies = COOKIE_STORE.get(cookieKey(username, conn));
+        if (cookies == null || cookies.isEmpty()) {
+            return;
+        }
+        StringBuilder ck = new StringBuilder();
+        for (Map.Entry<String, String> c : cookies.entrySet()) {
+            if (ck.length() > 0) {
+                ck.append("; ");
+            }
+            ck.append(c.getKey()).append('=').append(c.getValue());
+        }
+        conn.setRequestProperty("Cookie", ck.toString());
+    }
+
+    /** 响应后记录该用户在该主机上的会话 Cookie（中继线路除外） */
+    private static void storeCookies(String username, HttpURLConnection conn) {
+        if (conn instanceof RelayConnection) {
+            return;
+        }
+        Map<String, List<String>> fields = conn.getHeaderFields();
+        if (fields == null) {
+            return;
+        }
+        for (Map.Entry<String, List<String>> entry : fields.entrySet()) {
+            if (entry.getKey() == null || !"Set-Cookie".equalsIgnoreCase(entry.getKey())) {
+                continue;
+            }
+            for (String header : entry.getValue()) {
+                int end = header.indexOf(';');
+                String kv = end < 0 ? header : header.substring(0, end);
+                int eq = kv.indexOf('=');
+                if (eq > 0) {
+                    COOKIE_STORE.computeIfAbsent(cookieKey(username, conn),
+                            k -> new java.util.LinkedHashMap<>())
+                            .put(kv.substring(0, eq).trim(), kv.substring(eq + 1).trim());
+                }
+            }
+        }
+    }
+
+    private static String cookieKey(String username, HttpURLConnection conn) {
+        return (username == null ? "" : username) + "@"
+                + conn.getURL().getHost() + ":" + conn.getURL().getPort();
     }
 
     /** Jenkins 视图信息 */
@@ -183,6 +236,7 @@ public class JenkinsService {
             if (crumb != null) {
                 conn.setRequestProperty("Jenkins-Crumb", crumb);
             }
+            applyCookies(username, conn);
 
             String body = "script=" + java.net.URLEncoder.encode(script, "UTF-8")
                     + "&Submit=Run";
@@ -191,6 +245,7 @@ public class JenkinsService {
             }
 
             int status = conn.getResponseCode();
+            storeCookies(username, conn);
             String html = readStream(
                     status < 400 ? conn.getInputStream() : conn.getErrorStream());
             if (status != 200) {
@@ -214,8 +269,10 @@ public class JenkinsService {
         conn.setConnectTimeout(CONNECT_TIMEOUT);
         conn.setReadTimeout(READ_TIMEOUT);
         conn.setRequestProperty("Authorization", basicAuth(username, credential));
+        applyCookies(username, conn);
 
         int status = conn.getResponseCode();
+        storeCookies(username, conn);
         if (status == 404) {
             return null; // 未启用 CSRF
         }

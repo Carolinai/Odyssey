@@ -193,7 +193,13 @@ public class RelayService {
                 if ("gzip".equals(r.get("encoding"))) {
                     body = gunzip(body);
                 }
-                job.future.complete(new RelayResult(status, str(r.get("headers")), body));
+                // 响应头与 body 同为 base64（代理 resultLine 编码），必须解码成明文行，
+                // 否则调用方读到的响应头是乱码（Set-Cookie 等全部丢失）
+                String headers = r.get("headers") instanceof String
+                        ? new String(Base64.getDecoder().decode((String) r.get("headers")),
+                                StandardCharsets.UTF_8)
+                        : "";
+                job.future.complete(new RelayResult(status, headers, body));
                 jobsById.remove(id);
             }
         }

@@ -1,6 +1,6 @@
 // 登录页：Jenkins 账号校验通过后进入系统
-// 登录前会自动确保「本机连接」（SSH 反向隧道）在线：首次使用自动下发初始化脚本，
-// 用户双击运行后蒙版自动消失进入登录；已装过但离线则提示重跑守护脚本。
+// 登录前会自动确保「本机连接」在线：主线路是中继代理（常驻代发），兜底是 SSH 反向隧道；
+// 首次使用自动下发初始化脚本，用户双击运行后蒙版自动消失进入登录；已装过但离线则提示重跑守护脚本。
 
 // 登录成功后的去向：?next= 指定的来源页，默认首页。只允许站内路径
 function nextUrl() {
@@ -44,6 +44,12 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/** 本机连接在线 = 主线路中继代理报到中（relayOnline 含当前用户），或兜底 SSH 隧道在线（平时不跑，属常态） */
+function tunnelUp(status, username) {
+    return status.online
+            || (Array.isArray(status.relayOnline) && status.relayOnline.indexOf(username) >= 0);
+}
+
 /**
  * 确保该用户的本机连接在线；返回 false 表示初始化未完成（用户可跳过直接登录）。
  * 状态接口异常时静默放行，不阻塞登录。
@@ -55,7 +61,7 @@ async function ensureTunnel(username) {
     } catch (e) {
         return true; // 检测失败不阻塞登录（后端多线路会自行尝试）
     }
-    if (status.online) {
+    if (tunnelUp(status, username)) {
         return true;
     }
 
@@ -83,7 +89,7 @@ async function ensureTunnel(username) {
         await sleep(3000);
         try {
             const s = await api('/api/auth/tunnel-status?username=' + encodeURIComponent(username));
-            if (s.online) {
+            if (tunnelUp(s, username)) {
                 hideMask();
                 return true;
             }

@@ -19,8 +19,10 @@ function refreshTunnelState() {
         return;
     }
     api('/api/auth/tunnel-status?username=' + encodeURIComponent(currentUsername)).then(s => {
+        // 在线 = 主线路中继代理报到中，或兜底 SSH 隧道在线（隧道平时不跑，属常态）
+        const relayUp = Array.isArray(s.relayOnline) && s.relayOnline.indexOf(currentUsername) >= 0;
         el.textContent = !s.installed ? '未安装（尚未下载过初始化脚本）'
-                : s.online ? '在线' : '已安装，当前离线';
+                : (s.online || relayUp) ? '在线' : '已安装，当前离线';
     }).catch(() => {
         el.textContent = '状态获取失败';
     });
